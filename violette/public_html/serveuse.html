@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Interface Serveuse</title>
+        
+        <link rel="stylesheet"  href= "main.css"> 
+
+        <style type="text/css">
+        /*
+		codes couleur:
+			#2E1C08 = brun foncé
+			#63100F = bourgogne
+			#FFA420 = ocre
+			#FFD133 = jaune foncé
+			#FFEDD0 = beige
+		*/
+		
+        div {
+        /*  text-align:;		pour centrer horizontalement*/
+	/*  text-align:;		pour centrer verticalement */
+		
+        }
+        div#table1 {
+        width:100%;
+        height:50px;
+	background-color:#FFEDD0;
+        }
+        div#table2 {
+        width:100%;
+        height:50px;
+	background-color:#FFD133;
+        }
+        div#table3 {
+        width:100%;
+        height:50px;
+	background-color:#FFEDD0;
+        }
+        p {
+        height:100%;
+        width:90%;
+        /* align:r;*/
+        background-color:#FFD133;
+        }
+        </style>
+
+    </head>
+    <body>
+        <div id="pageTables">
+            <div id="table1">Table 1<button id="ajoutFacture"> + </button>
+                    <p id="facture1">Facture 1<button id="siegeMoins"> - </button><textarea id="siege"></textarea><button id="siegePlus"> + </button></p>
+                    <p id="facture1">Facture 2<button id="siegeMoins"> - </button><textarea id="siege"></textarea><button id="siegePlus"> + </button></p>
+                    <p id="facture1">Facture 3<button id="siegeMoins"> - </button><textarea id="siege"></textarea><button id="siegePlus"> + </button></p>
+            </div>
+            <div id="table2">Table 2<button id="ajoutFacture"> + </button></div>
+            <div id="table3">Table 3<button id="ajoutFacture"> + </button></div>
+            <button id="quitter">Quitter</button>
+        </div>
+        <div id="pageCommande">
+            <div id="enteteCommande">Table: 1	Facture: 2	Commande: 1	Siège: A</div>
+            <div id="soupes">Soupes
+                    <p id="soupe1">01 - Soupe aux pois<button id="itemMoins"> - </button><textarea id="quantité"></textarea><button id="itemPlus"> + </button></p>
+                    <p id="soupe2">02 - Minestrone<button id="itemMoins"> - </button><textarea id="quantité"></textarea><button id="itemPlus"> + </button></p>
+                    <p id="soupe3">03 - Nouilles et poulet<button id="itemMoins"> - </button><textarea id="quantité"></textarea><button id="itemPlus"> + </button></p>
+            </div>
+            <div id="salades">Salades</div>
+            <div id="entrées">Entrées</div>
+            <div id="plats">Plats</div>
+            <div id="desserts">Desserts</div>
+            <div id="boissons">Boissons</div>
+            <div id="acotes">À Côtés</div>
+            <button id="retour"> < </button>
+            <button id="facture">Facture</button>
+            <button id="ajoutCommande"> + </button>
+        </div>
+        <div id="pageFacture">
+            <div id="enteteFacture">NOM DU RESTO	servi par: Gisèle	Table: 1	Facture: 2</div>
+            <div id="detailFacture">soupe aux pois..... $4
+                    pains à l'ail (2 @ $4)..... $8	
+                    jus d'orange.... $2
+            </div>
+            <div id="sousTotalFacture">Sous-total...$14</div>
+            <div id="totalFacture">
+                    <p id="tvq">TVQ	$0.98</p>
+                    <p id="tps">TPS	$0.70</p>
+                    <p id="total">TOTAL	$15.68</p>
+            </div>
+            <button id="retour"> < </button>
+            <button id="facture">Payée</button>
+        </div>
+    </body>
+</html>
