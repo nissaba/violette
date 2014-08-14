@@ -4,5 +4,8 @@
  * and open the template in the editor.
  */
 
+function envoyerEmploye(id) {
+	var nom = document.getElementById('username').value;
+}
 
 var blabla = "bli bli";
