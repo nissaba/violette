@@ -1,10 +1,12 @@
 <?php
 
-$host = "sql3.freemysqlhosting.net";
-$database_name = "sql348994";
-$database_user = "sql348994";
-$database_password = "xZ6*uK6!";
-$port_number = "3306";
+include_once("config.php");
+
+//$host = "sql3.freemysqlhosting.net";
+//$database_name = "sql348994";
+//$database_user = "sql348994";
+//$database_password = "xZ6*uK6!";
+//$port_number = "3306";
  
 $dbConnection = new mysqli($host, $database_user, $database_password, $database_name);
  
@@ -22,6 +24,7 @@ $stmt = $dbConnection->prepare($query);
 $stmt->bind_param("ss", $user, $passwd);
 $stmt->execute();
 $res = $stmt->get_result();
+$stmt->close();
 $row = $res->fetch_assoc();
 
 $xml = new XMLWriter();
