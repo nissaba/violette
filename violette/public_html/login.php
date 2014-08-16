@@ -1,12 +1,8 @@
 <?php
 
 include_once("config.php");
+header('Content-type: text/xml, Access-Control-Allow-Origin: *');
 
-//$host = "sql3.freemysqlhosting.net";
-//$database_name = "sql348994";
-//$database_user = "sql348994";
-//$database_password = "xZ6*uK6!";
-//$port_number = "3306";
  
 $dbConnection = new mysqli($host, $database_user, $database_password, $database_name);
  
@@ -46,6 +42,5 @@ if($res->num_rows > 0){
     $xml->writeElement("result_code", "0");
 }
 $xml->endElement();
-header('Content-type: text/xml');
 $xml->flush();
 ?>
