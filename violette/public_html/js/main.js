@@ -22,9 +22,9 @@ function requeteServeur() {
 		async: false,
 		data: $('#login_form').serialize(),
 		datatype: 'text',
-		success: function(response) { return alert('success'+response);},
-		error: function(response) { return alert('error'+response);},
-		complete: function(response) { return alert('complete'+response);}
+		success: function(response) { return alert('success : '+response.value);},
+		error: function(response) { return alert('error : '+response.value);},
+		complete: function(response) { return alert('complete : '+response.value);}
     });
 	return false;
 }
