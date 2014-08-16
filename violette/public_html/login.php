@@ -1,7 +1,9 @@
 <?php
-
+header('Access-Control-Allow-Origin:*');
+header('Access-Control-Allow-Credentials: true');
+header('Content-type: text/xml');
 include_once("config.php");
-header('Content-type: text/xml, Access-Control-Allow-Origin: *');
+
 
  
 $dbConnection = new mysqli($host, $database_user, $database_password, $database_name);
