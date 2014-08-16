@@ -5,7 +5,28 @@
  */
 
 function envoyerEmploye(id) {
-	var nom = document.getElementById('username').value;
+	var passwd = document.getElementById("passwd");
+	hash = Sha1.hash(passwd.value);
+	passwd.value = hash;
+	requeteServeur();
+}
+
+function requeteServeur() {
+	var passwd = document.getElementById("passwd");
+	hash = Sha1.hash(passwd.value);
+	passwd.value = hash;
+	alert(passwd.value);
+	$.ajax({
+		url: 'https://github.com/nissaba/violette/tree/gh-pages/violette/public_html/login.php',
+		type: 'POST',
+		async: false,
+		data: $('#login_form').serialize(),
+		datatype: 'text',
+		success: function(response) { return alert('success'+response);},
+		error: function(response) { return alert('error'+response);},
+		complete: function(response) { return alert('complete'+response);}
+    });
+	return false;
 }
 
 var blabla = "bli bli";

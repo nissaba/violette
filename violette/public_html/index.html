@@ -11,24 +11,28 @@ and open the template in the editor.
 		<title>Violette</title>
 		<link rel="stylesheet" href="css/main.css" type="text/css" />
 		<script type="text/javascript" src="js/main.js"></script>
+		<script type="text/javascript" src="js/sha1.js"></script>
+		<!-- <script type="text/javascript" src="js/jquery.mobile-1.4.3.min.js"></script> -->
+		<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
     </head>
 	<body>
 		<div>
 			<h1 id="app" >Violette</h1>
 			<section id="loginBox">
 				<h2>Login</h2>
-				<form action="#" method="post" class="login_form" onSubmit="envoyerEmploye();">
-					<label for="username">
+				<form class="login_form" id="login_form" onsubmit="return requeteServeur();">
+					<label for="user">
 					Username:
-					<input type="text" name="username" id="username" placeholder="Username must be between 2 and 20 characters" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$" required="required" />
+					<input type="text" name="user" id="user" placeholder="Username must be between 2 and 20 characters" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$" required="required" />
 					</label>
-					<label for="password">
+					<label for="passwd">
 					Password:
-					<input type="password" name="password" id="password" placeholder="Password must contain 1 uppercase, lowercase and number" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" />
+					<input type="password" name="passwd" id="passwd" placeholder="Password must contain 1 uppercase, lowercase and number" />
 					</label>
-					<button type="submit" class="btn_login_form">Entrée</button>
+					<input type="submit" class="btn_login_form" ></input>
 				</form>
 			</section>
 		</div>
 	</body>
 </html>
+<!-- pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"-->
