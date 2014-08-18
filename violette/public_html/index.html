@@ -19,19 +19,21 @@ and open the template in the editor.
 		<div>
 			<h1 id="app" >Violette</h1>
 			<section id="loginBox">
-				<h2>Login</h2>
+				<h2>Ouverture de session</h2>
 				<form class="login_form" id="login_form" onsubmit="return requeteServeur();">
 					<label for="user">
-					Username:
-					<input type="text" name="user" id="user" placeholder="Username must be between 2 and 20 characters" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$" required="required" />
+					Nom d'utilisateur:
+					<input type="text" name="user" id="user" placeholder="Maximum de 18 caractères" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{1,18}$" required="required" />
 					</label>
 					<label for="passwd">
-					Password:
-					<input type="password" name="passwd" id="passwd" placeholder="Password must contain 1 uppercase, lowercase and number" />
+					Mot de passe:
+					<input type="password" name="passwd" id="passwd" placeholder="Maximum de 10 caractères"  pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{1,10}$" required="required"  />
 					</label>
-					<input type="submit" class="btn_login_form" ></input>
+					<input type="submit" class="btn_login_form"/>
+                                        
 				</form>
 			</section>
+                        <div class="message_erreur" id="erreur_login">salut patrick!!!</div>
 		</div>
 	</body>
 </html>
