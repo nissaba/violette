@@ -42,6 +42,8 @@ if($res->num_rows > 0){
 }else{
     //login rejeter 
     $xml->writeElement("result_code", "0");
+    $xml->writeElement("employe_id", $user);
+    $xml->writeElement("fonction_id",$passwd);
 }
 $xml->endElement();
 $xml->flush();
