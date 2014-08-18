@@ -23,21 +23,59 @@ and open the template in the editor.
      </head>
     <body>
         <div id="page_tables">
-            <div class="table">Table 1<button class="btn_facture_plus"> + </button>
-                    <p class="facture">Facture 1<button class="btn_moins"> - </button><input type="text" class="increment_siege"/><button class="btn_plus"> + </button></p>
-                    <p class="facture">Facture 2<button class="btn_moins"> - </button><input type="text" class="increment_siege"/><button class="btn_plus"> + </button></p>
-                    <p class="facture">Facture 3<button class="btn_moins"> - </button><input type="text" class="increment_siege"/><button class="btn_plus"> + </button></p>
-            </div>
-            <div class="table">Table 2<button class="btn_facture_plus"> + </button></div>
-            <div class="table">Table 3<button class="btn_facture_plus"> + </button></div>
+            <ul>
+                <li class="table">Table 1<button class="btn_facture_plus"> + </button>
+                    <table class="barre_facture" id='facture1'>
+                        <tr>
+                            <td class="nom_facture">Facture 1</td>
+                            <td class="espace" id="espace_btn_facture"></td>
+                            <td><button class="btn_moins"> - </button><input type="text" class="increment_siege"/><button class="btn_plus"> + </button></td>
+                        </tr>
+                    </table>        
+
+                    <table class="barre_facture" id='facture2'>
+                        <tr>
+                            <td class="nom_facture">Facture 2</td>
+                            <td class="espace" id="espace_btn_facture"></td>
+                            <td><button class="btn_moins"> - </button><input type="text" class="increment_siege"/><button class="btn_plus"> + </button></td>
+                        </tr>
+                    </table>
+
+                    <table class="barre_facture" id='facture3'>
+                        <tr>
+                            <td class="nom_facture">Facture 3</td>
+                            <td class="espace" id="espace_btn_facture"></td>
+                            <td><button class="btn_moins"> - </button><input type="text" class="increment_siege"/><button class="btn_plus"> + </button></td>
+                        </tr>
+                    </table>
+                </li>
+
+                <li class="table">Table 2<button class="btn_facture_plus"> + </button></li>
+                <li class="table">Table 3<button class="btn_facture_plus"> + </button></li>
+                <li class="table">Table 4<button class="btn_facture_plus"> + </button></li>
+                <li class="table">Table 5<button class="btn_facture_plus"> + </button></li>
+                <li class="table">Table 6<button class="btn_facture_plus"> + </button></li>
+                <li class="table">Table 7<button class="btn_facture_plus"> + </button></li>
+                <li class="table">Table 8<button class="btn_facture_plus"> + </button></li>
+                <li class="table">Table 9<button class="btn_facture_plus"> + </button></li>
+                <li class="table">Table 10<button class="btn_facture_plus"> + </button></li>
+                <li class="table">Table 11<button class="btn_facture_plus"> + </button></li>
+                <li class="table">Table 12<button class="btn_facture_plus"> + </button></li>
+            </ul>
             <button class="btn_bar" id="btn_quitter">Quitter</button>
         </div>
         <div id="page_commande">
             <div class="entete_commande">Table: 1	Facture: 2	Commande: 1	Si&egrave;ge: A</div>
             <div class="section" id="soupes">Soupes
-                    <p class="menu_item" id="soupe_1">01 - Soupe aux pois<button class="btn_moins"> - </button><input type="text" class="increment_quantite"/><button class="btn_plus"> + </button></p>
-                    <p class="menu_item" id="soupe_2">02 - Minestrone<button class="btn_moins"> - </button><input type="text" class="increment_quantite"/><button class="btn_plus"> + </button></p>
-                    <p class="menu_item" id="soupe_3">03 - Nouilles et poulet<button class="btn_moins"> - </button><input type="text" class="increment_quantite"/><button class="btn_plus"> + </button></p>
+                <div class="barre_item" id="soupe_1">
+                    <h5 class="menu_item">01 - Soupe aux pois<span class="espace" id="espace_btn_facture"></span><button class="btn_moins"> - </button><input type="text" class="increment_quantite"/><button class="btn_plus"> + </button></h5>
+                </div>    
+                <div class="barre_item" id="soupe_2">
+                    <h5 class="menu_item">02 - Minestrone<span class="espace" id="espace_btn_facture"></span><button class="btn_moins"> - </button><input type="text" class="increment_quantite"/><button class="btn_plus"> + </button></h5>
+                </div>    
+                <div class="barre_item" id="soupe_3">
+                    <h5 class="menu_item">03 - Nouilles et poulet<span class="espace" id="espace_btn_facture"></span><button class="btn_moins"> - </button><input type="text" class="increment_quantite"/><button class="btn_plus"> + </button></h5>
+                </div>
             </div>
             <div class="section" id="salades">Salades</div>
             <div class="section" id="entrées">Entr&eacute;es</div>
