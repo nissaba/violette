@@ -21,7 +21,7 @@ function requeteServeur() {
 		type: 'POST',
 		async: false,
 		data: $('#login_form').serialize(),
-		datatype: 'text',
+		datatype: 'xml',
 		success: function(response) { return alert('success : '+response.getElementsByTagName("result_code") [0].nodeValue);},
 		error: function(response) { return alert('error : '+response.value);},
 		complete: function(response) { return alert('complete : '+response.value);}
