@@ -244,10 +244,10 @@ form.login_form label {
 
 /*Message d'erreur'*/ /*hidden ou none*/
 [class="message_erreur"] {
-    visibility: none;   
-    margin: auto;
+   /* visibility: none;  */ 
+    /*margin: auto;
     width: 50%;
-    background-color: #FFD133;
+    background-color: #FFD133;*/
     text-align: center;
     font-weight: bold;
     color: #63100F;
