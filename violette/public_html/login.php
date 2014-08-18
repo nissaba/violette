@@ -13,8 +13,8 @@ if($dbConnection->connect_errno){
     exit();
 }
  
-$user = @$_REQUEST['user'];
-$passwd = @$_REQUEST['passwd'];
+$user = @$_POST['user'];
+$passwd = @$_POST['passwd'];
  
 $query = "SELECT EMPLOYE_ID, FONCTION_ID FROM EMPLOYE WHERE NOM = ? AND PASSWORD = ?;";
 
