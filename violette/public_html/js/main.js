@@ -22,7 +22,7 @@ function requeteServeur() {
 		async: false,
 		data: $('#login_form').serialize(),
 		datatype: 'xml',
-		success: function(response) { return alert('success : '+response.getElementsByTagName("result_code") [0].nodeValue);},
+		success: function(response) { return alert('success : '+response.getElementsByTagName("result_code") [0].textContent);},
 		error: function(response) { return alert('error : '+response.value);},
 		complete: function(response) { return alert('complete : '+response.value);}
     });
