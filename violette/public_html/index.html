@@ -23,11 +23,11 @@ and open the template in the editor.
 				<form class="login_form" id="login_form" onsubmit="return requeteServeur();">
 					<label for="user">
 					Nom d'utilisateur:
-					<input type="text" name="user" id="user" placeholder="Maximum de 18 caractères" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{1,18}$" required="required" />
+					<input type="text" name="user" id="user" placeholder="Maximum de 18 caractères" pattern="^[a-zA-Z0-9-_\.]{1,18}$" required="required" />
 					</label>
 					<label for="passwd">
 					Mot de passe:
-					<input type="password" name="passwd" id="passwd" placeholder="Maximum de 10 caractères"  pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{1,10}$" required="required"  />
+					<input type="password" name="passwd" id="passwd" placeholder="Maximum de 10 caractères"  pattern="^[a-zA-Z0-9-_\.]{1,10}$" required="required"  />
 					</label>
 					<input type="submit" class="btn_login_form"/>     
 				</form>
