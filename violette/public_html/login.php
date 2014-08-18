@@ -16,7 +16,7 @@ if($dbConnection->connect_errno){
 $user = @$_POST['user'];
 $passwd = @$_POST['passwd'];
  
-$query = "SELECT EMPLOYE_ID, FONCTION_ID FROM EMPLOYE WHERE NOM = ? AND PASSWORD = ?;";
+$query = "SELECT EMPLOYE_ID, FONCTION_ID FROM EMPLOYE WHERE USERNAME = ? AND PASSWORD = ?;";
 
 $stmt = $dbConnection->prepare($query);
 $stmt->bind_param("ss", $user, $passwd);
