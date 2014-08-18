@@ -1,6 +1,4 @@
 <?php
-header('Access-Control-Allow-Origin:*');
-header('Access-Control-Allow-Credentials: true');
 header('Content-type: text/xml');
 include_once("config.php");
 
@@ -14,7 +12,7 @@ if($dbConnection->connect_errno){
 }
  
 $user = @$_REQUEST['user'];
-$passwd = sha1(@$_REQUEST['passwd']);
+$passwd = @$_REQUEST['passwd'];
  
 $query = "SELECT EMPLOYE_ID, FONCTION_ID FROM EMPLOYE WHERE NOM = ? AND PASSWORD = ?;";
 
