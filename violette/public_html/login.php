@@ -13,8 +13,8 @@ if($dbConnection->connect_errno){
     exit();
 }
  
-$user = @$_REQUEST['user'];
-$passwd = sha1(@$_REQUEST['passwd']);
+$user = @$_POST['user'];
+$passwd = @$_POST['passwd'];
  
 $query = "SELECT EMPLOYE_ID, FONCTION_ID FROM EMPLOYE WHERE NOM = ? AND PASSWORD = ?;";
 
@@ -42,6 +42,8 @@ if($res->num_rows > 0){
 }else{
     //login rejeter 
     $xml->writeElement("result_code", "0");
+    $xml->writeElement("user", $user);
+    $xml->writeElement("passwd",$passwd);
 }
 $xml->endElement();
 $xml->flush();
