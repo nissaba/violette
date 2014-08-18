@@ -1,0 +1,38 @@
+-- Select du contenu d'une facture (raport)
+select EMPLOYE_ID, NOM, PRENOM, NUMERO_TABLE, SIEGE, DATE, QUANTITE, TITRE, 
+PRIX_UNITAIRE, SOUS_TOTAL, TPS, TVQ, TOTAL
+from EMPLOYE as E inner join FACTURE as F using (EMPLOYE_ID) 
+inner join LIGNE_COMMAND_ITEM as L using (FACTURE_ID)
+inner join MENU_ITEM as M using (MENU_ITEM_ID)
+where FACTURE_ID = ?
+group by NOM, FACTURE_ID, MENU_ITEM_ID
+order by DATE;
+
+-- Select pour l'interface du cuisiner
+select NUMERO_TABLE, DATE, QUANTITE, TITRE
+from LIGNE_COMMAND_ITEM 
+inner join FACTURE using (FACTURE_ID)
+inner join MENU_ITEM using (MENU_ITEM_ID)
+where SERVI = false 
+group by NUMERO_TABLE, FACTURE_ID, MENU_ITEM_ID
+order by DATE;
+
+-- Select pour la serveuse facture
+select NUMERO_TABLE, DATE, TITRE, QUANTITE, PRIX_UNITAIRE, NOTE
+from FACTURE inner join LIGNE_COMMANDE_ITEM using(FACTURE_ID)
+inner join MENU_ITEM using(MENU_ITEM_ID) 
+where FACTURE_ID = ?
+order by section_id;
+
+-- Select list des factures ouverte/fermer pour un employe
+select FACTURE_ID, NUMERO_TABLE, DATE
+from FACTURE
+where EMPLOYE_ID = ? and COMPLET = ?
+order by DATE;
+
+-- Select list des factures ouverte/fermer
+select FACTURE_ID, NUMERO_TABLE, DATE
+from FACTURE
+COMPLET = ?
+order by DATE;
+
