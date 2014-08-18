@@ -220,5 +220,6 @@ form.login_form label {
 [class="message_erreur"] {
     visibility: none;
         text-align: center;
+        font-weight: bold;
 	color: #2E1C08;
 }
