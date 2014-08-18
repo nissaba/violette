@@ -1,0 +1,93 @@
+-- update fonction
+update FONCTION set TITRE = ?
+where FONCTION_ID = ?;
+
+-- update section
+update SECTION set TITRE = ? 
+where SECTION_ID = ?;
+
+--- update menu item - titre
+update MENU_ITEM set TITRE = ?
+where MENU_ITEM_ID = ?;
+
+-- update menu item - section
+update MENU_ITEM set SECTION_ID = ?
+where MENU_ITEM_ID = ?;
+
+-- update menu item - description
+update MENU_ITEM set DESCRIPTION = ?
+where MENU_ITEM_ID = ?;
+
+-- update menu item - prix
+update MENU_ITEM set PRIX = ?
+where MENU_ITEM_ID = ?;
+
+-- update menu item - tout
+update MENU_ITEM set TITRE = ?, SECTION_ID = ?, DESCRIPTION = ?, PRIX = ?
+where MENU_ITEM_ID = ?;
+
+-- update employe - tout
+update EMPLOYE set USERNAME = ?, NOM = ?, PRENOM = ?, PASSWORD = ?, 
+FONCTION_ID = ?, COMMANTAIRE = ?
+where EMPLOYE_ID = ?; 
+
+-- update employe - username
+update EMPLOYE set USERNAME = ?
+where EMPLOYE_ID = ?;
+
+-- update employe - nom et prenom
+update EMPLOYE set PRENOM = ?
+where EMPLOYE_ID = ?;
+
+-- update employe - passwd
+update EMPLOYE set PASSWORD = ?
+where EMPLOYE_ID = ?;
+
+-- update employe - fonction
+update EMPLOYE set FONCTION_ID = ?
+where EMPLOYE_ID = ?;
+
+-- update employe - commantaire 
+update EMPLOYE set COMMANTAIRE = ?
+where EMPLOYE_ID = ?;
+
+-- update facture - tout
+update FACTURE set COMPLET = ?, EMPLOYE_ID = ?, NUMERO_TABLE = ?, SIEGE = ?, 
+SOUS_TOTAL = ?, TOTAL = ?, TPS = ?, TVQ = ?
+where FACTURE_ID = ?;
+
+-- udate facture - chagement employer 
+update FACTURE set EMPLOYE_ID = ?
+where FACTURE_ID = ?;
+
+-- update facture - siege
+update FACTURE set SIEGE = ?
+where FACTURE_ID = ?;
+
+-- update facture - table
+update FACTURE set NUMERO_TABLE = ?
+where FACTURE_ID = ?;
+
+-- update facture - sous total
+update [FACTURE] f1 set SOUS_TOTAL = (select sum(PRIX_UNITAIRE*QUANTITE) from LIGNE_COMMAND_ITEM where FACTURE_ID = ?)
+where f1.FACTURE_ID = ?;
+
+-- update facture - tps
+
+-- update facture - tvq
+
+-- update facture - total
+
+-- update facture - fermeture
+
+-- update ligne command item - tout
+
+-- update ligne_command_item - quantité
+
+-- update ligne command item - servi
+
+-- update ligne commande item - note
+
+-- update ligne command item - prix_unitaire
+
+-- update ligne command item - 

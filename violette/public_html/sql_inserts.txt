@@ -1,0 +1,17 @@
+-- isert employe 
+insert into EMPLOYE values(?,?,?,?,?,?,?);
+
+-- isert facture
+insert into FACTURE values(?,?,?,?,?,?,?,?,?,?);
+
+-- insert section
+insert into SECTION values(?,?);
+
+-- inser ligne_comand_item
+insert into LIGNE_COMMAND_ITEM values(?,?,?,?,?,?);
+
+-- isert fonction
+insert into FONCTION values(?,?); 
+
+-- insert menu_item
+insert into MENU_ITEM values(?,?,?,?,?);
