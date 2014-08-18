@@ -79,6 +79,22 @@ div#page_tables {
 	background-color:#FFD133;
 	color:#2E1C08;
 }
+/*[class="entete_commande"]{
+   display: block;
+	padding-left:10%;
+	height:100%;
+	width:100%;
+	background-color:#FFD133;
+	color:#2E1C08; 
+}*/
+[class="barre_"]{
+	display: block;
+	padding-left:10%;
+	height:100%;
+	width:100%;
+	background-color:#FFD133;
+	color:#2E1C08;
+}
 p {
 	display: block;
 	padding-left:10%;
@@ -220,6 +236,9 @@ form.login_form label {
 		}
                                
 .increment_siege {
+	width:10%;
+}
+.increment_quantite {
 	width:10%;
 }
 
