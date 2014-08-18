@@ -44,6 +44,8 @@ if($res->num_rows > 0){
     $xml->writeElement("result_code", "0");
     $xml->writeElement("user", $user);
     $xml->writeElement("passwd",$passwd);
+    $xml->writeElement("employe_id", $row['EMPLOYE_ID']);
+    $xml->writeElement("fonction_id",$row['FONCTION_ID']);
 }
 $xml->endElement();
 $xml->flush();
