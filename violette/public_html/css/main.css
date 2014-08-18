@@ -71,7 +71,14 @@ div#page_tables {
 	padding-top:3px;
 	padding-bottom:2px;
 }
-
+[class="barre_facture"]{
+	display: block;
+	padding-left:10%;
+	height:100%;
+	width:100%;
+	background-color:#FFD133;
+	color:#2E1C08;
+}
 p {
 	display: block;
 	padding-left:10%;
