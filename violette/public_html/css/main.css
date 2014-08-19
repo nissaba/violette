@@ -65,7 +65,7 @@ div#page_tables {
 .table {
 	display:inline-block;
 	width:100%;
-	height:60px;
+	height:55px;
 	background-color:#63100F;
 	color:#FFEDD0;
 	padding-top:3px;
@@ -115,7 +115,7 @@ p {
 	font: -webkit-small-control;
 	font-size: .7em;
 	letter-spacing: 1px;
-	line-height: 140%;
+	line-height: 85%;
 	padding: 10px 20px;
 	text-decoration: none;
 	text-shadow: 0 1px 1px #2E1C08;
@@ -126,10 +126,10 @@ p {
 	  transition: all 0.1s linear;
 }
 
-.btn_facture_plus {
-	float:right;
-	padding: 5px 10px;
-	font-size: 1.0em;
+.btn_facture_plus { 
+       float:right;
+       padding: 4px 5px;
+       font-size: 1.0em;
 }
 
 .btn_plus,
@@ -250,8 +250,44 @@ form.login_form label {
         
 }
 
-/*[class="message_erreur"]*/
- /* visibility: none;  
+[class="testtable"]{
+   // position:relative;
+    
+}
+[class="testBoutton"]{
+    // position:absolute; right:0;
+    border: 1px solid #FFA420;
+	background-color: #63100F;
+	border-bottom: 2px solid #FFA420 ;
+	border-radius: 4px;
+	color: #FFEDD0;
+	display: inline-block;
+	font: -webkit-small-control;
+	font-size: .7em;
+	letter-spacing: 1px;
+	line-height: 85%;
+	padding: 10px 10px;
+	text-decoration: none;
+	text-shadow: 0 1px 1px #2E1C08;
+	text-transform: uppercase;
+	
+	-webkit-transition: all 0.1s linear;
+	-moz-transition: all 0.1s linear;
+	  transition: all 0.1s linear;
+    
+     float:right;
+    
+    
+   
+    
+}
+/*[class="message_erreur"]
+  visibility: none;  
     margin: auto;
     width: 50%;
     background-color: #FFD133;*/
+
+/*.btn_facture_plus 
+    float:right;
+
+*/
