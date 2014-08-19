@@ -19,7 +19,8 @@ and open the template in the editor.
         <title>Interface Serveuse</title>
         
         <link rel="stylesheet"  href= "css/main.css" type="text/css" > 
-
+        <script type="text/javascript" src="js/main.js"></script>
+        
      </head>
     <body>
         <div class="page" id="page_tables">
@@ -65,24 +66,26 @@ and open the template in the editor.
             <button class="btn_bar" id="btn_quitter">Quitter</button>
         </div>
         <div class="page" id="page_commande">
-            <div class="entete_commande">Table: 1	Facture: 2	Commande: 1	Si&egrave;ge: A</div>
-            <div class="section" id="soupes">Soupes
-                <div class="barre_item" id="soupe_1">
-                    <h5 class="menu_item">01 - Soupe aux pois<span class="espace" id="espace_btn_facture"></span><button class="btn_moins"> - </button><input type="text" class="increment_quantite"/><button class="btn_plus"> + </button></h5>
-                </div>    
-                <div class="barre_item" id="soupe_2">
-                    <h5 class="menu_item">02 - Minestrone<span class="espace" id="espace_btn_facture"></span><button class="btn_moins"> - </button><input type="text" class="increment_quantite"/><button class="btn_plus"> + </button></h5>
-                </div>    
-                <div class="barre_item" id="soupe_3">
-                    <h5 class="menu_item">03 - Nouilles et poulet<span class="espace" id="espace_btn_facture"></span><button class="btn_moins"> - </button><input type="text" class="increment_quantite"/><button class="btn_plus"> + </button></h5>
-                </div>
-            </div>
-            <div class="section" id="salades">Salades</div>
-            <div class="section" id="entrées">Entr&eacute;es</div>
-            <div class="section" id="plats">Plats</div>
-            <div class="section" id="desserts">Desserts</div>
-            <div class="section" id="boissons">Boissons</div>
-            <div class="section" id="a_cotes">&Agrave; C&ocirc;t&eacute;s</div>
+            <div class="entete_commande" id="entete_commande_1">Table: 1	Facture: 2	Commande: 1	Si&egrave;ge: A</div>
+            <ul class="liste" id="liste_sections_menu">
+                <li class="section" id="soupes">Soupes
+                    <div class="barre_item" id="soupe_1">
+                        <h5 class="menu_item">01 - Soupe aux pois<span class="espace" id="espace_btn_facture"></span><button class="btn_moins"> - </button><input type="text" class="increment_quantite"/><button class="btn_plus"> + </button></h5>
+                    </div>    
+                    <div class="barre_item" id="soupe_2">
+                        <h5 class="menu_item">02 - Minestrone<span class="espace" id="espace_btn_facture"></span><button class="btn_moins"> - </button><input type="text" class="increment_quantite"/><button class="btn_plus"> + </button></h5>
+                    </div>    
+                    <div class="barre_item" id="soupe_3">
+                        <h5 class="menu_item">03 - Nouilles et poulet<span class="espace" id="espace_btn_facture"></span><button class="btn_moins"> - </button><input type="text" class="increment_quantite"/><button class="btn_plus"> + </button></h5>
+                    </div>
+                </li>
+                <li class="section" id="salades">Salades</li>
+                <li class="section" id="entrées">Entr&eacute;es</li>
+                <li class="section" id="plats">Plats</li>
+                <li class="section" id="desserts">Desserts</li>
+                <li class="section" id="boissons">Boissons</li>
+                <li class="section" id="a_cotes">&Agrave; C&ocirc;t&eacute;s</li>
+            </ul>
             <button class="btn_bar" id="btn_retour"> &lsaquo; </button>
             <button class="btn_bar" id="btn_facture">Facture</button>
             <button class="btn_bar" id="btn_commande_plus"> + </button>
