@@ -53,7 +53,10 @@ where EMPLOYE_ID = ?;
 
 -- update facture - tout
 update FACTURE set COMPLET = ?, EMPLOYE_ID = ?, NUMERO_TABLE = ?, SIEGE = ?, 
-SOUS_TOTAL = ?, TOTAL = ?, TPS = ?, TVQ = ?
+SOUS_TOTAL = (select sum(PRIX_UNITAIRE*QUANTITE) from LIGNE_COMMAND_ITEM where FACTURE_ID = f1.FACTURE_ID),
+TPS = SOUS_TOTAL * (select real_value from utilitaire where nom = 'tps'),
+TVQ = SOUS_TOTAL * (select real_value from utilitaire where nom = 'tvq'),
+TOTAL = SOUS_TOTAL + TPS + TVQ
 where FACTURE_ID = ?;
 
 -- udate facture - chagement employer 
@@ -68,21 +71,12 @@ where FACTURE_ID = ?;
 update FACTURE set NUMERO_TABLE = ?
 where FACTURE_ID = ?;
 
--- update facture - sous total
-update FACTURE as f1 set SOUS_TOTAL = (select sum(PRIX_UNITAIRE*QUANTITE) from LIGNE_COMMAND_ITEM where FACTURE_ID = f1.FACTURE_ID)
+-- update facture - sous total - tps - tvq - total
+update FACTURE as f1 set SOUS_TOTAL = (select sum(PRIX_UNITAIRE*QUANTITE) from LIGNE_COMMAND_ITEM where FACTURE_ID = f1.FACTURE_ID),
+TPS = SOUS_TOTAL * (select real_value from utilitaire where nom = 'tps'),
+TVQ = SOUS_TOTAL * (select real_value from utilitaire where nom = 'tvq'),
+TOTAL = SOUS_TOTAL + TPS + TVQ
 where f1.FACTURE_ID = ?;
-
--- update facture - tps
-update FACTURE set TPS = SOUS_TOTAL * (select real_value from utilitaire where nom = 'tps')
-where FACTURE_ID = ?;
-
--- update facture - tvq
-update FACTURE set TVQ = SOUS_TOTAL * (select real_value from utilitaire where nom = 'tvq')
-where FACTURE_ID = ?;
-
--- update facture - total
-update FACTURE set TOTAL = SOUS_TOTAL + TPS + TVQ
-where FACTURE_ID = ?; 
 
 -- update facture - fermeture
 update FACTURE set COMPLET = ? 
