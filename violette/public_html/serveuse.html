@@ -70,13 +70,13 @@ and open the template in the editor.
             <ul class="liste" id="liste_sections_menu">
                 <li class="section" id="soupes">Soupes
                     <div class="barre_item" id="soupe_1">
-                        <h5 class="menu_item">01 - Soupe aux pois<span class="espace" id="espace_btn_facture"></span><button class="btn_moins"> - </button><input type="text" class="increment_quantite"/><button class="btn_plus"> + </button></h5>
+                        <h5 class="menu_item" id="item_1">01 - Soupe aux pois<span class="espace" id="espace_btn_facture"></span><button class="btn_moins"> - </button><input type="text" class="increment_quantite"/><button class="btn_plus"> + </button></h5>
                     </div>    
                     <div class="barre_item" id="soupe_2">
-                        <h5 class="menu_item">02 - Minestrone<span class="espace" id="espace_btn_facture"></span><button class="btn_moins"> - </button><input type="text" class="increment_quantite"/><button class="btn_plus"> + </button></h5>
+                        <h5 class="menu_item" id="item_2">02 - Minestrone<span class="espace" id="espace_btn_facture"></span><button class="btn_moins"> - </button><input type="text" class="increment_quantite"/><button class="btn_plus"> + </button></h5>
                     </div>    
                     <div class="barre_item" id="soupe_3">
-                        <h5 class="menu_item">03 - Nouilles et poulet<span class="espace" id="espace_btn_facture"></span><button class="btn_moins"> - </button><input type="text" class="increment_quantite"/><button class="btn_plus"> + </button></h5>
+                        <h5 class="menu_item" id="item_3">03 - Nouilles et poulet<span class="espace" id="espace_btn_facture"></span><button class="btn_moins"> - </button><input type="text" class="increment_quantite"/><button class="btn_plus"> + </button></h5>
                     </div>
                 </li>
                 <li class="section" id="salades">Salades</li>
@@ -91,16 +91,16 @@ and open the template in the editor.
             <button class="btn_bar" id="btn_commande_plus"> + </button>
         </div>
         <div class="page" id="page_facture">
-            <div id="entete_facture">NOM DU RESTO	servi par: Gis&egrave;le	Table: 1	Facture: 2</div>
-            <div class="detail_facture">soupe aux pois..... $4
+            <div class="entete_facture" id="entete_facture_1">NOM DU RESTO	servi par: Gis&egrave;le	Table: 1	Facture: 2</div>
+            <div class="detail_facture" id="detail_facture_1">soupe aux pois..... $4
                     pains &agrave; l'ail (2 @ $4)..... $8	
                     jus d'orange.... $2
             </div>
-            <div class="sous_total_facture">Sous-total...$14</div>
-            <div class="total_facture">
-                    <p id="tvq">TVQ	$0.98</p>
-                    <p id="tps">TPS	$0.70</p>
-                    <p id="total">TOTAL	$15.68</p>
+            <div class="sous_total_facture" id="sous_total_facture_1">Sous-total...$14</div>
+            <div class="total_facture" id="total_facture_1">
+                    <p class="taxes" id="tvq">TVQ	$0.98</p>
+                    <p class="taxes" id="tps">TPS	$0.70</p>
+                    <p class="ligne_total" id="ligne_total_1">TOTAL	$15.68</p>
             </div>
             <button class="btn_bar" id="btn_retour"> &lsaquo; </button>
             <button class="btn_bar" id="btn_facture_payee">Pay&eacute;e</button>
