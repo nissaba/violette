@@ -69,25 +69,42 @@ update FACTURE set NUMERO_TABLE = ?
 where FACTURE_ID = ?;
 
 -- update facture - sous total
-update [FACTURE] f1 set SOUS_TOTAL = (select sum(PRIX_UNITAIRE*QUANTITE) from LIGNE_COMMAND_ITEM where FACTURE_ID = ?)
+update FACTURE as f1 set SOUS_TOTAL = (select sum(PRIX_UNITAIRE*QUANTITE) from LIGNE_COMMAND_ITEM where FACTURE_ID = f1.FACTURE_ID)
 where f1.FACTURE_ID = ?;
 
 -- update facture - tps
+update FACTURE set TPS = SOUS_TOTAL * (select real_value from utilitaire where nom = 'tps')
+where FACTURE_ID = ?;
 
 -- update facture - tvq
+update FACTURE set TVQ = SOUS_TOTAL * (select real_value from utilitaire where nom = 'tvq')
+where FACTURE_ID = ?;
 
 -- update facture - total
+update FACTURE set TOTAL = SOUS_TOTAL + TPS + TVQ
+where FACTURE_ID = ?; 
 
 -- update facture - fermeture
+update FACTURE set COMPLET = ? 
+where FACTURE_ID = ?;
 
 -- update ligne command item - tout
+update LIGNE_COMMAND_ITEM set QUANTITE = ?, PRIX_UNITAIRE = ?, NOTE = ?, SERVI = ?
+where FACTURE_ID = ? and MENU_ITEM_ID = ?;
 
 -- update ligne_command_item - quantité
+update LIGNE_COMMAND_ITEM set QUANTITE = ?
+where FACTURE_ID = ? and MENU_ITEM_ID = ?;
 
 -- update ligne command item - servi
+update LIGNE_COMMAND_ITEM set SERVI = ?
+where FACTURE_ID = ? and MENU_ITEM_ID = ?;
 
 -- update ligne commande item - note
+update LIGNE_COMMAND_ITEM set NOTE = ?
+where FACTURE_ID = ? and MENU_ITEM_ID = ?;
 
 -- update ligne command item - prix_unitaire
+update LIGNE_COMMAND_ITEM set PRIX_UNITAIRE = ?
+where FACTURE_ID = ? and MENU_ITEM_ID = ?;
 
--- update ligne command item - 
