@@ -79,7 +79,7 @@ div#page_tables {
 	background-color:#FFD133;
 	color:#2E1C08;
 }
-/*[class="entete_commande"]{
+/*-[class="entete_commande"]{
    display: block;
 	padding-left:10%;
 	height:100%;
@@ -244,12 +244,14 @@ form.login_form label {
 
 /*Message d'erreur'*/ /*hidden ou none*/
 [class="message_erreur"] {
-   /* visibility: none;  */ 
-    /*margin: auto;
-    width: 50%;
-    background-color: #FFD133;*/
     text-align: center;
     font-weight: bold;
     color: #63100F;
         
 }
+
+/*[class="message_erreur"]*/
+ /* visibility: none;  
+    margin: auto;
+    width: 50%;
+    background-color: #FFD133;*/
