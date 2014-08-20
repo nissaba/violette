@@ -77,7 +77,7 @@ div#page_tables {
         
          border-bottom-width: 2px;  
       border-bottom-color: #2E1C08;  
-      border-bottom-style: groove;
+      border-bottom-style: solid;
 }
 [class="barre_facture"]{
 	display: block;
