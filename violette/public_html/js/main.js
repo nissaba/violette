@@ -39,7 +39,7 @@ function requeteServeur() {
 			}
 			return false;
 		},
-		error: function(response) { document.getElementById("erreur_login").innerHTML = "Problème de connection avec le serveur!";}
+		error: function (response) { document.getElementById("erreur_login").innerHTML = "Problème de connection avec le serveur!"; }
     });
 	return false;
 }
@@ -60,7 +60,7 @@ function ajouterFacture(id) {
 	ligne.id = ligne.className + facture.id;
 	nom.className = "nom_facture";
 	nom.id = "nom_" + facture.id;
-	nom.innerHTML = facture.id.replace("_"," ");
+	nom.innerHTML = facture.id.replace("_", " ");
 	espace.className = "espace";
 	espace.id = "espace_btn_" + facture.id;
 	btnMoins.className = "btn_moins";
@@ -85,11 +85,14 @@ function ajouterFacture(id) {
 	liTable.appendChild(facture);
 }
 
-function rendreVisibleServeuse(pageVisible) {
+function initialiserVisibilite(pageVisible) {
 	//["Saab", "Volvo", "BMW"] exemple tableau
-	var pages = document.getElementsByClassName;
-	for (var i = 0; i < pageVisible.length; i++) {
-	pages [i].style.display = pageVisible [i];
+	var style = document.createElement("STYLE"),
+		pages = document.getElementsByClassName("page");
+	for (var i = 0; i < pages.length; i++) {
+	style.setAttribute("display", pageVisible[i]);
+	pages[i].appendChild(style);
+	alert(pages[i].style.display.value);
 	}
 }
 
