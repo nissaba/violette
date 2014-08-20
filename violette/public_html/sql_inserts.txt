@@ -1,17 +1,17 @@
 -- isert employe 
-insert into EMPLOYE values(?,?,?,?,?,?,?);
+insert into EMPLOYE (USERNAME, NOM, PRENOM, PASSWORD, FONCTION_ID, COMMANTAIRE) values(?,?,?,?,?,?);
 
 -- isert facture
-insert into FACTURE values(?,?,?,?,?,?,?,?,?,?);
+insert into FACTURE (EMPLOYE_ID, NUMERO_TABLE, SIEGE) values(?,?,?);
 
 -- insert section
-insert into SECTION values(?,?);
+insert into SECTION (TITRE) values(?);
 
 -- inser ligne_comand_item
-insert into LIGNE_COMMAND_ITEM values(?,?,?,?,?,?);
+insert into LIGNE_COMMAND_ITEM values(?,?,?, select PRIX from MENU_ITEM where MENU_ITEM = ?, ?, ?);
 
 -- isert fonction
-insert into FONCTION values(?,?); 
+insert into FONCTION (TITRE) values(?); 
 
 -- insert menu_item
-insert into MENU_ITEM values(?,?,?,?,?);
+insert into MENU_ITEM (TITRE, SECTION_ID, DESCRIPTION, PRIX) values(?,?,?,?);
