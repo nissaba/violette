@@ -49,4 +49,59 @@ function requeteServeur() {
 	return false;
 }
 
+function ajouterFacture(id) {
+	var liTable = document.getElementById(id).parentNode;
+	var facture = document.createElement("TABLE");
+	facture.className = "barre_facture";
+	facture.id = "facture_1";
+		var ligne = document.createElement("TR");
+		ligne.className = "ligne_tableau";
+		ligne.id = ligne.className + facture.id;
+			var nom = document.createElement("TD");
+			nom.className = "nom_facture";
+			nom.id = "nom_" + facture.id;
+			nom.innerHTML = facture.id.replace("_"," ");
+			var espace = document.createElement("TD");
+			espace.className = "espace";
+			espace.id = "espace_btn_"+facture.id;
+			var td = document.createElement("TD");
+				var btnMoins = document.createElement("BUTTON");
+				btnMoins.className = "btn_moins";
+				btnMoins.id = btnMoins.className + facture.id;
+				btnMoins.innerHTML = " - ";
+				var siege = document.createElement("INPUT");
+				siege.setAttribute("type","number");
+				siege.required;
+				siege.readOnly;
+				siege.min = 1;
+				siege.max = 20;
+				siege.defaultValue = 1;
+				var btnPlus = document.createElement("BUTTON");
+				btnPlus.className = "btn_plus";
+				btnPlus.id = btnPlus.className + facture.id;
+				btnPlus.innerHTML = " + ";
+	td.appendChild(btnMoins);
+	td.appendChild(siege);
+	td.appendChild(btnPlus);
+	ligne.appendChild(nom);
+	ligne.appendChild(espace);
+	ligne.appendChild(td);
+	facture.appendChild(ligne);
+	liTable.appendChild(facture);
+}
+
+function rendreVisibleServeuse(pages){
+	//["Saab", "Volvo", "BMW"]
+}
+
+
+/*
+                    <table class="barre_facture" id='facture1'>
+                        <tr class="ligne_tableau" id="ligne_tableau_facture_1">
+                            <td class="nom_facture" id="nom_facture_1">Facture 1</td>
+                            <td class="espace" id="espace_btn_facture_1"></td>
+                            <td><button class="btn_moins"> - </button><input type="text" class="increment_siege"/><button class="btn_plus"> + </button></td>
+                        </tr>
+                    </table>
+					*/
 var blabla = "bli bli";
