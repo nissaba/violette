@@ -75,10 +75,34 @@ div#page_tables {
 	padding-top:3px;
 	padding-bottom:2px;
         
-         border-bottom-width: 2px;  
+        border-bottom-width: 2px;  
       border-bottom-color: #2E1C08;  
       border-bottom-style: solid;
 }
+[class="pastille_table"]{
+    	color: #2E1C08;
+        font-weight: bold;
+         font-style: italic;
+}
+
+#moncercle{
+  background:#FFA420;
+  border-radius:50%;
+  width:25px;
+  height:25px;
+  border:2px solid #2E1C08;
+ 
+}
+
+/*
+.maclasse{
+ box-shadow: 1px 1px 6px #555 ;
+ -moz-box-shadow:1px 1px 6px #555 ;
+ -webkit-box-shadow:1px 1px 6px #555 ;
+}
+
+*/
+
 [class="barre_facture"]{
 	display: block;
 	padding-left:10%;
@@ -87,7 +111,17 @@ div#page_tables {
         
 	background-color:#FFEDD0;
 	color:#2E1C08;
+        
+        border-bottom-width: 2px;  
+        border-bottom-color: #2E1C08;  
+        border-bottom-style: solid; 
+        
+        margin-right: 2px;
 }
+
+
+    
+
 /*background-color:#FFD133;*/
 /*-[class="entete_commande"]{
    display: block;
@@ -113,6 +147,14 @@ p {
 	background-color:#FFD133;
 	color:#2E1C08;
 }
+[class="nom_facture"]{
+    
+    padding-right: 100px;
+ //float:right;
+ //margin-right: 100px;
+
+}
+
 
 /*BUTTON DESIGN*/
 [class*='btn_'] {
