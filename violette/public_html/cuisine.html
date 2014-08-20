@@ -15,6 +15,27 @@ and open the template in the editor.
         
     </head>
     <body>
-        <div>TODO write contentsssss</div>
+        <div class="cuisine_commande" id="cuisine_commande_1">
+            <div class="cuisine_commande_entete" id="cuisine_commande_entete_1">
+                <div class="cuisine_entete_datestamp" id="cuisine_entete_datestamp_1">&nbsp; 18:12 </div>
+                <span class="cuisine_entete_no_table" id="cuisine_entete_no_table_1">&nbsp; &nbsp; table: &nbsp; </span>	
+                <span class="cuisine_entete_no_commande" id="cuisine_entete_no_commande_1">&nbsp; | commande:  </span>
+            </div>
+            <div class="detail_facture" id="detail_facture_1">
+                <div class="cuisine_items" id="cuisine_item_1"> 
+                    <span class="nom_item" id="nom_item_1"> soupe aux pois </span>
+                    <button class="btn_item_pret" id="btn_item_pret_1" onclick="retirerItem('btn_item_pret_1');"> X </button>
+                </div>
+                <div class="cuisine_items" id="cuisine_item_2">
+                    <span class="nom_item" id="nom_item_2"> pains &agrave; l'ail (2) </span>
+                    <button class="btn_item_pret" id="btn_item_pret_2" onclick="retirerItem('btn_item_pret_2');"> X </button>
+                </div>   
+                <div class="cuisine_items" id="cuisine_item_3"> 
+                    <span class="nom_item" id="nom_item_3"> jus d'orange  </span>
+                    <button class="btn_item_pret" id="btn_item_pret_3" onclick="retirerItem('btn_item_pret_3');"> X </button>
+                </div>
+            </div>
+            
+        </div>
     </body>
 </html>
