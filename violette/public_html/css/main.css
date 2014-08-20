@@ -43,7 +43,11 @@ body {
 	width: 100%;
 	color: #2E1C08;
 }
-
+[class="page"]{
+border-bottom-width: 10px;  
+      border-bottom-color: #FFA420;  
+      border-bottom-style: groove;  
+      }
 h1 {
 	color: #2E1C08;
 	margin: 10px;
@@ -70,15 +74,21 @@ div#page_tables {
 	color:#FFEDD0;
 	padding-top:3px;
 	padding-bottom:2px;
+        
+         border-bottom-width: 2px;  
+      border-bottom-color: #2E1C08;  
+      border-bottom-style: groove;
 }
 [class="barre_facture"]{
 	display: block;
 	padding-left:10%;
 	height:100%;
 	width:100%;
-	background-color:#FFD133;
+        
+	background-color:#FFEDD0;
 	color:#2E1C08;
 }
+/*background-color:#FFD133;*/
 /*-[class="entete_commande"]{
    display: block;
 	padding-left:10%;
