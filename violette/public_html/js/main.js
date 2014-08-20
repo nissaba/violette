@@ -90,18 +90,27 @@ function ajouterFacture(id) {
 	liTable.appendChild(facture);
 }
 
-function rendreVisibleServeuse(pages){
-	//["Saab", "Volvo", "BMW"]
+function rendreVisibleServeuse(pageVisible){
+	//["Saab", "Volvo", "BMW"] exemple tableau
+	var pages = document.getElementsByClassName;
+	for (i = 0; i < pageVisible.length; i++) {
+	pages [i].style.display = pageVisible [i];
+	}
 }
 
-
+function ouvrirTable(id) {
+	var table = document.getElementById(id);
+	if (table.childNodes > 2) {
+	
+	}
+}
 /*
-                    <table class="barre_facture" id='facture1'>
-                        <tr class="ligne_tableau" id="ligne_tableau_facture_1">
-                            <td class="nom_facture" id="nom_facture_1">Facture 1</td>
-                            <td class="espace" id="espace_btn_facture_1"></td>
-                            <td><button class="btn_moins"> - </button><input type="text" class="increment_siege"/><button class="btn_plus"> + </button></td>
-                        </tr>
-                    </table>
-					*/
+<table class="barre_facture" id='facture1'>
+	<tr class="ligne_tableau" id="ligne_tableau_facture_1">
+		<td class="nom_facture" id="nom_facture_1">Facture 1</td>
+		<td class="espace" id="espace_btn_facture_1"></td>
+		<td><button class="btn_moins"> - </button><input type="text" class="increment_siege"/><button class="btn_plus"> + </button></td>
+	</tr>
+</table>
+*/
 var blabla = "bli bli";
