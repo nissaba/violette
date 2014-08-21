@@ -23,12 +23,12 @@ and open the template in the editor.
         
      </head>
     <body>
-        <div class="page" id="page_tables">
+        <div class="page" id="page_tables" style="display:initial">
             <!-- ul class="liste" id="liste_tables" data-role="listview" data-inset="true" data-theme="d" data-divider-theme="e" data-count-theme="b" -->
             <ul class="liste" id="liste_tables">
                 <li class="table" id="table_1">
                     <span class="numero_table" id="numero_table_1">Table 1 &nbsp; &nbsp; &nbsp; &nbsp;</span>
-                    <span id="moncercle"><span class="pastille_table" id="pastille_table_1"> &nbsp; 2 &nbsp; </span></span>
+                    <span id="moncercle" style="display:none"><span class="pastille_table" id="pastille_table_1"> &nbsp; 0 &nbsp; </span></span>
                     <button class="btn_facture_plus" id="btn_facture_plus_1" onclick="ajouterFacture('btn_facture_plus_1');"> + </button>
                 </li>
                 
@@ -46,7 +46,7 @@ and open the template in the editor.
             </ul>
             <button class="btn_bar" id="btn_quitter">Quitter</button>
         </div>
-        <div class="page" id="page_commande">
+        <div class="page" id="page_commande" style="display:none">
             <div class="entete_commande" id="entete_commande_1">
                 <span class="entete_no_table" id="entete_no_table_1">&nbsp; table: </span>
                 <span class="entete_no_facture" id="entete_no_facture_1"> | facture: </span>
@@ -76,7 +76,7 @@ and open the template in the editor.
             <button class="btn_bar" id="btn_facture">Facture</button>
             <button class="btn_bar" id="btn_commande_plus"> + </button>
         </div>
-        <div class="page" id="page_facture">
+        <div class="page" id="page_facture" style="display:none">
             <div class="entete_facture" id="entete_facture_1">
                 <div class="entete_nom_resto" id="entete_nom_resto_1">&nbsp; NOM DU RESTO </div>	
                 <div class="entete_nom_serveuse" id="entete_nom_serveuse_1">&nbsp; &nbsp; servi par:  </div>	

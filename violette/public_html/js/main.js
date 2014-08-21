@@ -4,6 +4,37 @@
  * and open the template in the editor.
  */
  
+var blabla = "bli bli",
+	factureSession = 0;
+ 
+function gererVisibilite(pageVisible) {
+	//["Saab", "Volvo", "BMW"] exemple tableau
+	var pages = document.getElementsByClassName("page");
+	for (var i = 0; i < pages.length; i++) {
+		alert(pages[i].style.display);
+		pages[i].style.display = pageVisible[i];
+	}
+}
+ 
+function incrementerPastille(table,inc) {
+	//sub et concat pour cercle id
+	var pastille = document.getElementById("moncercle"),
+		valeur = parseInt(pastille.textContent);
+	valeur += inc;
+	if (valeur > 0) {
+			pastille.style.display = "inline";
+		} else {
+			pastille.style.display = "none";
+		}
+	pastille.innerHTML = " " + valeur + " ";
+}
+
+function incrementerSiege(facture,inc) {
+	var siege = document.getElementById(siege.className+facture.id);
+	siege.value += inc;
+	alert(siege.value);
+}
+
  /*le url ici fait référence au localhost, si tout le projet est sur localhost pas besoin de CORS*/
 function requeteServeur() {
 	//chemins différents selon l'environnement de travail avec easyPHP
@@ -54,24 +85,27 @@ function ajouterFacture(id) {
 		btnMoins = document.createElement("BUTTON"),
 		siege = document.createElement("INPUT"),
 		btnPlus = document.createElement("BUTTON");
+	factureSession++;
 	facture.className = "barre_facture";
-	facture.id = "facture_1";
+	facture.id = "facture_" + factureSession;
 	ligne.className = "ligne_tableau";
 	ligne.id = ligne.className + facture.id;
 	nom.className = "nom_facture";
 	nom.id = "nom_" + facture.id;
 	nom.innerHTML = facture.id.replace("_", " ");
+	//nom.addEventListener("click",gererVisibilite(["none", "initial", "none"]),false);
+	//nom.onClick = function () {gererVisibilite(["none", "initial", "none"]);};
 	espace.className = "espace";
 	espace.id = "espace_btn_" + facture.id;
 	btnMoins.className = "btn_moins";
 	btnMoins.id = btnMoins.className + facture.id;
 	btnMoins.innerHTML = " - ";
-	siege.setAttribute("type", "number");
-	siege.required;
-	siege.readOnly;
-	siege.min = 1;
-	siege.max = 20;
+	siege.setAttribute("type", "text");
+	siege.required = true;
+	siege.disabled = true;
 	siege.defaultValue = 1;
+	siege.className = "siege";
+	siege.id = siege.className+facture.id;
 	btnPlus.className = "btn_plus";
 	btnPlus.id = btnPlus.className + facture.id;
 	btnPlus.innerHTML = " + ";
@@ -83,17 +117,12 @@ function ajouterFacture(id) {
 	ligne.appendChild(td);
 	facture.appendChild(ligne);
 	liTable.appendChild(facture);
-}
-
-function initialiserVisibilite(pageVisible) {
-	//["Saab", "Volvo", "BMW"] exemple tableau
-	var style = document.createElement("STYLE"),
-		pages = document.getElementsByClassName("page");
-	for (var i = 0; i < pages.length; i++) {
-	style.setAttribute("display", pageVisible[i]);
-	pages[i].appendChild(style);
-	alert(pages[i].style.display.value);
-	}
+	incrementerPastille(liTable,1);
+	btnPlus.addEventListener("click",function(e) {
+		e.preventDefault();
+		msg = e.currentTarget.id;
+		alert(msg);
+	}, false);
 }
 
 function ouvrirTable(id) {
@@ -102,6 +131,14 @@ function ouvrirTable(id) {
 
 	}
 }
+
+/* document.getElementById("msgbox").addEventListener("submit", function(e) {
+	e.preventDefault();
+	var msg = e.currentTarget.getElementById("msg").value.trim();
+	if (msg) {
+		alert(msg);
+	}
+}, false); */
 /*
 <table class="barre_facture" id='facture1'>
 	<tr class="ligne_tableau" id="ligne_tableau_facture_1">
@@ -111,4 +148,3 @@ function ouvrirTable(id) {
 	</tr>
 </table>
 */
-var blabla = "bli bli";
