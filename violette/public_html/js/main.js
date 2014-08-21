@@ -8,17 +8,14 @@ var blabla = "bli bli",
 	factureSession = 0;
  
 function gererVisibilite(pageVisible) {
-	//["Saab", "Volvo", "BMW"] exemple tableau
 	var pages = document.getElementsByClassName("page");
 	for (var i = 0; i < pages.length; i++) {
-		alert(pages[i].style.display);
 		pages[i].style.display = pageVisible[i];
 	}
 }
  
 function incrementerPastille(table,inc) {
-	//sub et concat pour cercle id
-	var pastille = document.getElementById("moncercle"),
+	var pastille = document.getElementById("cercle_"+table.id.substring(6)),
 		valeur = parseInt(pastille.textContent);
 	valeur += inc;
 	if (valeur > 0) {
@@ -30,9 +27,16 @@ function incrementerPastille(table,inc) {
 }
 
 function incrementerSiege(facture,inc) {
-	var siege = document.getElementById(siege.className+facture.id);
-	siege.value += inc;
-	alert(siege.value);
+	var siege = document.getElementById("siege"+facture);
+	if ((parseInt(siege.value) > 1) && !(inc)) {
+		siege.value = parseInt(siege.value) - 1;
+	} else if ((parseInt(siege.value) < 20) && (inc)) {
+		siege.value = parseInt(siege.value) + 1;
+	}
+}
+
+function creerFacture(id) {
+	gererVisibilite(["none","block","none"]);
 }
 
  /*le url ici fait référence au localhost, si tout le projet est sur localhost pas besoin de CORS*/
@@ -93,8 +97,6 @@ function ajouterFacture(id) {
 	nom.className = "nom_facture";
 	nom.id = "nom_" + facture.id;
 	nom.innerHTML = facture.id.replace("_", " ");
-	//nom.addEventListener("click",gererVisibilite(["none", "initial", "none"]),false);
-	//nom.onClick = function () {gererVisibilite(["none", "initial", "none"]);};
 	espace.className = "espace";
 	espace.id = "espace_btn_" + facture.id;
 	btnMoins.className = "btn_moins";
@@ -118,27 +120,28 @@ function ajouterFacture(id) {
 	facture.appendChild(ligne);
 	liTable.appendChild(facture);
 	incrementerPastille(liTable,1);
-	btnPlus.addEventListener("click",function(e) {
+	nom.addEventListener("click",function(e) {
 		e.preventDefault();
 		msg = e.currentTarget.id;
-		alert(msg);
+		creerFacture(msg);
+	}, false);
+	btnPlus.addEventListener("click",function(e) {
+		e.preventDefault();
+		msg = e.currentTarget.id.substring(8);
+		incrementerSiege(msg,true);
+	}, false);
+	btnMoins.addEventListener("click",function(e) {
+		e.preventDefault();
+		msg = e.currentTarget.id.substring(9);
+		incrementerSiege(msg,false);
 	}, false);
 }
 
 function ouvrirTable(id) {
 	var table = document.getElementById(id);
-	if (table.childNodes > 2) {
-
-	}
+	alert(table.id);
 }
 
-/* document.getElementById("msgbox").addEventListener("submit", function(e) {
-	e.preventDefault();
-	var msg = e.currentTarget.getElementById("msg").value.trim();
-	if (msg) {
-		alert(msg);
-	}
-}, false); */
 /*
 <table class="barre_facture" id='facture1'>
 	<tr class="ligne_tableau" id="ligne_tableau_facture_1">
