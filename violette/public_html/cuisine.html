@@ -15,27 +15,136 @@ and open the template in the editor.
         
     </head>
     <body>
-        <div class="cuisine_commande" id="cuisine_commande_1">
-            <div class="cuisine_commande_entete" id="cuisine_commande_entete_1">
-                <div class="cuisine_entete_datestamp" id="cuisine_entete_datestamp_1">&nbsp; 18:12 </div>
-                <span class="cuisine_entete_no_table" id="cuisine_entete_no_table_1">&nbsp; &nbsp; table: &nbsp; </span>	
-                <span class="cuisine_entete_no_commande" id="cuisine_entete_no_commande_1">&nbsp; | commande:  </span>
-            </div>
-            <div class="detail_facture" id="detail_facture_1">
-                <div class="cuisine_items" id="cuisine_item_1"> 
-                    <span class="nom_item" id="nom_item_1"> soupe aux pois </span>
-                    <button class="btn_item_pret" id="btn_item_pret_1" onclick="retirerItem('btn_item_pret_1');"> X </button>
-                </div>
-                <div class="cuisine_items" id="cuisine_item_2">
-                    <span class="nom_item" id="nom_item_2"> pains &agrave; l'ail (2) </span>
-                    <button class="btn_item_pret" id="btn_item_pret_2" onclick="retirerItem('btn_item_pret_2');"> X </button>
-                </div>   
-                <div class="cuisine_items" id="cuisine_item_3"> 
-                    <span class="nom_item" id="nom_item_3"> jus d'orange  </span>
-                    <button class="btn_item_pret" id="btn_item_pret_3" onclick="retirerItem('btn_item_pret_3');"> X </button>
-                </div>
-            </div>
-            
-        </div>
+        <table class="tableau_cuisine" id="tableau_cuisine_1">
+            <tr class="tableau_rangee" id="tableau_rangee_1">
+                <td class="tableau_cellule" id="tableau_cellule_1">
+                    <div class="cuisine_commande" id="cuisine_commande_1">
+                        <div class="cuisine_commande_entete" id="cuisine_commande_entete_1">
+                            <div class="cuisine_entete_datestamp" id="cuisine_entete_datestamp_1">&nbsp; 18:12 </div>
+                            <span class="cuisine_entete_no_table" id="cuisine_entete_no_table_1">&nbsp; &nbsp; table: &nbsp; </span>	
+                            <span class="cuisine_entete_no_commande" id="cuisine_entete_no_commande_1">&nbsp; | commande:  </span>
+                        </div>
+                        <div class="detail_facture" id="detail_facture_1">
+                            <div class="cuisine_items" id="cuisine_item_1"> 
+                                <span class="nom_item" id="nom_item_1"> hamburger </span>
+                                <button class="btn_item_pret" id="btn_item_pret_1" onclick="retirerItem('btn_item_pret_1');"> X </button>
+                            </div>
+                            <div class="cuisine_items" id="cuisine_item_2">
+                                <span class="nom_item" id="nom_item_2"> frite (2) </span>
+                                <button class="btn_item_pret" id="btn_item_pret_2" onclick="retirerItem('btn_item_pret_2');"> X </button>
+                            </div>   
+                            <div class="cuisine_items" id="cuisine_item_3"> 
+                                <span class="nom_item" id="nom_item_3"> café  </span>
+                                <button class="btn_item_pret" id="btn_item_pret_3" onclick="retirerItem('btn_item_pret_3');"> X </button>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td class="tableau_cellule" id="tableau_cellule_2">
+                    <div class="cuisine_commande" id="cuisine_commande_2">
+                        <div class="cuisine_commande_entete" id="cuisine_commande_entete_2">
+                            <div class="cuisine_entete_datestamp" id="cuisine_entete_datestamp_2">&nbsp; 18:12 </div>
+                            <span class="cuisine_entete_no_table" id="cuisine_entete_no_table_2">&nbsp; &nbsp; table: &nbsp; </span>	
+                            <span class="cuisine_entete_no_commande" id="cuisine_entete_no_commande_2">&nbsp; | commande:  </span>
+                        </div>
+                        <div class="detail_facture" id="detail_facture_2">
+                            <div class="cuisine_items" id="cuisine_item_4"> 
+                                <span class="nom_item" id="nom_item_4"> cheeseburger </span>
+                                <button class="btn_item_pret" id="btn_item_pret_4" onclick="retirerItem('btn_item_pret_4');"> X </button>
+                            </div>
+                            <div class="cuisine_items" id="cuisine_item_5">
+                                <span class="nom_item" id="nom_item_5"> poutine </span>
+                                <button class="btn_item_pret" id="btn_item_pret_5" onclick="retirerItem('btn_item_pret_5');"> X </button>
+                            </div>   
+                            <div class="cuisine_items" id="cuisine_item_6"> 
+                                <span class="nom_item" id="nom_item_6"> cola  </span>
+                                <button class="btn_item_pret" id="btn_item_pret_6" onclick="retirerItem('btn_item_pret_6');"> X </button>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td class="tableau_cellule" id="tableau_cellule_3">
+                    <div class="cuisine_commande" id="cuisine_commande_3">
+                        <div class="cuisine_commande_entete" id="cuisine_commande_entete_3">
+                            <div class="cuisine_entete_datestamp" id="cuisine_entete_datestamp_3">&nbsp; 18:20 </div>
+                            <span class="cuisine_entete_no_table" id="cuisine_entete_no_table_3">&nbsp; &nbsp; table: &nbsp; </span>	
+                            <span class="cuisine_entete_no_commande" id="cuisine_entete_no_commande_3">&nbsp; | commande:  </span>
+                        </div>
+                        <div class="detail_facture" id="detail_facture_3">
+                            <div class="cuisine_items" id="cuisine_item_7"> 
+                                <span class="nom_item" id="nom_item_7"> lasagne </span>
+                                <button class="btn_item_pret" id="btn_item_pret_7" onclick="retirerItem('btn_item_pret_7');"> X </button>
+                            </div>
+                            <div class="cuisine_items" id="cuisine_item_8">
+                                <span class="nom_item" id="nom_item_8"> thé </span>
+                                <button class="btn_item_pret" id="btn_item_pret_8" onclick="retirerItem('btn_item_pret_8');"> X </button>
+                            </div>
+                        </div>
+                    </div>
+                </td>    
+            </tr>
+            <tr class="tableau_rangee" id="tableau_rangee_2">
+                <td class="tableau_cellule" id="tableau_cellule_4">
+                    <div class="cuisine_commande" id="cuisine_commande_4">
+                        <div class="cuisine_commande_entete" id="cuisine_commande_entete_4">
+                            <div class="cuisine_entete_datestamp" id="cuisine_entete_datestamp_4">&nbsp; 18:22 </div>
+                            <span class="cuisine_entete_no_table" id="cuisine_entete_no_table_4">&nbsp; &nbsp; table: &nbsp; </span>	
+                            <span class="cuisine_entete_no_commande" id="cuisine_entete_no_commande_4">&nbsp; | commande:  </span>
+                        </div>
+                        <div class="detail_facture" id="detail_facture_4">
+                            <div class="cuisine_items" id="cuisine_item_9"> 
+                                <span class="nom_item" id="nom_item_9"> salade verte  </span>
+                                <button class="btn_item_pret" id="btn_item_pret_9" onclick="retirerItem('btn_item_pret_9');"> X </button>
+                            </div>
+                            <div class="cuisine_items" id="cuisine_item_10"> 
+                                <span class="nom_item" id="nom_item_10"> spaghetti bolognèse </span>
+                                <button class="btn_item_pret" id="btn_item_pret_10" onclick="retirerItem('btn_item_pret_10');"> X </button>
+                            </div>
+                            <div class="cuisine_items" id="cuisine_item_11">
+                                <span class="nom_item" id="nom_item_11"> pains &agrave; l'ail </span>
+                                <button class="btn_item_pret" id="btn_item_pret_11" onclick="retirerItem('btn_item_pret_11');"> X </button>
+                            </div>   
+                            <div class="cuisine_items" id="cuisine_item_12"> 
+                                <span class="nom_item" id="nom_item_12"> perrier  </span>
+                                <button class="btn_item_pret" id="btn_item_pret_12" onclick="retirerItem('btn_item_pret_12');"> X </button>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td class="tableau_cellule" id="tableau_cellule_5">
+                    <div class="cuisine_commande" id="cuisine_commande_5">
+                        <div class="cuisine_commande_entete" id="cuisine_commande_entete_5">
+                            <div class="cuisine_entete_datestamp" id="cuisine_entete_datestamp_5">&nbsp; 18:23 </div>
+                            <span class="cuisine_entete_no_table" id="cuisine_entete_no_table_5">&nbsp; &nbsp; table: &nbsp; </span>	
+                            <span class="cuisine_entete_no_commande" id="cuisine_entete_no_commande_5">&nbsp; | commande:  </span>
+                        </div>
+                        <div class="detail_facture" id="detail_facture_5">
+                            <div class="cuisine_items" id="cuisine_item_13"> 
+                                <span class="nom_item" id="nom_item_13"> hot dog (3) </span>
+                                <button class="btn_item_pret" id="btn_item_pret_13" onclick="retirerItem('btn_item_pret_13');"> X </button>
+                            </div>
+                            <div class="cuisine_items" id="cuisine_item_14">
+                                <span class="nom_item" id="nom_item_14"> frite </span>
+                                <button class="btn_item_pret" id="btn_item_pret_14" onclick="retirerItem('btn_item_pret_14');"> X </button>
+                            </div>   
+                            <div class="cuisine_items" id="cuisine_item_15"> 
+                                <span class="nom_item" id="nom_item_15"> cola  </span>
+                                <button class="btn_item_pret" id="btn_item_pret_15" onclick="retirerItem('btn_item_pret_15');"> X </button>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td class="tableau_cellule" id="tableau_cellule_6">
+                    <div class="cellule_commande_en_attente" id="cellule_commande_en_attente_1">
+                        <div class="label_commande_en_attente" id="label_commande_en_attente_1">
+                            Nombre de commandes en attente :
+                        </div>
+                        <div class="case_commande_en_attente" id="case_commande_en_attente_1">
+                            3
+                        </div>
+                    </div>
+                </td>    
+            </tr>
+        </table>
     </body>
 </html>
