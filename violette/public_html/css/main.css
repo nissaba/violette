@@ -149,9 +149,7 @@ p {
 }
 [class="nom_facture"]{
     
-    padding-right: 100px;
- //float:right;
- //margin-right: 100px;
+    padding-right: 50px;
 
 }
 
@@ -207,6 +205,11 @@ p {
 			background:#FFD133;
 			color:#FFD133;
 		}
+                
+           [class="btn_bar"]     {
+                 display:block;
+                 text-align:center;
+           }
 
 /*SECTION CONTAINER*/
 section#loginBox {
