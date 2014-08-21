@@ -4,6 +4,29 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
+            <!--
+		codes couleur:
+			#2E1C08 = brun foncé
+			#63100F = bourgogne
+			#FFA420 = ocre
+			#FFD133 = jaune foncé
+			#FFEDD0 = beige
+            -->
+            <!--
+                liste des employés -- à prévoir mettre en ordre alphabétique lors d'un ajout...
+                        BOWIE, David
+                        CAMPBELL, Isobel
+                        CAVE, Nick
+                        HARVEY, Polly Jean
+                        HAZLEWOOD, Lee
+                        JOHANSEN, David
+                        LANEGAN, Mark
+                        MURPHY, Peter
+                        NAPOLITANO, Johnette
+                        PIERCE, Jeffrey Lee
+                        REED, Lou
+                        WAITS, Tom
+            -->
 <html>
     <head>
         <meta charset="UTF-8">
@@ -15,6 +38,164 @@ and open the template in the editor.
         
     </head>
     <body>
-        <div>TODO write content</div>
+        <div class="page" id="page_select" style="display:block">
+            <button class="btn_select" id="btn_personnel">PERSONNEL</button>
+            <button class="btn_select" id="btn_menu">MENU</button>
+            <button class="btn_select" id="btn_comptabilite">COMPTABILITÉ</button>
+            <button class="btn_bar" id="btn_quitter">Quitter</button>
+        </div>
+        <div class="page" id="page_employes" style="display:none">
+            <!-- ul class="liste" id="liste_tables" data-role="listview" data-inset="true" data-theme="d" data-divider-theme="e" data-count-theme="b" -->
+            <div class="entete_employes" id='entete_employes_1'>
+                <span class="label_employe" id="label_employe_1">EMPLOYÉS &nbsp; &nbsp;</span>
+                <span class="cercle" id="cercle_1" style="display:none"><span class="pastille_employe" id="pastille_employe_1"> &nbsp; 0 &nbsp; </span></span>
+            </div>
+            <ul class="liste" id="liste_employes">
+                <li class="employe" id="employe_1">
+                    <span class="ligne_employe" id="ligne_employe_1" onclick="ouvrirTable('ligne_employe_1');">
+                        <span class="nom_employe" id="nom_employe_1">BOWIE, David</span>
+                    </span>
+                    <button class="btn_facture_plus" id="btn_facture_plus_1" onclick="ajouterFacture('btn_facture_plus_1');"> + </button>
+                </li>
+                <li class="employe" id="employe_2">
+                    <span class="ligne_employe" id="ligne_employe_2" onclick="ouvrirTable('ligne_employe_2');">
+                        <span class="nom_employe" id="nom_employe_2">CAMPBELL, Isobel</span>
+                    </span>
+                    <button class="btn_facture_plus" id="btn_facture_plus_2" onclick="ajouterFacture('btn_facture_plus_2');"> + </button>
+                </li>
+                <li class="employe" id="employe_3">
+                    <span class="ligne_employe" id="ligne_employe_3" onclick="ouvrirTable('ligne_employe_3');">
+                        <span class="nom_employe" id="nom_employe_3">CAVE, Nick</span>
+                    </span>
+                    <button class="btn_facture_plus" id="btn_facture_plus_3" onclick="ajouterFacture('btn_facture_plus_3');"> + </button>
+                </li>
+                <li class="employe" id="employe_4">
+                    <span class="ligne_employe" id="ligne_employe_4" onclick="ouvrirTable('ligne_employe_4');">
+                        <span class="nom_employe" id="nom_employe_4">HARVEY, Polly Jean</span>
+                    </span>
+                    <button class="btn_facture_plus" id="btn_facture_plus_4" onclick="ajouterFacture('btn_facture_plus_4');"> + </button>
+                </li>
+                <li class="employe" id="employe_5">
+                    <span class="ligne_employe" id="ligne_employe_5" onclick="ouvrirTable('ligne_employe_5');">
+                        <span class="nom_employe" id="nom_employe_5">HAZLEWOOD, Lee</span>
+                    </span>
+                    <button class="btn_facture_plus" id="btn_facture_plus_5" onclick="ajouterFacture('btn_facture_plus_5');"> + </button>
+                </li>
+                <li class="employe" id="employe_6">
+                    <span class="ligne_employe" id="ligne_employe_6" onclick="ouvrirTable('ligne_employe_6');">
+                        <span class="nom_employe" id="nom_employe_6">JOHANSEN, David</span>
+                    </span>
+                    <button class="btn_facture_plus" id="btn_facture_plus_6" onclick="ajouterFacture('btn_facture_plus_6');"> + </button>
+                </li>
+                <li class="employe" id="employe_7">
+                    <span class="ligne_employe" id="ligne_employe_7" onclick="ouvrirTable('ligne_employe_7');">
+                        <span class="nom_employe" id="nom_employe_7">LANEGAN, Mark</span>
+                    </span>
+                    <button class="btn_facture_plus" id="btn_facture_plus_7" onclick="ajouterFacture('btn_facture_plus_7');"> + </button>
+                </li>
+                <li class="employe" id="employe_8">
+                    <span class="ligne_employe" id="ligne_employe_8" onclick="ouvrirTable('ligne_employe_8');">
+                        <span class="nom_employe" id="nom_employe_8">MURPHY, Peter</span>
+                    </span>
+                    <button class="btn_facture_plus" id="btn_facture_plus_8" onclick="ajouterFacture('btn_facture_plus_8');"> + </button>
+                </li>
+                <li class="employe" id="employe_9">
+                    <span class="ligne_employe" id="ligne_employe_9" onclick="ouvrirTable('ligne_employe_9');">
+                        <span class="nom_employe" id="nom_employe_9">NAPOLITANO, Johnette</span>
+                    </span>
+                    <button class="btn_facture_plus" id="btn_facture_plus_9" onclick="ajouterFacture('btn_facture_plus_9');"> + </button>
+                </li>
+                <li class="employe" id="employe_10">
+                    <span class="ligne_employe" id="ligne_employe_10" onclick="ouvrirTable('ligne_employe_10');">
+                        <span class="nom_employe" id="nom_employe_10">PIERCE, Jeffrey Lee</span>
+                    </span>
+                    <button class="btn_facture_plus" id="btn_facture_plus_10" onclick="ajouterFacture('btn_facture_plus_10');"> + </button>
+                </li>
+                <li class="employe" id="employe_11">
+                    <span class="ligne_employe" id="ligne_employe_11" onclick="ouvrirTable('ligne_employe_11');">
+                        <span class="nom_employe" id="nom_employe_11">REED, Lou</span>
+                    </span>
+                    <button class="btn_facture_plus" id="btn_facture_plus_11" onclick="ajouterFacture('btn_facture_plus_11');"> + </button>
+                </li>
+                <li class="employe" id="employe_12">
+                    <span class="ligne_employe" id="ligne_employe_12" onclick="ouvrirTable('ligne_employe_12');">
+                        <span class="nom_employe" id="nom_employe_12">WAITS, Tom</span>
+                    </span>
+                    <button class="btn_facture_plus" id="btn_facture_plus_12" onclick="ajouterFacture('btn_facture_plus_12');"> + </button>
+                </li>
+            </ul>
+            <button class="btn_bar" id="btn_retour"> &lsaquo; </button>
+            <button class="btn_bar" id="btn_sauvegarde">Sauvegarder</button>
+            <button class="btn_bar" id="btn_commande_plus"> + </button>
+        </div>
+        <div class="page" id="page_menu" style="display:none">
+            <div class="entete_menu" id="entete_menu_1">
+                <span class="label_menu" id="label_menu_1">MENU &nbsp; &nbsp;</span>
+            </div>
+            <ul class="liste" id="liste_sections_menu">
+                <li class="section" id="soupes">Soupes
+                    <div class="barre_item" id="soupe_1">
+                        <h5 class="menu_item" id="item_1">01 - Soupe aux pois<span class="espace" id="espace_btn_facture"></span><button class="btn_modifier"> ¤ </button><button class="btn_supprimer"> X </button></h5>
+                    </div>    
+                    <div class="barre_item" id="soupe_2">
+                        <h5 class="menu_item" id="item_2">02 - Minestrone<span class="espace" id="espace_btn_facture"></span><button class="btn_modifier"> ¤ </button><button class="btn_supprimer"> X </button></h5>
+                    </div>    
+                    <div class="barre_item" id="soupe_3">
+                        <h5 class="menu_item" id="item_3">03 - Nouilles et poulet<span class="espace" id="espace_btn_facture"></span><button class="btn_modifier"> ¤ </button><button class="btn_supprimer"> X </button></h5>
+                        <div class="detail_item" id='item_id'>ID : 03</div>
+                        <div class="detail_item" id='item_titre'>TITRE : Nouilles et poulet</div>
+                        <div class="detail_item" id='item_description'>DESCRIPTION : Pas de MSG</div>
+                        <div class="detail_item" id='item_prix'>PRIX : 3.50 $</div>
+                    </div>
+                </li>
+                <li class="section" id="salades">Salades</li>
+                <li class="section" id="entrées">Entr&eacute;es</li>
+                <li class="section" id="plats">Plats</li>
+                <li class="section" id="desserts">Desserts</li>
+                <li class="section" id="boissons">Boissons</li>
+                <li class="section" id="a_cotes">&Agrave; C&ocirc;t&eacute;s</li>
+            </ul>
+            <button class="btn_bar" id="btn_retour"> &lsaquo; </button>
+            <button class="btn_bar" id="btn_sauvegarde">Sauvegarder</button>
+            <button class="btn_bar" id="btn_commande_plus"> + </button>
+        </div>
+        <div class="page" id="page_factures" style="display:none">
+            <div class="entete_factures" id="entete_factures_1">
+                <span class="label_menu" id="label_menu_1">FACTURES &nbsp; &nbsp;</span>
+            </div>
+            <div class="detail_facture" id="detail_facture_1">
+                <div class="facture_items" id="facture_item_1"> 
+                    <span class="nom_item" id="nom_item_1"> soupe aux pois 
+                        <span class="qte_item" id="qte_item_1"> 
+                            <span class="prix_unitaire" id="prix_unitaire_item_1"> </span>
+                        </span>
+                    </span>
+                    <span class="prix_item" id="prix_item_1"> 4.00 $ </span>
+                </div>
+                <div class="facture_items" id="facture_item_2">
+                    <span class="nom_item" id="nom_item_2"> pain &agrave; l'ail  
+                        <span class="qte_item" id="qte_item_2"> &nbsp; &nbsp; (2 @
+                            <span class="prix_unitaire" id="prix_unitaire_item_2"> &nbsp; 4.00 $)&nbsp; </span>
+                        </span>
+                    </span>
+                    <span class="prix_item" id="prix_item_2"> 8.00 $ </span>
+                </div>   
+                <div class="facture_items" id="facture_item_3"> 
+                    <span class="nom_item" id="nom_item_3"> jus d'orange 
+                        <span class="qte_item" id="qte_item_3"> 
+                            <span class="prix_unitaire" id="prix_unitaire_item_3"> </span>
+                        </span>
+                    </span>
+                    <span class="prix_item" id="prix_item_3"> 2.00 $ </span>
+                </div>
+            </div>
+            <div class="sous_total_facture" id="sous_total_facture_1">Sous-total... 14.00 $</div>
+            <div class="total_facture" id="total_facture_1">
+                <p class="taxes" id="tvq">TVQ	0.98 $</p>
+                <p class="taxes" id="tps">TPS	0.70 $</p>
+                <p class="ligne_total" id="ligne_total_1">TOTAL	15.68 $</p>
+            </div>
+            <button class="btn_bar" id="btn_retour"> &lsaquo; </button>
+        </div>
     </body>
 </html>
