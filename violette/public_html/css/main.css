@@ -85,7 +85,7 @@ div#page_tables {
          font-style: italic;
 }
 
-#cercle{
+.cercle{
   background:#FFA420;
   border-radius:50%;
   width:25px;
