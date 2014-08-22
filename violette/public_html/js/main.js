@@ -173,7 +173,83 @@ function ajouterFacture(id) {
 
 // début de la création du menu dans le DOM.
 
+function creerSectionMenu(index,text) {
+	var ligne = document.createElement("LI");
+	ligne.className = "section";
+	ligne.id = ligne.className + index;
+	ligne.textContent = text;
+	return ligne;
+}
+
+function creerDivItem(index) {
+	var ligne = document.createElement("DIV"),
+		ligneStyle = document.createElement("STYLE");
+	ligne.className = "barre_item";
+	ligne.id = ligne.className + index;
+	ligneStyle.property = "display";
+	ligneStyle.display = "block";
+	ligne.appendChild(ligneStyle);
+	return ligne;	
+}
+
+function creerTitreItem(index,text) {
+	var ligne = document.createElement("H5");
+	ligne.className = "menu_item";
+	ligne.id = ligne.className + index;
+	ligne.textContent = text;
+	return ligne;
+}
+
+function creerEspaceItem(index) {
+	var espace = document.createElement("SPAN");
+	espace.className = "espace_menu";
+	espace.id = espace.className + index;
+	return espace;
+}
+
+function creerDivBoutons(index) {
+	var ligne = document.createElement("DIV");
+	ligne.className = "menu_boutons";
+	ligne.id = ligne.className + index;
+	return ligne;	
+}
+
+function creerBoutonIncrementMenu(index,isPlus) {
+	var bouton = document.createElement("BUTTON");
+	bouton.className = (isPlus)?"btn_plus_menu":"btn_moins_menu";
+	bouton.id = bouton.className + index;
+	bouton.innerHTML = (isPlus)?" + ":" - ";
+	return bouton;
+}
+
+function creerInputQuantiteMenu(index){
+	var input = document.createElement("INPUT");
+	input.setAttribute("type", "text");
+	input.disabled = true;
+	input.defaultValue = 0;
+	input.className = "quantite";
+	input.id = input.className+index;
+	return input;
+}
+
 function construireMenu(menuXML) {
+	section = creerSectionMenu(0,"poissons");
+	divItem = creerDivItem(0);
+	menuItem = creerTitreItem(0,"truite");
+	espace = creerEspaceItem(0);
+	divBoutons = creerDivBoutons(0);
+	btnMoins = creerBoutonIncrementMenu(0,false);
+	quantite = creerInputQuantiteMenu(0);
+	btnPlus = creerBoutonIncrementMenu(0,true);
+	listeMenu = document.getElementById("liste_menu_sections");
+	divBoutons.appendChild(btnMoins);
+	divBoutons.appendChild(quantite);
+	divBoutons.appendChild(btnPlus);
+	divItem.appendChild(menuItem);
+	divItem.appendChild(espace);
+	divItem.appendChild(divBoutons);
+	section.appendChild(divItem);
+	listeMenu.appendChild(section);
 	alert(menuXML);
 }
 
@@ -220,6 +296,7 @@ function requeteLogin() {
 	return false;
 }
 
+//TODO: modifier error
 function requeteMenu() {
 	$.ajax({
 		url: SERVER_PATH + "menu.php",
@@ -229,7 +306,7 @@ function requeteMenu() {
 		success: function (response) {
 			construireMenu(response);
 		},
-		error: function (response) { alert(blabla); }
+		error: function (response) { construireMenu(0); }
     });
 	return false;
 }
