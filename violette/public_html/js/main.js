@@ -229,8 +229,9 @@ function requeteMenu() {
 		success: function (response) {
 			construireMenu(response);
 		},
-		error: function (response) {  }
+		error: function (response) { alert(blabla); }
     });
+	return false;
 }
 /*
 <table class="barre_facture" id='facture1'>
