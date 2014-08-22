@@ -24,6 +24,8 @@ and open the template in the editor.
         
      </head>
     <body onload="return requeteMenu();">
+        
+    <!-- page 'TABLES': liste de toutes les tables du restaurant; point de départ pour prendre la/les commande(s) -->
         <div class="page" id="page_tables" style="display:block">
             <!-- ul class="liste" id="liste_tables" data-role="listview" data-inset="true" data-theme="d" data-divider-theme="e" data-count-theme="b" -->
             <ul class="liste" id="liste_tables">
@@ -114,6 +116,8 @@ and open the template in the editor.
             </ul>
             <button class="btn_bar" id="btn_quitter">Quitter</button>
         </div>
+        
+    <!-- page 'COMMANDE': liste des sections du menu: offrent un dropdown des items de chaque section lors de la prise de commande(s) -->
         <div class="page" id="page_commande" style="display:none">
             <div class="entete_commande" id="entete_commande_1">
                 <span class="entete_no_table" id="entete_no_table_1">&nbsp; table: </span>
@@ -123,10 +127,15 @@ and open the template in the editor.
             </div>
             <ul class="liste_menu" id="liste_menu_sections">
             </ul>
-            <button class="btn_bar" id="btn_retour" onclick="gererVisibilite(['block','none','none','none']);"> &lsaquo; </button>
-            <button class="btn_bar" id="btn_facture" onclick="gererVisibilite(['none','none','none','block']);">Facture</button>
-            <button class="btn_bar" id="btn_commande_plus"> + </button>
+            <div class="bar_btn" id="bar_btn_page_commande">
+                <button class="btn_bar" id="btn_retour" onclick="gererVisibilite(['block','none','none','none']);"> &lsaquo; </button>
+                <button class="btn_bar" id="btn_confirmation" onclick="gererVisibilite(['none','none','block','none']);">Résumé</button>
+                <button class="btn_bar" id="btn_facture" onclick="gererVisibilite(['none','none','none','block']);">Facture</button>
+                <button class="btn_bar" id="btn_commande_plus"> + </button>
+            </div>
         </div>
+    
+    <!-- page 'CONFIRMATION': affichage d'un résumé de la commande avant l'envoi vers la cuisine -->
         <div class="page" id="page_confirme_commande" style="display:none">
             <div class="entete_facture" id="entete_facture_1">
                 <div class="entete_datestamp" id="entete_datestamp_1">&nbsp; heure: &nbsp; </div>	
@@ -136,21 +145,26 @@ and open the template in the editor.
             <div class="detail_commande" id="detail_commande_1">
                 <div class="serveuse_items" id="serveuse_item_1"> 
                     <span class="nom_item" id="nom_item_1"> hamburger <span class="qte_item" id="qte_item_1">  </span></span>
-                    <button class="btn_item_pret" id="btn_item_commande_1" onclick="retirerItem('btn_item_commande_1');"> X </button>
+                    <button class="btn_supprimer_item" id="btn_item_commande_1" onclick="retirerItem('btn_item_commande_1');"> X </button>
                 </div>
                 <div class="serveuse_items" id="serveuse_items_2">
                     <span class="nom_item" id="nom_item_2"> frite <span class="qte_item" id="qte_item_1"> &nbsp; &nbsp;(2) &nbsp;</span></span>
-                    <button class="btn_item_pret" id="btn_item_commande_2" onclick="retirerItem('btn_item_commande_2');"> X </button>
+                    <button class="btn_supprimer_item" id="btn_item_commande_2" onclick="retirerItem('btn_item_commande_2');"> X </button>
                 </div>   
                 <div class="serveuse_items" id="serveuse_items_3"> 
                     <span class="nom_item" id="nom_item_3"> café <span class="qte_item" id="qte_item_1">  </span></span>
-                    <button class="btn_item_pret" id="btn_item_commande_3" onclick="retirerItem('btn_item_commande_3');"> X </button>
+                    <button class="btn_supprimer_item" id="btn_item_commande_3" onclick="retirerItem('btn_item_commande_3');"> X </button>
                 </div>
             </div>
-            <button class="btn_bar" id="btn_retour" onclick="gererVisibilite(['none','block','none','none']);"> &lsaquo; </button>
-            <button class="btn_bar" id="btn_cuisine">Cuisine</button>
-            <button class="btn_bar" id="btn_facture" onclick="gererVisibilite(['none','none','none','block']);">Facture</button>
+            <div class="bar_btn" id="bar_btn_page_confirmation">
+                <button class="btn_bar" id="btn_retour" onclick="gererVisibilite(['none','block','none','none']);"> &lsaquo; </button>
+                <button class="btn_bar" id="btn_cuisine">Cuisine</button>
+                <button class="btn_bar" id="btn_facture" onclick="gererVisibilite(['none','none','none','block']);">Facture</button>
+            </div>
         </div>
+    
+    <!-- page 'FACTURE': affiche la facture (ce qui a été commandé et servi), ainsi que l'option 'Rabais / Promo' (... à venir!!...), 
+            qui offrira la possibilité d'ajuster le total en fonction de ce qui aura été sélectionné (ex.: Promo du mois; rabais étudiant; client insatisfait; etc.) -->
         <div class="page" id="page_facture" style="display:none">
             <div class="entete_facture" id="entete_facture_1">
                 <div class="entete_nom_resto" id="entete_nom_resto_1">&nbsp; NOM DU RESTO </div>	
@@ -190,8 +204,10 @@ and open the template in the editor.
                 <p class="taxes" id="tps">TPS	0.70 $</p>
                 <p class="ligne_total" id="ligne_total_1">TOTAL	15.68 $</p>
             </div>
-            <button class="btn_bar" id="btn_retour" onclick="gererVisibilite(['none','none','block','none']);"> &lsaquo; </button>
-            <button class="btn_bar" id="btn_facture_payee">Pay&eacute;e</button>
+            <div class="bar_btn" id="bar_btn_page_facture">
+                <button class="btn_bar" id="btn_retour" onclick="gererVisibilite(['none','none','block','none']);"> &lsaquo; </button>
+                <button class="btn_bar" id="btn_facture_payee">Pay&eacute;e</button>
+            </div>
         </div>
     </body>
 </html>
