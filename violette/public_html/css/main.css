@@ -45,10 +45,14 @@ body {
 }
 [class="page"]{
         border-bottom-width: 6px;  
-        border-bottom-color:#63100F ;
-     // border-bottom-color: #FFA420;  
+        border-bottom-color:#63100F ; 
         border-bottom-style: groove;  
       }
+      /*page
+      
+      // border-bottom-color: #FFA420; 
+      
+      */
 h1 {
 	color: #2E1C08;
 	margin: 10px;
@@ -68,7 +72,26 @@ div#page_tables {
 }
 
 .table {
+   
+	display:inline-block;
+	width:100%;
+	height:55px;
+	background-color:#63100F;
+	color:#FFEDD0;
+	padding-top:3px;
+	padding-bottom:2px;
+        
+      border-bottom-width: 4px;  
+      border-bottom-color: #2E1C08;  
+      border-bottom-style: groove;
+      
     
+    border-radius: 10px;
+}
+
+/*Table test
+
+ 
     //position: absolute;
     //right: 20px;
     //width: 40px;
@@ -85,25 +108,32 @@ div#page_tables {
     
     //padding-right: 40%;
     
-	display:inline-block;
-	width:100%;
-	height:55px;
-	background-color:#63100F;
-	color:#FFEDD0;
-	padding-top:3px;
-	padding-bottom:2px;
-        
-      border-bottom-width: 4px;  
-      border-bottom-color: #2E1C08;  
-      border-bottom-style: groove;
-      
-     // border: 2px solid #a1a1a1;
+ // border: 2px solid #a1a1a1;
     //padding: 2px 20px; 
     //background: #dddddd;
     //width: 300px;
-    border-radius: 10px;
+*/
+
+tr{
+   table-layout: fixed;
+    width: 20px; 
+    
+}
+/* Affect la table X*/
+[class="ligne_table"]{
+    
+    display: inline-block;
+    padding-left:4%; 
+    /*padding-right:4%;*/
 }
 
+[class="table"]{
+    
+}
+
+.ligne_tableau{
+    width: 24%;
+}
 /*.numero_table{
     width: 80%;
 }*/
@@ -142,10 +172,13 @@ div#page_tables {
 }
 
 */
-
+/* Affecte toute la barre facture sous table */
 [class="barre_facture"]{
-	display: block;
+        width:40%;
+    
+	display: block; 
 	padding-left:10%;
+
 	height:100%;
 	width:100%;
         
@@ -156,7 +189,7 @@ div#page_tables {
         border-bottom-color: #2E1C08;  
         border-bottom-style: solid; 
         
-        margin-right: 2px;
+        margin-right: 2px; /* */
 }
 
 
@@ -188,11 +221,15 @@ p {
 	color:#2E1C08;
 }
 
-il{
+/*il{
 table-layout: fixed;
 width: 50%;
-}
+}*/
+
+/* Ligne facture x*/
 [class="nom_facture"]{
+    width: available;
+    
     display: inline;
     border: 2px solid #234567 ;
 
