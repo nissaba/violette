@@ -5,42 +5,297 @@
  */
  
 var blabla = "bli bli",
-	factureSession = 0;
- 
+	factureSession = 0,
+	//chemins différents selon l'environnement de travail avec easyPHP
+	//SERVER_PATH = "http://127.0.0.1:8888/violette-gh-pages/violette/public_html/;
+	SERVER_PATH = "http://127.0.0.1/projects/projet_final/";
+
+ /*
+  * Function qui permet de gérer les pages de l'interface serveuse.html.
+  * Elle reçoit un tableau de valeurs assigné au display des différentes pages.
+  */
 function gererVisibilite(pageVisible) {
-	//["Saab", "Volvo", "BMW"] exemple tableau
 	var pages = document.getElementsByClassName("page");
 	for (var i = 0; i < pages.length; i++) {
-		alert(pages[i].style.display);
 		pages[i].style.display = pageVisible[i];
 	}
 }
- 
+
+/*
+ * Function qui gere le "collapse/expand" d'une table.
+ * Elle vérifie la valeur de la pastille, pour ainsi trouver
+ * les factures associées à cette table, puis affecte le display
+ * de celles-ci selon le cas.
+ */
+function ouvrirTable(tableId) {
+	var valeur = parseInt(document.getElementById("pastille_" + tableId).innerHTML),
+		table = document.getElementById(tableId),
+		visibilite;
+	if (valeur > 0) {
+		factures = table.getElementsByClassName("barre_facture");
+		visibilite = (factures[0].style.display === "none")?"block":"none";
+		for (var i = 0; i < factures.length; i++) {
+			factures[i].style.display = visibilite;
+		}
+	}
+}
+
+function ouvrirSection(sectionId) {
+	alert(blabla);
+}
+
+/*
+ * Function pour incrémenter/décrémenter (selon inc) la valeur numérique
+ * dans la pastille à la table passer en paramètre. La pastille ne sera
+ * affichée seulement si elle contient une valeur plus grande que zéro.
+ */
 function incrementerPastille(table,inc) {
-	//sub et concat pour cercle id
-	var pastille = document.getElementById("moncercle"),
-		valeur = parseInt(pastille.textContent);
+	var textePastille = document.getElementById("pastille_"+table.id),
+		valeur = parseInt(textePastille.textContent);
 	valeur += inc;
 	if (valeur > 0) {
-			pastille.style.display = "inline";
+			textePastille.parentNode.style.display = "inline";
 		} else {
-			pastille.style.display = "none";
+			textePastille.parentNode.style.display = "none";
 		}
-	pastille.innerHTML = " " + valeur + " ";
+	textePastille.innerHTML = " " + valeur + " ";
 }
 
+/*
+ * Function pour la sélection du siège payant pour une facture donnée.
+ * Ici inc est un boolean pour incrémenter/décrémenter.
+ */
 function incrementerSiege(facture,inc) {
-	var siege = document.getElementById(siege.className+facture.id);
-	siege.value += inc;
-	alert(siege.value);
+	var siege = document.getElementById("siege"+facture);
+	if ((parseInt(siege.value) > 1) && !(inc)) {
+		siege.value = parseInt(siege.value) - 1;
+	} else if ((parseInt(siege.value) < 20) && (inc)) {
+		siege.value = parseInt(siege.value) + 1;
+	}
 }
 
- /*le url ici fait référence au localhost, si tout le projet est sur localhost pas besoin de CORS*/
-function requeteServeur() {
-	//chemins différents selon l'environnement de travail avec easyPHP
-	//var SERVER_PATH = "http://127.0.0.1:8888/violette-gh-pages/violette/public_html/;
-	var SERVER_PATH = "http://127.0.0.1/projects/projet_final/",
-		passwd = document.getElementById("passwd").value,
+function incrementerQuantite(index,inc) {
+	var quantite = document.getElementById("quantite"+index);
+	if ((parseInt(quantite.value) > 0) && !(inc)) {
+		quantite.value = parseInt(quantite.value) - 1;
+	} else if ((parseInt(quantite.value) < 20) && (inc)) {
+		quantite.value = parseInt(quantite.value) + 1;
+	}
+}
+
+function creerFacture(id) {
+	gererVisibilite(["none","block","none","none"]);
+}
+
+// début de la création d'un élément facture dans le DOM.
+
+function creerTableFacture() {
+	var facture = document.createElement("TABLE"), 
+		factureStyle = document.createElement("STYLE");
+	facture.className = "barre_facture";
+	facture.id = "facture_" + factureSession;
+	factureStyle.property = "display";
+	factureStyle.display = "block";
+	facture.appendChild(factureStyle);
+	return facture;
+}
+
+function creerLignefacture(factureId) {
+	var ligne = document.createElement("TR");
+	ligne.className = "ligne_tableau";
+	ligne.id = ligne.className + factureId;
+	return ligne;
+}
+
+function creerNomFacture(factureId) {
+	var nom = document.createElement("TD");
+	nom.className = "nom_facture";
+	nom.id = "nom_" + factureId;
+	nom.innerHTML = factureId.replace("_", " ");
+	return nom;
+}
+
+function creerEspaceFacture(factureId) {
+	var espace = document.createElement("TD");
+	espace.className = "espace";
+	espace.id = "espace_btn_" + factureId;
+	return espace;
+}
+
+function creerBoutonIncrementFacture(factureId,isPlus) {
+	var bouton = document.createElement("BUTTON");
+	bouton.className = (isPlus)?"btn_plus":"btn_moins";
+	bouton.id = bouton.className + factureId;
+	bouton.innerHTML = (isPlus)?" + ":" - ";
+	return bouton;
+}
+
+function creerInputSiegeFacture(factureId){
+	var siege = document.createElement("INPUT");
+	siege.setAttribute("type", "text");
+	siege.required = true;
+	siege.disabled = true;
+	siege.defaultValue = 1;
+	siege.className = "siege";
+	siege.id = siege.className+factureId;
+	return siege;
+}
+
+function ajouterFacture(id) {
+	var liTable = document.getElementById(id).parentNode,
+		td = document.createElement("TD");
+	factures = liTable.getElementsByClassName("barre_facture");
+	if (factures.length > 0) {
+		if (factures[0].style.display === "none") {
+			ouvrirTable(liTable.id);
+		}
+	}
+	factureSession++;
+	facture = creerTableFacture();
+	ligne = creerLignefacture(facture.id);
+	nom = creerNomFacture(facture.id);
+	btnMoins = creerBoutonIncrementFacture(facture.id,false);
+	btnPlus = creerBoutonIncrementFacture(facture.id,true);
+	td.appendChild(btnMoins);
+	td.appendChild(creerInputSiegeFacture(facture.id));
+	td.appendChild(btnPlus);
+	ligne.appendChild(nom);
+	ligne.appendChild(creerEspaceFacture(facture.id));
+	ligne.appendChild(td);
+	facture.appendChild(ligne);
+	liTable.appendChild(facture);
+	incrementerPastille(liTable,1);
+	nom.addEventListener("click",function(e) {
+		e.preventDefault();
+		msg = e.currentTarget.id;
+		creerFacture(msg);
+	}, false);
+	btnPlus.addEventListener("click",function(e) {
+		e.preventDefault();
+		msg = e.currentTarget.id.substring(8);
+		incrementerSiege(msg,true);
+	}, false);
+	btnMoins.addEventListener("click",function(e) {
+		e.preventDefault();
+		msg = e.currentTarget.id.substring(9);
+		incrementerSiege(msg,false);
+	}, false);
+}
+
+// fin de la création d'un élément facture dans le DOM.
+
+// début de la création du menu dans le DOM.
+
+function creerSectionMenu(index) {
+	var ligne = document.createElement("LI");
+	ligne.className = "section";
+	ligne.id = ligne.className + index;
+	return ligne;
+}
+
+function creerTitreSectionMenu(index,text) {
+	var ligne = document.createElement("H3");
+	ligne.className = "section_titre";
+	ligne.id = ligne.className + index;
+	ligne.textContent = text;
+	return ligne;
+}
+
+function creerDivItem(index) {
+	var ligne = document.createElement("DIV"),
+		ligneStyle = document.createElement("STYLE");
+	ligne.className = "barre_item";
+	ligne.id = ligne.className + index;
+	ligneStyle.property = "display";
+	ligneStyle.display = "block";
+	ligne.appendChild(ligneStyle);
+	return ligne;	
+}
+
+function creerTitreItem(index,text) {
+	var ligne = document.createElement("H5");
+	ligne.className = "menu_item";
+	ligne.id = ligne.className + index;
+	ligne.textContent = text;
+	return ligne;
+}
+
+function creerEspaceItem(index) {
+	var espace = document.createElement("SPAN");
+	espace.className = "espace_menu";
+	espace.id = espace.className + index;
+	return espace;
+}
+
+function creerDivBoutons(index) {
+	var ligne = document.createElement("DIV");
+	ligne.className = "menu_boutons";
+	ligne.id = ligne.className + index;
+	return ligne;	
+}
+
+function creerBoutonIncrementMenu(index,isPlus) {
+	var bouton = document.createElement("BUTTON");
+	bouton.className = (isPlus)?"btn_plus_menu":"btn_moins_menu";
+	bouton.id = bouton.className + index;
+	bouton.innerHTML = (isPlus)?" + ":" - ";
+	return bouton;
+}
+
+function creerInputQuantiteMenu(index){
+	var input = document.createElement("INPUT");
+	input.setAttribute("type", "text");
+	input.disabled = true;
+	input.defaultValue = 0;
+	input.className = "quantite";
+	input.id = input.className+index;
+	return input;
+}
+
+function construireMenu(menuXML) {
+	section = creerSectionMenu(0);
+	titre = creerTitreSectionMenu(0,"Poissons");
+	divItem = creerDivItem(0);
+	menuItem = creerTitreItem(0,"truite");
+	espace = creerEspaceItem(0);
+	divBoutons = creerDivBoutons(0);
+	btnMoins = creerBoutonIncrementMenu(0,false);
+	quantite = creerInputQuantiteMenu(0);
+	btnPlus = creerBoutonIncrementMenu(0,true);
+	listeMenu = document.getElementById("liste_menu_sections");
+	divBoutons.appendChild(btnMoins);
+	divBoutons.appendChild(quantite);
+	divBoutons.appendChild(btnPlus);
+	divItem.appendChild(menuItem);
+	divItem.appendChild(espace);
+	divItem.appendChild(divBoutons);
+	section.appendChild(titre);
+	section.appendChild(divItem);
+	listeMenu.appendChild(section);
+	titre.addEventListener("click",function(e) {
+		e.preventDefault();
+		ouvrirSection(e.currentTarget.id);
+	}, false);
+	btnPlus.addEventListener("click",function(e) {
+		e.preventDefault();
+		incrementerQuantite(e.currentTarget.id.substring(13),true);
+	}, false);
+	btnMoins.addEventListener("click",function(e) {
+		e.preventDefault();
+		incrementerQuantite(e.currentTarget.id.substring(14),false);
+	}, false);
+	//alert(menuXML);
+}
+
+// fin de la création du menu dans le DOM.
+
+/*
+ * Function pour la requête au serveur pour vérifier l'employé accédant à 
+ * l'application et charge le bon HTML selon la fonction de l'employé.
+ * le url ici fait référence au localhost, si tout le projet est sur localhost pas besoin de CORS
+ */
+function requeteLogin() {
+	var	passwd = document.getElementById("passwd").value,
 		user = document.getElementById("user").value,
 		hash = Sha1.hash(passwd);
 	$.ajax({
@@ -75,70 +330,20 @@ function requeteServeur() {
 	return false;
 }
 
-function ajouterFacture(id) {
-	var liTable = document.getElementById(id).parentNode,
-		facture = document.createElement("TABLE"),
-		ligne = document.createElement("TR"),
-		nom = document.createElement("TD"),
-		espace = document.createElement("TD"),
-		td = document.createElement("TD"),
-		btnMoins = document.createElement("BUTTON"),
-		siege = document.createElement("INPUT"),
-		btnPlus = document.createElement("BUTTON");
-	factureSession++;
-	facture.className = "barre_facture";
-	facture.id = "facture_" + factureSession;
-	ligne.className = "ligne_tableau";
-	ligne.id = ligne.className + facture.id;
-	nom.className = "nom_facture";
-	nom.id = "nom_" + facture.id;
-	nom.innerHTML = facture.id.replace("_", " ");
-	//nom.addEventListener("click",gererVisibilite(["none", "initial", "none"]),false);
-	//nom.onClick = function () {gererVisibilite(["none", "initial", "none"]);};
-	espace.className = "espace";
-	espace.id = "espace_btn_" + facture.id;
-	btnMoins.className = "btn_moins";
-	btnMoins.id = btnMoins.className + facture.id;
-	btnMoins.innerHTML = " - ";
-	siege.setAttribute("type", "text");
-	siege.required = true;
-	siege.disabled = true;
-	siege.defaultValue = 1;
-	siege.className = "siege";
-	siege.id = siege.className+facture.id;
-	btnPlus.className = "btn_plus";
-	btnPlus.id = btnPlus.className + facture.id;
-	btnPlus.innerHTML = " + ";
-	td.appendChild(btnMoins);
-	td.appendChild(siege);
-	td.appendChild(btnPlus);
-	ligne.appendChild(nom);
-	ligne.appendChild(espace);
-	ligne.appendChild(td);
-	facture.appendChild(ligne);
-	liTable.appendChild(facture);
-	incrementerPastille(liTable,1);
-	btnPlus.addEventListener("click",function(e) {
-		e.preventDefault();
-		msg = e.currentTarget.id;
-		alert(msg);
-	}, false);
+//TODO: modifier error
+function requeteMenu() {
+	$.ajax({
+		url: SERVER_PATH + "menu.php",
+		type: 'GET',
+		async: false,
+		datatype: 'xml',
+		success: function (response) {
+			construireMenu(response);
+		},
+		error: function (response) { construireMenu(0); }
+    });
+	return false;
 }
-
-function ouvrirTable(id) {
-	var table = document.getElementById(id);
-	if (table.childNodes > 2) {
-
-	}
-}
-
-/* document.getElementById("msgbox").addEventListener("submit", function(e) {
-	e.preventDefault();
-	var msg = e.currentTarget.getElementById("msg").value.trim();
-	if (msg) {
-		alert(msg);
-	}
-}, false); */
 /*
 <table class="barre_facture" id='facture1'>
 	<tr class="ligne_tableau" id="ligne_tableau_facture_1">

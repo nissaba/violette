@@ -44,9 +44,10 @@ body {
 	color: #2E1C08;
 }
 [class="page"]{
-border-bottom-width: 10px;  
-      border-bottom-color: #FFA420;  
-      border-bottom-style: groove;  
+        border-bottom-width: 6px;  
+        border-bottom-color:#63100F ;
+     // border-bottom-color: #FFA420;  
+        border-bottom-style: groove;  
       }
 h1 {
 	color: #2E1C08;
@@ -67,6 +68,23 @@ div#page_tables {
 }
 
 .table {
+    
+    //position: absolute;
+    //right: 20px;
+    //width: 40px;
+    //background-color: #b0e0e6;
+    
+    
+    
+    //text-align: 20%; 
+     //text-align: right;
+    //margin-left: auto;
+    //margin-right: auto;
+       // margin: auto;
+       // width: 40%, 30%;
+    
+    //padding-right: 40%;
+    
 	display:inline-block;
 	width:100%;
 	height:55px;
@@ -75,23 +93,45 @@ div#page_tables {
 	padding-top:3px;
 	padding-bottom:2px;
         
-        border-bottom-width: 2px;  
+      border-bottom-width: 4px;  
       border-bottom-color: #2E1C08;  
-      border-bottom-style: solid;
-}
-[class="pastille_table"]{
-    	color: #2E1C08;
-        font-weight: bold;
-         font-style: italic;
+      border-bottom-style: groove;
+      
+     // border: 2px solid #a1a1a1;
+    //padding: 2px 20px; 
+    //background: #dddddd;
+    //width: 300px;
+    border-radius: 10px;
 }
 
-#moncercle{
+/*.numero_table{
+    width: 80%;
+}*/
+/*[class="pastille_table"]{
+   
+    	//color: #2E1C08;
+       // font-weight: bold;
+         font-style: italic;
+         
+         text-align: center;
+    color: red;
+}*/
+
+/*#pastille_table_1{
+    color:blue;font-weight:bold;
+   text-align: center;
+    
+}*/
+.cercle{
   background:#FFA420;
   border-radius:50%;
   width:25px;
   height:25px;
   border:2px solid #2E1C08;
  
+ color: #2E1C08;
+ font-weight: bold;
+ font-style: italic;
 }
 
 /*
@@ -147,11 +187,14 @@ p {
 	background-color:#FFD133;
 	color:#2E1C08;
 }
+
+il{
+table-layout: fixed;
+width: 50%;
+}
 [class="nom_facture"]{
-    
-    padding-right: 100px;
- //float:right;
- //margin-right: 100px;
+    display: inline;
+    border: 2px solid #234567 ;
 
 }
 
@@ -207,6 +250,13 @@ p {
 			background:#FFD133;
 			color:#FFD133;
 		}
+                
+           [class="btn_bar"]     {
+                display:block; 
+                width:30%; 
+                margin:0 auto; 
+                 border-radius: 30px;
+           }
 
 /*SECTION CONTAINER*/
 section#loginBox {
@@ -224,6 +274,7 @@ form.login_form label {
 	display: block;
 	margin: 6px 0;
 	color: #FFD133;
+       
 }
 
 ::-webkit-input-placeholder {
@@ -286,10 +337,14 @@ form.login_form label {
 			-moz-box-shadow: inset 0 1px 2px #FFEDD0, 0 0 8px #2E1C08;
 			  box-shadow: inset 0 1px 2px #FFEDD0, 0 0 8px #2E1C08;
 		}
-                               
-.increment_siege {
-	width:10%;
+ .espace{
+     width: 30%;
+
+ }       
+.siege {
+	width:25%;
 }
+                               
 .increment_quantite {
 	width:10%;
 }
