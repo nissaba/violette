@@ -40,6 +40,10 @@ function ouvrirTable(tableId) {
 	}
 }
 
+function ouvrirSection(sectionId) {
+	alert(blabla);
+}
+
 /*
  * Function pour incrémenter/décrémenter (selon inc) la valeur numérique
  * dans la pastille à la table passer en paramètre. La pastille ne sera
@@ -67,6 +71,15 @@ function incrementerSiege(facture,inc) {
 		siege.value = parseInt(siege.value) - 1;
 	} else if ((parseInt(siege.value) < 20) && (inc)) {
 		siege.value = parseInt(siege.value) + 1;
+	}
+}
+
+function incrementerQuantite(index,inc) {
+	var quantite = document.getElementById("quantite"+index);
+	if ((parseInt(quantite.value) > 0) && !(inc)) {
+		quantite.value = parseInt(quantite.value) - 1;
+	} else if ((parseInt(quantite.value) < 20) && (inc)) {
+		quantite.value = parseInt(quantite.value) + 1;
 	}
 }
 
@@ -173,9 +186,16 @@ function ajouterFacture(id) {
 
 // début de la création du menu dans le DOM.
 
-function creerSectionMenu(index,text) {
+function creerSectionMenu(index) {
 	var ligne = document.createElement("LI");
 	ligne.className = "section";
+	ligne.id = ligne.className + index;
+	return ligne;
+}
+
+function creerTitreSectionMenu(index,text) {
+	var ligne = document.createElement("H3");
+	ligne.className = "section_titre";
 	ligne.id = ligne.className + index;
 	ligne.textContent = text;
 	return ligne;
@@ -233,7 +253,8 @@ function creerInputQuantiteMenu(index){
 }
 
 function construireMenu(menuXML) {
-	section = creerSectionMenu(0,"poissons");
+	section = creerSectionMenu(0);
+	titre = creerTitreSectionMenu(0,"Poissons");
 	divItem = creerDivItem(0);
 	menuItem = creerTitreItem(0,"truite");
 	espace = creerEspaceItem(0);
@@ -248,9 +269,22 @@ function construireMenu(menuXML) {
 	divItem.appendChild(menuItem);
 	divItem.appendChild(espace);
 	divItem.appendChild(divBoutons);
+	section.appendChild(titre);
 	section.appendChild(divItem);
 	listeMenu.appendChild(section);
-	alert(menuXML);
+	titre.addEventListener("click",function(e) {
+		e.preventDefault();
+		ouvrirSection(e.currentTarget.id);
+	}, false);
+	btnPlus.addEventListener("click",function(e) {
+		e.preventDefault();
+		incrementerQuantite(e.currentTarget.id.substring(13),true);
+	}, false);
+	btnMoins.addEventListener("click",function(e) {
+		e.preventDefault();
+		incrementerQuantite(e.currentTarget.id.substring(14),false);
+	}, false);
+	//alert(menuXML);
 }
 
 // fin de la création du menu dans le DOM.
