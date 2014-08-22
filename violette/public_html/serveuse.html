@@ -22,7 +22,7 @@ and open the template in the editor.
         <script type="text/javascript" src="js/main.js"></script>
         
      </head>
-    <body>
+    <body onload="requeteMenu();">
         <div class="page" id="page_tables" style="display:block">
             <!-- ul class="liste" id="liste_tables" data-role="listview" data-inset="true" data-theme="d" data-divider-theme="e" data-count-theme="b" -->
             <ul class="liste" id="liste_tables">
@@ -139,8 +139,8 @@ and open the template in the editor.
                 <li class="section" id="boissons">Boissons</li>
                 <li class="section" id="a_cotes">&Agrave; C&ocirc;t&eacute;s</li>
             </ul>
-            <button class="btn_bar" id="btn_retour"> &lsaquo; </button>
-            <button class="btn_bar" id="btn_facture">Facture</button>
+            <button class="btn_bar" id="btn_retour" onclick="gererVisibilite(['block','none','none','none']);"> &lsaquo; </button>
+            <button class="btn_bar" id="btn_facture" onclick="gererVisibilite(['none','none','none','block']);">Facture</button>
             <button class="btn_bar" id="btn_commande_plus"> + </button>
         </div>
         <div class="page" id="page_confirme_commande" style="display:none">
@@ -163,9 +163,9 @@ and open the template in the editor.
                     <button class="btn_item_pret" id="btn_item_commande_3" onclick="retirerItem('btn_item_commande_3');"> X </button>
                 </div>
             </div>
-            <button class="btn_bar" id="btn_retour"> &lsaquo; </button>
+            <button class="btn_bar" id="btn_retour" onclick="gererVisibilite(['none','block','none','none']);"> &lsaquo; </button>
             <button class="btn_bar" id="btn_cuisine">Cuisine</button>
-            <button class="btn_bar" id="btn_facture">Facture</button>
+            <button class="btn_bar" id="btn_facture" onclick="gererVisibilite(['none','none','none','block']);">Facture</button>
         </div>
         <div class="page" id="page_facture" style="display:none">
             <div class="entete_facture" id="entete_facture_1">
@@ -206,7 +206,7 @@ and open the template in the editor.
                 <p class="taxes" id="tps">TPS	0.70 $</p>
                 <p class="ligne_total" id="ligne_total_1">TOTAL	15.68 $</p>
             </div>
-            <button class="btn_bar" id="btn_retour"> &lsaquo; </button>
+            <button class="btn_bar" id="btn_retour" onclick="gererVisibilite(['none','none','block','none']);"> &lsaquo; </button>
             <button class="btn_bar" id="btn_facture_payee">Pay&eacute;e</button>
         </div>
     </body>

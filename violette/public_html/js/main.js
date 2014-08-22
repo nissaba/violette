@@ -71,7 +71,7 @@ function incrementerSiege(facture,inc) {
 }
 
 function creerFacture(id) {
-	gererVisibilite(["none","block","none"]);
+	gererVisibilite(["none","block","none","none"]);
 }
 
 // début de la création d'un élément facture dans le DOM.
@@ -171,6 +171,14 @@ function ajouterFacture(id) {
 
 // fin de la création d'un élément facture dans le DOM.
 
+// début de la création du menu dans le DOM.
+
+function construireMenu(menuXML) {
+	alert(menuXML);
+}
+
+// fin de la création du menu dans le DOM.
+
 /*
  * Function pour la requête au serveur pour vérifier l'employé accédant à 
  * l'application et charge le bon HTML selon la fonction de l'employé.
@@ -213,7 +221,16 @@ function requeteLogin() {
 }
 
 function requeteMenu() {
-	alert(blabla);
+	$.ajax({
+		url: SERVER_PATH + "menu.php",
+		type: 'GET',
+		async: false,
+		datatype: 'xml',
+		success: function (response) {
+			construireMenu(response);
+		},
+		error: function (response) {  }
+    });
 }
 /*
 <table class="barre_facture" id='facture1'>
