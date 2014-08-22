@@ -5,8 +5,15 @@
  */
  
 var blabla = "bli bli",
-	factureSession = 0;
- 
+	factureSession = 0,
+	//chemins différents selon l'environnement de travail avec easyPHP
+	//SERVER_PATH = "http://127.0.0.1:8888/violette-gh-pages/violette/public_html/;
+	SERVER_PATH = "http://127.0.0.1/projects/projet_final/";
+
+ /*
+  * Function qui permet de gérer les pages de l'interface serveuse.html.
+  * Elle reçoit un tableau de valeurs assigné au display des différentes pages.
+  */
 function gererVisibilite(pageVisible) {
 	var pages = document.getElementsByClassName("page");
 	for (var i = 0; i < pages.length; i++) {
@@ -14,33 +21,46 @@ function gererVisibilite(pageVisible) {
 	}
 }
 
-function ouvrirTable(id) {
-	var valeur = parseInt(document.getElementById("pastille_" + id).innerHTML),
-		table = document.getElementById(id);
+/*
+ * Function qui gere le "collapse/expand" d'une table.
+ * Elle vérifie la valeur de la pastille, pour ainsi trouver
+ * les factures associées à cette table, puis affecte le display
+ * de celles-ci selon le cas.
+ */
+function ouvrirTable(tableId) {
+	var valeur = parseInt(document.getElementById("pastille_" + tableId).innerHTML),
+		table = document.getElementById(tableId),
+		visibilite;
 	if (valeur > 0) {
 		factures = table.getElementsByClassName("barre_facture");
+		visibilite = (factures[0].style.display === "none")?"block":"none";
 		for (var i = 0; i < factures.length; i++) {
-			if (factures[0].style.display === "none") {
-				factures[i].style.display = "block";
-			} else {
-				factures[i].style.display = "none";
-			}
+			factures[i].style.display = visibilite;
 		}
 	}
 }
 
+/*
+ * Function pour incrémenter/décrémenter (selon inc) la valeur numérique
+ * dans la pastille à la table passer en paramètre. La pastille ne sera
+ * affichée seulement si elle contient une valeur plus grande que zéro.
+ */
 function incrementerPastille(table,inc) {
-	var pastille = document.getElementById("pastille_"+table.id),
-		valeur = parseInt(pastille.textContent);
+	var textePastille = document.getElementById("pastille_"+table.id),
+		valeur = parseInt(textePastille.textContent);
 	valeur += inc;
 	if (valeur > 0) {
-			pastille.parentNode.style.display = "inline";
+			textePastille.parentNode.style.display = "inline";
 		} else {
-			pastille.parentNode.style.display = "none";
+			textePastille.parentNode.style.display = "none";
 		}
-	pastille.innerHTML = " " + valeur + " ";
+	textePastille.innerHTML = " " + valeur + " ";
 }
 
+/*
+ * Function pour la sélection du siège payant pour une facture donnée.
+ * Ici inc est un boolean pour incrémenter/décrémenter.
+ */
 function incrementerSiege(facture,inc) {
 	var siege = document.getElementById("siege"+facture);
 	if ((parseInt(siege.value) > 1) && !(inc)) {
@@ -54,12 +74,110 @@ function creerFacture(id) {
 	gererVisibilite(["none","block","none"]);
 }
 
- /*le url ici fait référence au localhost, si tout le projet est sur localhost pas besoin de CORS*/
-function requeteServeur() {
-	//chemins différents selon l'environnement de travail avec easyPHP
-	//var SERVER_PATH = "http://127.0.0.1:8888/violette-gh-pages/violette/public_html/;
-	var SERVER_PATH = "http://127.0.0.1/projects/projet_final/",
-		passwd = document.getElementById("passwd").value,
+// début de la création d'un élément facture dans le DOM.
+
+function creerTableFacture() {
+	var facture = document.createElement("TABLE"), 
+		factureStyle = document.createElement("STYLE");
+	facture.className = "barre_facture";
+	facture.id = "facture_" + factureSession;
+	factureStyle.property = "display";
+	factureStyle.display = "block";
+	facture.appendChild(factureStyle);
+	return facture;
+}
+
+function creerLignefacture(factureId) {
+	var ligne = document.createElement("TR");
+	ligne.className = "ligne_tableau";
+	ligne.id = ligne.className + factureId;
+	return ligne;
+}
+
+function creerNomFacture(factureId) {
+	var nom = document.createElement("TD");
+	nom.className = "nom_facture";
+	nom.id = "nom_" + factureId;
+	nom.innerHTML = factureId.replace("_", " ");
+	return nom;
+}
+
+function creerEspaceFacture(factureId) {
+	var espace = document.createElement("TD");
+	espace.className = "espace";
+	espace.id = "espace_btn_" + factureId;
+	return espace;
+}
+
+function creerBoutonIncrementFacture(factureId,isPlus) {
+	var bouton = document.createElement("BUTTON");
+	bouton.className = (isPlus)?"btn_plus":"btn_moins";
+	bouton.id = bouton.className + factureId;
+	bouton.innerHTML = (isPlus)?" + ":" - ";
+	return bouton;
+}
+
+function creerInputSiegeFacture(factureId){
+	var siege = document.createElement("INPUT");
+	siege.setAttribute("type", "text");
+	siege.required = true;
+	siege.disabled = true;
+	siege.defaultValue = 1;
+	siege.className = "siege";
+	siege.id = siege.className+factureId;
+	return siege;
+}
+
+function ajouterFacture(id) {
+	var liTable = document.getElementById(id).parentNode,
+		td = document.createElement("TD");
+	factures = liTable.getElementsByClassName("barre_facture");
+	if (factures.length > 0) {
+		if (factures[0].style.display === "none") {
+			ouvrirTable(liTable.id);
+		}
+	}
+	factureSession++;
+	facture = creerTableFacture();
+	ligne = creerLignefacture(facture.id);
+	nom = creerNomFacture(facture.id);
+	btnMoins = creerBoutonIncrementFacture(facture.id,false);
+	btnPlus = creerBoutonIncrementFacture(facture.id,true);
+	td.appendChild(btnMoins);
+	td.appendChild(creerInputSiegeFacture(facture.id));
+	td.appendChild(btnPlus);
+	ligne.appendChild(nom);
+	ligne.appendChild(creerEspaceFacture(facture.id));
+	ligne.appendChild(td);
+	facture.appendChild(ligne);
+	liTable.appendChild(facture);
+	incrementerPastille(liTable,1);
+	nom.addEventListener("click",function(e) {
+		e.preventDefault();
+		msg = e.currentTarget.id;
+		creerFacture(msg);
+	}, false);
+	btnPlus.addEventListener("click",function(e) {
+		e.preventDefault();
+		msg = e.currentTarget.id.substring(8);
+		incrementerSiege(msg,true);
+	}, false);
+	btnMoins.addEventListener("click",function(e) {
+		e.preventDefault();
+		msg = e.currentTarget.id.substring(9);
+		incrementerSiege(msg,false);
+	}, false);
+}
+
+// fin de la création d'un élément facture dans le DOM.
+
+/*
+ * Function pour la requête au serveur pour vérifier l'employé accédant à 
+ * l'application et charge le bon HTML selon la fonction de l'employé.
+ * le url ici fait référence au localhost, si tout le projet est sur localhost pas besoin de CORS
+ */
+function requeteLogin() {
+	var	passwd = document.getElementById("passwd").value,
 		user = document.getElementById("user").value,
 		hash = Sha1.hash(passwd);
 	$.ajax({
@@ -97,70 +215,6 @@ function requeteServeur() {
 function requeteMenu() {
 	alert(blabla);
 }
-
-function ajouterFacture(id) {
-	var liTable = document.getElementById(id).parentNode,
-		facture = document.createElement("TABLE"),
-		ligne = document.createElement("TR"),
-		nom = document.createElement("TD"),
-		espace = document.createElement("TD"),
-		td = document.createElement("TD"),
-		btnMoins = document.createElement("BUTTON"),
-		siege = document.createElement("INPUT"),
-		btnPlus = document.createElement("BUTTON"),
-		factureStyle = document.createElement("STYLE");
-	//ouvrirTable(liTable.id);
-	factureSession++;
-	facture.className = "barre_facture";
-	facture.id = "facture_" + factureSession;
-	factureStyle.property = "display";
-	factureStyle.display = "block";
-	facture.appendChild(factureStyle);
-	ligne.className = "ligne_tableau";
-	ligne.id = ligne.className + facture.id;
-	nom.className = "nom_facture";
-	nom.id = "nom_" + facture.id;
-	nom.innerHTML = facture.id.replace("_", " ");
-	espace.className = "espace";
-	espace.id = "espace_btn_" + facture.id;
-	btnMoins.className = "btn_moins";
-	btnMoins.id = btnMoins.className + facture.id;
-	btnMoins.innerHTML = " - ";
-	siege.setAttribute("type", "text");
-	siege.required = true;
-	siege.disabled = true;
-	siege.defaultValue = 1;
-	siege.className = "siege";
-	siege.id = siege.className+facture.id;
-	btnPlus.className = "btn_plus";
-	btnPlus.id = btnPlus.className + facture.id;
-	btnPlus.innerHTML = " + ";
-	td.appendChild(btnMoins);
-	td.appendChild(siege);
-	td.appendChild(btnPlus);
-	ligne.appendChild(nom);
-	ligne.appendChild(espace);
-	ligne.appendChild(td);
-	facture.appendChild(ligne);
-	liTable.appendChild(facture);
-	incrementerPastille(liTable,1);
-	nom.addEventListener("click",function(e) {
-		e.preventDefault();
-		msg = e.currentTarget.id;
-		creerFacture(msg);
-	}, false);
-	btnPlus.addEventListener("click",function(e) {
-		e.preventDefault();
-		msg = e.currentTarget.id.substring(8);
-		incrementerSiege(msg,true);
-	}, false);
-	btnMoins.addEventListener("click",function(e) {
-		e.preventDefault();
-		msg = e.currentTarget.id.substring(9);
-		incrementerSiege(msg,false);
-	}, false);
-}
- 
 /*
 <table class="barre_facture" id='facture1'>
 	<tr class="ligne_tableau" id="ligne_tableau_facture_1">
