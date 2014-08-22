@@ -13,15 +13,30 @@ function gererVisibilite(pageVisible) {
 		pages[i].style.display = pageVisible[i];
 	}
 }
- 
+
+function ouvrirTable(id) {
+	var valeur = parseInt(document.getElementById("pastille_" + id).innerHTML),
+		table = document.getElementById(id);
+	if (valeur > 0) {
+		factures = table.getElementsByClassName("barre_facture");
+		for (var i = 0; i < factures.length; i++) {
+			if (factures[0].style.display === "none") {
+				factures[i].style.display = "block";
+			} else {
+				factures[i].style.display = "none";
+			}
+		}
+	}
+}
+
 function incrementerPastille(table,inc) {
-	var pastille = document.getElementById("cercle_"+table.id.substring(6)),
+	var pastille = document.getElementById("pastille_"+table.id),
 		valeur = parseInt(pastille.textContent);
 	valeur += inc;
 	if (valeur > 0) {
-			pastille.style.display = "inline";
+			pastille.parentNode.style.display = "inline";
 		} else {
-			pastille.style.display = "none";
+			pastille.parentNode.style.display = "none";
 		}
 	pastille.innerHTML = " " + valeur + " ";
 }
@@ -79,6 +94,10 @@ function requeteServeur() {
 	return false;
 }
 
+function requeteMenu() {
+	alert(blabla);
+}
+
 function ajouterFacture(id) {
 	var liTable = document.getElementById(id).parentNode,
 		facture = document.createElement("TABLE"),
@@ -88,10 +107,15 @@ function ajouterFacture(id) {
 		td = document.createElement("TD"),
 		btnMoins = document.createElement("BUTTON"),
 		siege = document.createElement("INPUT"),
-		btnPlus = document.createElement("BUTTON");
+		btnPlus = document.createElement("BUTTON"),
+		factureStyle = document.createElement("STYLE");
+	//ouvrirTable(liTable.id);
 	factureSession++;
 	facture.className = "barre_facture";
 	facture.id = "facture_" + factureSession;
+	factureStyle.property = "display";
+	factureStyle.display = "block";
+	facture.appendChild(factureStyle);
 	ligne.className = "ligne_tableau";
 	ligne.id = ligne.className + facture.id;
 	nom.className = "nom_facture";
@@ -136,12 +160,7 @@ function ajouterFacture(id) {
 		incrementerSiege(msg,false);
 	}, false);
 }
-
-function ouvrirTable(id) {
-	var table = document.getElementById(id);
-	alert(table.id);
-}
-
+ 
 /*
 <table class="barre_facture" id='facture1'>
 	<tr class="ligne_tableau" id="ligne_tableau_facture_1">
