@@ -8,24 +8,29 @@ var blabla = "bli bli",
 	//chemins différents selon l'environnement de travail avec easyPHP
 	//SERVER_PATH = "http://127.0.0.1:8888/violette/public_html/";
 	SERVER_PATH = "http://127.0.0.1/projects/projet_final/public_html/",
+	employeId,
 	factureSession = 0,
+	factures = [],
 	tableOuverte = "null";
 
-// Objet facture
+// Objet Facture
+
+function Facture(id) {
+	this.factureId = id;
+	this.employeId = employeId;
+	this.commandes = [];
+}
+
 // Objet commande
 // Objet LigneCommande
-
-function ligneCommande(factureId) {
-	this.factureId = factureId;	
-}
 
  /*
   * Function qui permet de gérer les pages de l'interface serveuse.html.
   * Elle reçoit un tableau de valeurs assigné au display des différentes pages.
   */
 function gererVisibilite(pageVisible) {
-	var pages = document.getElementsByClassName("page");
-	for (var i = 0; i < pages.length; i++) {
+	var pages = document.getElementsByClassName("page"), i;
+	for (i = 0; i < pages.length; i++) {
 		pages[i].style.display = pageVisible[i];
 	}
 }
@@ -39,17 +44,18 @@ function gererVisibilite(pageVisible) {
 function ouvrirTable(tableId) {
 	var valeur = parseInt(document.getElementById("pastille_" + tableId).innerHTML),
 		table = document.getElementById(tableId),
+		i,
 		visibilite;
 	if (valeur > 0) {
-		if ((tableOuverte !== tableId) && (tableOuverte !== "null")){
+		if ((tableOuverte !== tableId) && (tableOuverte !== "null")) {
 			ouvrirTable(tableOuverte);
 		}
 		factures = table.getElementsByClassName("barre_facture");
-		visibilite = (factures[0].style.display === "none")?"block":"none";
-		for (var i = 0; i < factures.length; i++) {
+		visibilite = (factures[0].style.display === "none") ? "block" : "none";
+		for (i = 0; i < factures.length; i++) {
 			factures[i].style.display = visibilite;
 		}
-		tableOuverte = (visibilite === "block")?tableId:"null";
+		tableOuverte = (visibilite === "block") ? tableId : "null";
 	}
 }
 
@@ -59,10 +65,11 @@ function ouvrirTable(tableId) {
  */
 function ouvrirSection(sectionId) {
 	var section = document.getElementById(sectionId),
-		visibilite;
+		visibilite,
+		i;
 	menuItems = section.getElementsByClassName("barre_item");
-	visibilite = (menuItems[0].style.display === "none")?"block":"none";
-	for (var i = 0; i < menuItems.length; i++) {
+	visibilite = (menuItems[0].style.display === "none") ? "block" : "none";
+	for (i = 0; i < menuItems.length; i++) {
 		menuItems[i].style.display = visibilite;
 	}
 }
@@ -72,15 +79,15 @@ function ouvrirSection(sectionId) {
  * dans la pastille à la table passer en paramètre. La pastille ne sera
  * affichée seulement si elle contient une valeur plus grande que zéro.
  */
-function incrementerPastille(table,inc) {
-	var textePastille = document.getElementById("pastille_"+table.id),
+function incrementerPastille(table, inc) {
+	var textePastille = document.getElementById("pastille_" + table.id),
 		valeur = parseInt(textePastille.textContent);
 	valeur += inc;
 	if (valeur > 0) {
-			textePastille.parentNode.style.display = "inline";
-		} else {
-			textePastille.parentNode.style.display = "none";
-		}
+		textePastille.parentNode.style.display = "inline";
+	} else {
+		textePastille.parentNode.style.display = "none";
+	}
 	textePastille.innerHTML = " " + valeur + " ";
 }
 
@@ -89,7 +96,7 @@ function incrementerPastille(table,inc) {
  * Ici inc est un boolean pour incrémenter/décrémenter.
  */
 function incrementerSiege(facture,inc) {
-	var siege = document.getElementById("siege"+facture);
+	var siege = document.getElementById("siege" + facture);
 	if ((parseInt(siege.value) > 1) && !(inc)) {
 		siege.value = parseInt(siege.value) - 1;
 	} else if ((parseInt(siege.value) < 20) && (inc)) {
@@ -97,7 +104,7 @@ function incrementerSiege(facture,inc) {
 	}
 }
 
-function incrementerQuantite(index,inc) {
+function incrementerQuantite(index, inc) {
 	var quantite = document.getElementById("quantite"+index);
 	if ((parseInt(quantite.value) > 0) && !(inc)) {
 		quantite.value = parseInt(quantite.value) - 1;
@@ -106,9 +113,11 @@ function incrementerQuantite(index,inc) {
 	}
 }
 
-function creerFacture() {
-	gererVisibilite(["none","block","none","none"]);
-	
+function creerFacture(id) {
+	gererVisibilite(["none", "block", "none", "none"]);
+	var fact = new Facture(id);
+	factures.push(fact);
+	message(factures.length + " : " + factures[0]);
 }
 
 // début de la création d'un élément facture dans le DOM.
@@ -135,6 +144,7 @@ function creerNomFacture(factureId) {
 	var nom = document.createElement("TD");
 	nom.className = "nom_facture";
 	nom.id = "nom_" + factureId;
+	nom.setAttribute("facture_id",factureId.substring(8));
 	nom.innerHTML = factureId.replace("_", " ");
 	return nom;
 }
@@ -191,7 +201,7 @@ function ajouterFacture(id) {
 	incrementerPastille(liTable,1);
 	nom.addEventListener("click",function(e) {
 		e.preventDefault();
-		creerFacture();
+		creerFacture(e.currentTarget.getAttribute("facture_id"));
 	}, false);
 	btnPlus.addEventListener("click",function(e) {
 		e.preventDefault();
@@ -322,6 +332,18 @@ function construireMenu(menuXML) {
 	}
 }
 
+function message(msg) {
+	boite = document.createElement("DIV");
+	boite.className = "message";
+	boite.textContent = msg;
+	document.getElementById("serveuse").appendChild(boite);
+	boite.addEventListener("click",function(e) {
+		e.preventDefault();
+		body = document.getElementById("serveuse");
+		body.removeChild(body.lastChild);
+	}, false);
+}
+
 // fin de la création du menu dans le DOM.
 
 /*
@@ -379,12 +401,3 @@ function requeteMenu() {
     });
 	return false;
 }
-/*
-<table class="barre_facture" id='facture1'>
-	<tr class="ligne_tableau" id="ligne_tableau_facture_1">
-		<td class="nom_facture" id="nom_facture_1">Facture 1</td>
-		<td class="espace" id="espace_btn_facture_1"></td>
-		<td><button class="btn_moins"> - </button><input type="text" class="increment_siege"/><button class="btn_plus"> + </button></td>
-	</tr>
-</table>
-*/
