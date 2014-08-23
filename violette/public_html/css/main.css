@@ -131,7 +131,7 @@ tr{
 }
 
 .td_increment{ 
-	width: 45%;
+	width: 40%;
 }
 /*.numero_table{
     width: 80%;
@@ -266,6 +266,10 @@ width: 50%;
 .btn_moins {
 	padding: 5px 10px;
 	font-size: 1.0em;
+}
+
+#btn_quitter{
+	width:75%;
 }
 
 	[class*='btn_']:hover {

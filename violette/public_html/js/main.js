@@ -5,10 +5,11 @@
  */
  
 var blabla = "bli bli",
-	factureSession = 0,
 	//chemins différents selon l'environnement de travail avec easyPHP
 	//SERVER_PATH = "http://127.0.0.1:8888/violette/public_html/";
-	SERVER_PATH = "http://127.0.0.1/projects/projet_final/public_html/";
+	SERVER_PATH = "http://127.0.0.1/projects/projet_final/public_html/",
+	factureSession = 0,
+	tableOuverte = "null";
 
 // Objet facture
 	
@@ -35,11 +36,15 @@ function ouvrirTable(tableId) {
 		table = document.getElementById(tableId),
 		visibilite;
 	if (valeur > 0) {
+		if ((tableOuverte !== tableId) && (tableOuverte !== "null")){
+			ouvrirTable(tableOuverte);
+		}
 		factures = table.getElementsByClassName("barre_facture");
 		visibilite = (factures[0].style.display === "none")?"block":"none";
 		for (var i = 0; i < factures.length; i++) {
 			factures[i].style.display = visibilite;
 		}
+		tableOuverte = (visibilite === "block")?tableId:"null";
 	}
 }
 
@@ -158,12 +163,11 @@ function ajouterFacture(id) {
 	var liTable = document.getElementById(id).parentNode,
 		td = document.createElement("TD");
 		td.className = "td_increment";
-	factures = liTable.getElementsByClassName("barre_facture");
-	if (factures.length > 0) {
-		if (factures[0].style.display === "none") {
-			ouvrirTable(liTable.id);
-		}
+
+	if ((tableOuverte !== liTable.id) && (tableOuverte !== "null")) {
+		ouvrirTable(tableOuverte);
 	}
+	tableOuverte = liTable.id;
 	factureSession++;
 	facture = creerTableFacture();
 	ligne = creerLignefacture(facture.id);
