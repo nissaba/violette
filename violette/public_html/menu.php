@@ -1,5 +1,7 @@
 <?php
-
+header('Access-Control-Allow-Origin:*');
+header('Access-Control-Allow-Credentials: true');
+header('Content-type: text/xml');
 include_once("config.php");
 
 

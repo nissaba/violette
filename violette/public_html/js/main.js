@@ -7,9 +7,12 @@
 var blabla = "bli bli",
 	factureSession = 0,
 	//chemins différents selon l'environnement de travail avec easyPHP
-	SERVER_PATH = "http://127.0.0.1:8888/violette/public_html/";
-	//SERVER_PATH = "http://127.0.0.1/projects/projet_final/";
+	//SERVER_PATH = "http://127.0.0.1:8888/violette/public_html/";
+	SERVER_PATH = "http://127.0.0.1/projects/projet_final/public_html/";
 
+// Objet facture
+	
+	
  /*
   * Function qui permet de gérer les pages de l'interface serveuse.html.
   * Elle reçoit un tableau de valeurs assigné au display des différentes pages.
@@ -40,6 +43,10 @@ function ouvrirTable(tableId) {
 	}
 }
 
+/* Function qui gere le "collapse/expand" d'une section du 
+ * menu.  C'est le div "barre_item" qui est le parent des éléments
+ * du menu.
+ */
 function ouvrirSection(sectionId) {
 	var section = document.getElementById(sectionId),
 		visibilite;
@@ -359,7 +366,7 @@ function requeteMenu() {
 		success: function (response) {
 			construireMenu(response);
 		},
-		error: function (response) { return alert("erreur"); }
+		error: function (response) { return alert("erreur : " + response.responseText); }
     });
 	return false;
 }
