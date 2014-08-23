@@ -358,7 +358,7 @@ function requeteLogin() {
 
 //TODO: modifier error
 function requeteMenu() {
-	$.ajax({
+/* 	$.ajax({
 		url: SERVER_PATH + "menu.php",
 		type: 'POST',
 		async: false,
@@ -367,7 +367,7 @@ function requeteMenu() {
 			construireMenu(response);
 		},
 		error: function (response) { return alert("erreur : " + response.responseText); }
-    });
+    }); */
 	return false;
 }
 /*
