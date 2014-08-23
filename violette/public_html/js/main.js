@@ -7,8 +7,8 @@
 var blabla = "bli bli",
 	factureSession = 0,
 	//chemins différents selon l'environnement de travail avec easyPHP
-	//SERVER_PATH = "http://127.0.0.1:8888/violette-gh-pages/violette/public_html/;
-	SERVER_PATH = "http://127.0.0.1/projects/projet_final/";
+	SERVER_PATH = "http://127.0.0.1:8888/violette/public_html/";
+	//SERVER_PATH = "http://127.0.0.1/projects/projet_final/";
 
  /*
   * Function qui permet de gérer les pages de l'interface serveuse.html.
@@ -41,7 +41,13 @@ function ouvrirTable(tableId) {
 }
 
 function ouvrirSection(sectionId) {
-	alert(blabla);
+	var section = document.getElementById(sectionId),
+		visibilite;
+	menuItems = section.getElementsByClassName("barre_item");
+	visibilite = (menuItems[0].style.display === "none")?"block":"none";
+	for (var i = 0; i < menuItems.length; i++) {
+		menuItems[i].style.display = visibilite;
+	}
 }
 
 /*
@@ -144,6 +150,7 @@ function creerInputSiegeFacture(factureId){
 function ajouterFacture(id) {
 	var liTable = document.getElementById(id).parentNode,
 		td = document.createElement("TD");
+		td.className = "td_increment";
 	factures = liTable.getElementsByClassName("barre_facture");
 	if (factures.length > 0) {
 		if (factures[0].style.display === "none") {
@@ -207,7 +214,7 @@ function creerDivItem(index) {
 	ligne.className = "barre_item";
 	ligne.id = ligne.className + index;
 	ligneStyle.property = "display";
-	ligneStyle.display = "block";
+	ligneStyle.display = "none";
 	ligne.appendChild(ligneStyle);
 	return ligne;	
 }
@@ -253,38 +260,50 @@ function creerInputQuantiteMenu(index){
 }
 
 function construireMenu(menuXML) {
-	section = creerSectionMenu(0);
-	titre = creerTitreSectionMenu(0,"Poissons");
-	divItem = creerDivItem(0);
-	menuItem = creerTitreItem(0,"truite");
-	espace = creerEspaceItem(0);
-	divBoutons = creerDivBoutons(0);
-	btnMoins = creerBoutonIncrementMenu(0,false);
-	quantite = creerInputQuantiteMenu(0);
-	btnPlus = creerBoutonIncrementMenu(0,true);
-	listeMenu = document.getElementById("liste_menu_sections");
-	divBoutons.appendChild(btnMoins);
-	divBoutons.appendChild(quantite);
-	divBoutons.appendChild(btnPlus);
-	divItem.appendChild(menuItem);
-	divItem.appendChild(espace);
-	divItem.appendChild(divBoutons);
-	section.appendChild(titre);
-	section.appendChild(divItem);
-	listeMenu.appendChild(section);
-	titre.addEventListener("click",function(e) {
-		e.preventDefault();
-		ouvrirSection(e.currentTarget.id);
-	}, false);
-	btnPlus.addEventListener("click",function(e) {
-		e.preventDefault();
-		incrementerQuantite(e.currentTarget.id.substring(13),true);
-	}, false);
-	btnMoins.addEventListener("click",function(e) {
-		e.preventDefault();
-		incrementerQuantite(e.currentTarget.id.substring(14),false);
-	}, false);
-	//alert(menuXML);
+	var sections = menuXML.getElementsByTagName("section"),
+		listeMenu = document.getElementById("liste_menu_sections");
+	for(var i = 0; i < sections.length; i++) {
+		section = creerSectionMenu(i);
+		titre = creerTitreSectionMenu(i,sections[i].getAttribute("nom"));
+		items = sections[i].getElementsByTagName("item");
+		section.appendChild(titre);
+		for(var j = 0; j < items.length; j++) {
+			id = items[j].firstChild.nextSibling;
+			textItem = id.nextSibling.nextSibling;
+			descItem = textItem.nextSibling.nextSibling;
+			textItem.setAttribute("description",descItem.textContent);
+			prixItem = descItem.nextSibling.nextSibling;
+			textItem.setAttribute("prix",prixItem.textContent);
+			divItem = creerDivItem(id);
+			menuItem = creerTitreItem(id.textContent,textItem.textContent);
+			espace = creerEspaceItem(id.textContent);
+			divBoutons = creerDivBoutons(id.textContent);
+			btnMoins = creerBoutonIncrementMenu(id.textContent,false);
+			quantite = creerInputQuantiteMenu(id.textContent);
+			btnPlus = creerBoutonIncrementMenu(id.textContent,true);
+			divBoutons.appendChild(btnMoins);
+			divBoutons.appendChild(quantite);
+			divBoutons.appendChild(btnPlus);
+			divItem.appendChild(menuItem);
+			divItem.appendChild(espace);
+			divItem.appendChild(divBoutons);
+			section.appendChild(divItem);
+			btnPlus.addEventListener("click",function(e) {
+				e.preventDefault();
+				incrementerQuantite(e.currentTarget.id.substring(13),true);
+			}, false);
+			btnMoins.addEventListener("click",function(e) {
+				e.preventDefault();
+				incrementerQuantite(e.currentTarget.id.substring(14),false);
+			}, false);
+		}
+		listeMenu.appendChild(section);
+		titre.addEventListener("click",function(e) {
+			e.preventDefault();
+			ouvrirSection(e.currentTarget.parentNode.id);
+		}, false);
+		ouvrirSection(section.id);
+	}
 }
 
 // fin de la création du menu dans le DOM.
@@ -334,13 +353,13 @@ function requeteLogin() {
 function requeteMenu() {
 	$.ajax({
 		url: SERVER_PATH + "menu.php",
-		type: 'GET',
+		type: 'POST',
 		async: false,
 		datatype: 'xml',
 		success: function (response) {
 			construireMenu(response);
 		},
-		error: function (response) { construireMenu(0); }
+		error: function (response) { return alert("erreur"); }
     });
 	return false;
 }
