@@ -12,8 +12,13 @@ var blabla = "bli bli",
 	tableOuverte = "null";
 
 // Objet facture
-	
-	
+// Objet commande
+// Objet LigneCommande
+
+function ligneCommande(factureId) {
+	this.factureId = factureId;	
+}
+
  /*
   * Function qui permet de gérer les pages de l'interface serveuse.html.
   * Elle reçoit un tableau de valeurs assigné au display des différentes pages.
@@ -101,8 +106,9 @@ function incrementerQuantite(index,inc) {
 	}
 }
 
-function creerFacture(id) {
+function creerFacture() {
 	gererVisibilite(["none","block","none","none"]);
+	
 }
 
 // début de la création d'un élément facture dans le DOM.
@@ -185,8 +191,7 @@ function ajouterFacture(id) {
 	incrementerPastille(liTable,1);
 	nom.addEventListener("click",function(e) {
 		e.preventDefault();
-		msg = e.currentTarget.id;
-		creerFacture(msg);
+		creerFacture();
 	}, false);
 	btnPlus.addEventListener("click",function(e) {
 		e.preventDefault();
