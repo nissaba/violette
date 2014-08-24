@@ -8,21 +8,44 @@ var blabla = "bli bli",
 	//chemins différents selon l'environnement de travail avec easyPHP
 	//SERVER_PATH = "http://127.0.0.1:8888/violette/public_html/";
 	SERVER_PATH = "http://127.0.0.1/projects/projet_final/public_html/",
-	employeId,
+	// DOM cache
+	employeId = 3,
 	factureSession = 0,
 	factures = [],
 	tableOuverte = "null";
 
 // Objet Facture
 
-function Facture(id) {
-	this.factureId = id;
+function Facture(factureId,numeroTable,siege,date) {
+	this.factureId = factureId;
 	this.employeId = employeId;
+	this.numeroTable = numeroTable;
+	this.siege = siege;
+	this.date = date;
 	this.commandes = [];
 }
 
 // Objet commande
+
+function Commande() {
+	this.ligneCommandes = [];
+}
 // Objet LigneCommande
+
+function LigneCommande(menuItemId,quantite) {
+	this.menuItemId = menuItemId;
+	this.quantite = quantite;
+}
+
+function creerFacture(id) {
+	gererVisibilite(["none", "block", "none", "none"]);
+	numeroTable = document.getElementById("facture_"+id).parentNode.id.substring(6);
+	siege = document.getElementById("siegefacture_"+id).value;
+	date = 24;
+	var facture = new Facture(id,numeroTable,siege,date);
+	factures[factures.length] = facture;
+	message(factures.length + " : " + factures[0].factureId + " : " + factures[0].employeId + " : " + factures[0].numeroTable + " : " + factures[0].siege + " : " +factures[0].date);
+}
 
  /*
   * Function qui permet de gérer les pages de l'interface serveuse.html.
@@ -111,13 +134,6 @@ function incrementerQuantite(index, inc) {
 	} else if ((parseInt(quantite.value) < 20) && (inc)) {
 		quantite.value = parseInt(quantite.value) + 1;
 	}
-}
-
-function creerFacture(id) {
-	gererVisibilite(["none", "block", "none", "none"]);
-	var fact = new Facture(id);
-	factures.push(fact);
-	message(factures.length + " : " + factures[0]);
 }
 
 // début de la création d'un élément facture dans le DOM.
