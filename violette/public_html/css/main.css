@@ -27,8 +27,6 @@ and open the template in the editor.
 }
 
 body {
-	
-	/*background-image: url("restauranti.jpg");*/
     background-color: #FFEDD0;
 	background-position: center center;
 	background-repeat: no-repeat;
@@ -36,10 +34,10 @@ body {
 	font-family: "Open Sans", Arial, Helvetica, Geneva, sans-serif;
 	font-size: 16px;
 	font-weight: 400;
-	/*height: auto !important;
-	height: 100%;*/
+	height: auto !important;
+	height: 100%;
 	line-height: 1.6em;
-	/*min-height: 100%;*/
+	min-height: 100%;
 	width: 100%;
 	color: #2E1C08;
 }
@@ -47,12 +45,8 @@ body {
         border-bottom-width: 6px;  
         border-bottom-color:#63100F ; 
         border-bottom-style: groove;  
-      }
-      /*page
-      
-      // border-bottom-color: #FFA420; 
-      
-      */
+}
+
 h1 {
 	color: #2E1C08;
 	margin: 10px;
@@ -72,7 +66,6 @@ h2 {
 } */
 
 .table, .section {
-   
 	display:inline-block;
 	width:100%;
 	height:55px;
@@ -80,12 +73,9 @@ h2 {
 	color:#FFEDD0;
 	padding-top:3px;
 	padding-bottom:2px;
-        
-      border-bottom-width: 4px;  
-      border-bottom-color: #2E1C08;  
-      border-bottom-style: groove;
-      
-    
+    border-bottom-width: 4px;  
+    border-bottom-color: #2E1C08;  
+    border-bottom-style: groove;
     border-radius: 10px;
 }
 
@@ -152,15 +142,14 @@ tr{
     
 }*/
 .cercle{
-  background:#FFA420;
-  border-radius:50%;
-  width:25px;
-  height:25px;
-  border:2px solid #2E1C08;
- 
- color: #2E1C08;
- font-weight: bold;
- font-style: italic;
+	background:#FFA420;
+	border-radius:50%;
+	width:25px;
+	height:25px;
+	border:2px solid #2E1C08;
+	color: #2E1C08;
+	font-weight: bold;
+	font-style: italic;
 }
 
 /*
@@ -173,26 +162,19 @@ tr{
 */
 /* Affecte toute la barre facture sous table */
 [class="barre_facture"]{
-        width:40%;
-    
-	display: block; 
+    width:40%;
+    display: block; 
 	padding-left:10%;
-
 	height:100%;
 	width:100%;
-        
-	background-color:#FFEDD0;
+    background-color:#FFEDD0;
 	color:#2E1C08;
-        
-        border-bottom-width: 2px;  
-        border-bottom-color: #2E1C08;  
-        border-bottom-style: solid; 
-        padding-top:2%;
-        margin-right: 2px; /* */
+    border-bottom-width: 2px;  
+    border-bottom-color: #2E1C08;  
+    border-bottom-style: solid; 
+    padding-top:2%;
+    margin-right: 2px;
 }
-
-
-    
 
 /*background-color:#FFD133;*/
 /*-[class="entete_commande"]{
@@ -267,16 +249,15 @@ width: 50%;
 	text-decoration: none;
 	text-shadow: 0 1px 1px #2E1C08;
 	text-transform: uppercase;
-	
 	-webkit-transition: all 0.1s linear;
 	-moz-transition: all 0.1s linear;
-	  transition: all 0.1s linear;
+	transition: all 0.1s linear;
 }
 
 .btn_facture_plus { 
-       float:right;
-       padding: 4px 5px;
-       font-size: 1.0em;
+    float:right;
+    padding: 4px 5px;
+    font-size: 1.0em;
 }
 
 .btn_plus,
@@ -311,7 +292,7 @@ width: 50%;
                 display:block; 
                 width:30%; 
                 margin:0 auto; 
-                 border-radius: 30px;
+                border-radius: 30px;
            }
 
 /*SECTION CONTAINER*/
