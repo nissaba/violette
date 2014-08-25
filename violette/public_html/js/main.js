@@ -7,7 +7,7 @@
 var blabla = "bli bli",
 	//chemins différents selon l'environnement de travail avec easyPHP
 	//SERVER_PATH = "http://127.0.0.1:8888/violette/public_html/";
-	SERVER_PATH = "http://127.0.0.1/projects/projet_final/public_html/",
+	SERVER_PATH = "http://127.0.0.1:80/projects/projet_final/public_html/",
 	// DOM cache
 	employeId = 3,
 	factureSession = 0,
