@@ -13,7 +13,7 @@ if($dbConnection->connect_errno){
 }
 
 $sql_section = "select * from SECTION;";
-$sql_menu_item = "select * from MENU_ITEM where section_id = ?";
+$sql_menu_item = "select MENU_ITEM_ID, TITRE, DESCRIPTION, PRIX from MENU_ITEM where section_id = ?";
 
 $res = $dbConnection->query($sql_section);
 
@@ -31,15 +31,14 @@ while($row = $res->fetch_assoc()){
     $stmt = $dbConnection->prepare($sql_menu_item);
     $stmt->bind_param("s", $row['SECTION_ID']);
     $stmt->execute();
-    $resMenuItem = $stmt->get_result();
-    $stmt->close();
+    $stmt->bind_result($menuItemID, $titre, $description, $prix);
         
-    while($rowMenuItem = $resMenuItem->fetch_assoc()){
+    while($stmt->fetch()){
         $xml->startElement('item');
-            $xml->writeElement("id", $rowMenuItem['MENU_ITEM_ID']);
-            $xml->writeElement("titre", $rowMenuItem['TITRE']);
-            $xml->writeElement("description", $rowMenuItem['DESCRIPTION']);
-            $xml->writeElement("prix", $rowMenuItem['PRIX']);        
+            $xml->writeElement("id", $menuItemID);
+            $xml->writeElement("titre", $titre);
+            $xml->writeElement("description", $description);
+            $xml->writeElement("prix", $prix);        
         $xml->endElement();
     }
     $xml->endElement();
@@ -48,6 +47,5 @@ while($row = $res->fetch_assoc()){
 $xml->endElement();
 //header('Content-type: text/xml');
 $xml->flush();
-
-$res->close();
+$stmt->close();
 ?>

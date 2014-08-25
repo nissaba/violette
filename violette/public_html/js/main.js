@@ -7,8 +7,13 @@
 var blabla = "bli bli",
 	//chemins différents selon l'environnement de travail avec easyPHP
 	//SERVER_PATH = "http://127.0.0.1:8888/violette/public_html/";
-	SERVER_PATH = "http://127.0.0.1/projects/projet_final/public_html/",
+
+	//SERVER_PATH = "http://127.0.0.1/projects/projet_final/public_html/",
+
+	//SERVER_PATH = "http://127.0.0.1:80/projects/projet_final/public_html/",
+
 	// DOM cache
+        SERVER_PATH = "http://violette.cabserver.net/",
 	employeId = 3,
 	factureSession = 0,
 	factures = [],
@@ -443,7 +448,8 @@ function requeteLogin() {
 				document.getElementById("erreur_login").innerHTML = "Le nom de l'utilisateur ou le mot de passe est erroné!";
 			} else {
 				var fonctionId = parseInt(response.getElementsByTagName("fonction_id")[0].textContent);
-				switch (fonctionId) {
+				
+                                switch (fonctionId) {
 				case 1:
 					return window.location.href = SERVER_PATH + "gerance.html";
 				case 2:

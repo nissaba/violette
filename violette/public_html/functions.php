@@ -1,7 +1,8 @@
 <?php
 
-function isertData($param){
-    
+function initieFacture($db, $empID, $numTable, $siege){
+    $db->pre
+    return 1;
 }
 
 function updateData($param){

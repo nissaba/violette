@@ -1,7 +1,10 @@
 <?php
-$host = "violette.cabserver.net";
-$database_name = "violette_db";
-$database_user = "violette_root";
-$database_password = "q1w2e3r4";
+$host = "localhost";
+$database_name = "violette_DB";
+$database_user = "violette_phpuser";
+$database_password = "P_D=(m1g0p]l";
+//$database_user = "violette_root";
+//$database_password = "%PMwQ.bwv()b";
 $port_number = "3306";
+ 
 ?>
