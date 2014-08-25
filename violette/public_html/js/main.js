@@ -31,7 +31,7 @@ function Facture(factureId, numeroTable, siege, date, employeId) {
 function trouverFacture(factureId) {
 	var i;
 	for (i = 0; i < factures.length; i++) {
-		if (factures[i].factureId == factureId) {
+		if (factures[i].factureId === factureId) {
 			return factures[i];
 		}
 	}
@@ -42,7 +42,7 @@ function trouverFacture(factureId) {
 
 function Commande() {
 	this.ligneCommandes = [];
-	function ajouterLigneCommande(menuItemId, quantite) {
+	this.ajouterLigneCommande = function(menuItemId, quantite) {
 		this.ligneCommandes.push(new LigneCommande(menuItemId, quantite));
 	} 
 }
@@ -63,20 +63,45 @@ function creerFacture(id) {
 }
 
 function afficherEnteteCommande(factureId) {
-	gererVisibilite(["none", "block", "none", "none"]);
-	f = trouverFacture(factureId);
+	var numeroTableSpan = document.getElementById("entete_no_table"),
+		factureSpan = document.getElementById("entete_no_facture"),
+		siegeSpan = document.getElementById("entete_no_siege"),
+		commandeSpan = document.getElementById("entete_no_commande"),
+		f = trouverFacture(factureId);
 	if (f == -1) {
 		f = creerFacture(factureId);
 	}
-	numeroTableSpan = document.getElementById("entete_no_table");
-	factureSpan = document.getElementById("entete_no_facture");
-	siegeSpan = document.getElementById("entete_no_siege");
-	commandeSpan = document.getElementById("entete_no_commande");
+	gererVisibilite(["none", "block", "none", "none"]);
 	numeroTableSpan.textContent = numeroTableSpan.textContent.slice(0,9) + f.numeroTable;
 	factureSpan.textContent = factureSpan.textContent.slice(0,12) + f.factureId;
 	siegeSpan.textContent = siegeSpan.textContent.slice(0,10) + f.siege;
 	commandeSpan.textContent = commandeSpan.textContent.slice(0,13) + f.commandes.length;
-	alert(f.commandes[f.commandes.length - 1].ligneCommandes.length);
+}
+
+function ajouterCommandeBouton() {
+	var factureSpan = document.getElementById("entete_no_facture"),
+		commandeSpan = document.getElementById("entete_no_commande"),
+		f = trouverFacture(factureSpan.textContent.substring(12));
+	prendreCommande(); //retour boolean?
+	f.ajouterCommande();
+	commandeSpan.textContent = commandeSpan.textContent.slice(0,13) + f.commandes.length;
+}
+
+function prendreCommande() {
+	var items = document.getElementsByClassName("quantite"),
+		i,
+		factureSpan = document.getElementById("entete_no_facture"),
+		f = trouverFacture(factureSpan.textContent.substring(12));
+	for (i = 0; i < items.length; i++) {
+		if (items[i].value > 0) {
+			f.commandes[f.commandes.length - 1].ajouterLigneCommande(items[i].id.substring(8), items[i].value);
+		}
+	}
+}
+
+function afficherConfirmation() {
+	gererVisibilite(['none','none','block','none']);
+	prendreCommande();
 }
 
  /*
@@ -296,7 +321,9 @@ function creerTitreItem(index, text) {
 	var ligne = document.createElement("H5");
 	ligne.className = "menu_item";
 	ligne.id = ligne.className + index;
-	ligne.textContent = text;
+	ligne.textContent = text.textContent;
+	ligne.setAttribute("prix",text.getAttribute("prix"));
+	ligne.setAttribute("description",text.getAttribute("description"));
 	return ligne;
 }
 
@@ -350,7 +377,7 @@ function construireMenu(menuXML) {
 			prixItem = descItem.nextSibling.nextSibling;
 			textItem.setAttribute("prix", prixItem.textContent);
 			divItem = creerDivItem(id);
-			menuItem = creerTitreItem(id.textContent, textItem.textContent);
+			menuItem = creerTitreItem(id.textContent, textItem);
 			espace = creerEspaceItem(id.textContent);
 			divBoutons = creerDivBoutons(id.textContent);
 			btnMoins = creerBoutonIncrementMenu(id.textContent, false);

@@ -128,10 +128,10 @@ and open the template in the editor.
             <ul class="liste_menu" id="liste_menu_sections">
             </ul>
             <div class="bar_btn" id="bar_btn_page_commande">
-                <button class="btn_bar" id="btn_retour" onclick="gererVisibilite(['block','none','none','none']);"> &lsaquo; </button>
-                <button class="btn_bar" id="btn_confirmation" onclick="gererVisibilite(['none','none','block','none']);">Résumé</button>
-                <button class="btn_bar" id="btn_facture" onclick="gererVisibilite(['none','none','none','block']);">Facture</button>
-                <button class="btn_bar" id="btn_commande_plus"> + </button>
+                <button class="btn_bar" id="btn_retour_table" onclick="gererVisibilite(['block','none','none','none']);"> &lsaquo; </button>
+                <button class="btn_bar" id="btn_confirmation" onclick="afficherConfirmation();">Résumé</button>
+                <button class="btn_bar" id="btn_facture_commande" onclick="gererVisibilite(['none','none','none','block']);">Facture</button>
+                <button class="btn_bar" id="btn_commande_plus" onclick="ajouterCommandeBouton();"> + </button>
             </div>
         </div>
     
@@ -157,9 +157,9 @@ and open the template in the editor.
                 </div>
             </div>
             <div class="bar_btn" id="bar_btn_page_confirmation">
-                <button class="btn_bar" id="btn_retour" onclick="gererVisibilite(['none','block','none','none']);"> &lsaquo; </button>
+                <button class="btn_bar" id="btn_retour_commande" onclick="gererVisibilite(['none','block','none','none']);"> &lsaquo; </button>
                 <button class="btn_bar" id="btn_cuisine">Cuisine</button>
-                <button class="btn_bar" id="btn_facture" onclick="gererVisibilite(['none','none','none','block']);">Facture</button>
+                <button class="btn_bar" id="btn_facture_confirmation" onclick="gererVisibilite(['none','none','none','block']);">Facture</button>
             </div>
         </div>
     
@@ -205,7 +205,7 @@ and open the template in the editor.
                 <p class="ligne_total" id="ligne_total_1">TOTAL	15.68 $</p>
             </div>
             <div class="bar_btn" id="bar_btn_page_facture">
-                <button class="btn_bar" id="btn_retour" onclick="gererVisibilite(['none','none','block','none']);"> &lsaquo; </button>
+                <button class="btn_bar" id="btn_retour_confirmation" onclick="gererVisibilite(['none','none','block','none']);"> &lsaquo; </button>
                 <button class="btn_bar" id="btn_facture_payee">Pay&eacute;e</button>
             </div>
         </div>
