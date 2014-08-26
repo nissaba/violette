@@ -3,7 +3,8 @@ header('Access-Control-Allow-Origin:*');
 header('Access-Control-Allow-Credentials: true');
 header('Content-type: text/xml');
 include_once("config.php");
-
+mb_internal_encoding('UTF-8');
+setlocale(LC_CTYPE, 'fr_FR.UTF-8');
 
 $dbConnection = new mysqli($host, $database_user, $database_password, $database_name);
  
@@ -25,7 +26,7 @@ $xml->startElement('menu');
 
 while($row = $res->fetch_assoc()){
     $xml->startElement('section');
-    @$xml->writeAttribute('nom', $row['TITRE']);    
+    @$xml->writeAttribute('nom', iconv("ISO-8859-1", "UTF-8",$row['TITRE']));    
     
     
     $stmt = $dbConnection->prepare($sql_menu_item);
@@ -36,8 +37,8 @@ while($row = $res->fetch_assoc()){
     while($stmt->fetch()){
         $xml->startElement('item');
             $xml->writeElement("id", $menuItemID);
-            $xml->writeElement("titre", $titre);
-            $xml->writeElement("description", $description);
+            $xml->writeElement("titre", iconv("ISO-8859-1", "UTF-8",$titre));
+            $xml->writeElement("description", iconv("ISO-8859-1", "UTF-8", $description));
             $xml->writeElement("prix", $prix);        
         $xml->endElement();
     }

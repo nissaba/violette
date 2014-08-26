@@ -1,7 +1,7 @@
 <?php
 
 function initieFacture($db, $empID, $numTable, $siege){
-    $db->pre
+    //$db->pre
     return 1;
 }
 

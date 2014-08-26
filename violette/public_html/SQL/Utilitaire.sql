@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Ven 22 Août 2014 à 14:27
+-- Généré le :  Mar 26 Août 2014 à 21:10
 -- Version du serveur :  5.5.37-cll
 -- Version de PHP :  5.4.23
 
@@ -20,6 +20,7 @@ SET time_zone = "+00:00";
 -- Structure de la table `utilitaire`
 --
 
+DROP TABLE IF EXISTS `utilitaire`;
 CREATE TABLE IF NOT EXISTS `utilitaire` (
   `id` tinyint(4) NOT NULL,
   `nom` varchar(10) NOT NULL,
@@ -38,4 +39,3 @@ CREATE TABLE IF NOT EXISTS `utilitaire` (
 INSERT INTO `utilitaire` (`id`, `nom`, `float_value`, `int_value`, `text_value`, `real_value`) VALUES
 (0, 'tvq', NULL, NULL, NULL, 0.09975),
 (1, 'tps', NULL, NULL, NULL, 0.05);
-

@@ -1,2 +1,2 @@
-{"facture":[{"employeId":"4", "numeroTable":"3", "siege":"2"}]}
+{"facture":[{"employeId":4, "numeroTable":3, "siege":"2"}]}
 {"commande":[{"menuItemId":"21", "quantite":"2"},{"menuItemId":"23", "quantite":"1"},{"menuItemId":"32", "quantite":"3"},{"menuItemId":"34", "quantite":"1"}]}

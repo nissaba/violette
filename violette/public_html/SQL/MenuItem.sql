@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Ven 22 Août 2014 à 14:26
+-- Généré le :  Mar 26 Août 2014 à 21:08
 -- Version du serveur :  5.5.37-cll
 -- Version de PHP :  5.4.23
 
@@ -20,16 +20,17 @@ SET time_zone = "+00:00";
 -- Structure de la table `MENU_ITEM`
 --
 
+DROP TABLE IF EXISTS `MENU_ITEM`;
 CREATE TABLE IF NOT EXISTS `MENU_ITEM` (
   `MENU_ITEM_ID` int(11) NOT NULL AUTO_INCREMENT,
-  `TITRE` varchar(40) NOT NULL,
+  `TITRE` varchar(40) COLLATE utf8_bin NOT NULL,
   `SECTION_ID` int(11) NOT NULL,
-  `DESCRIPTION` varchar(300) NOT NULL,
+  `DESCRIPTION` varchar(300) COLLATE utf8_bin NOT NULL,
   `PRIX` decimal(4,2) NOT NULL,
   PRIMARY KEY (`MENU_ITEM_ID`),
   UNIQUE KEY `TITRE` (`TITRE`),
   KEY `SECTION_ID` (`SECTION_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=36 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=36 ;
 
 --
 -- Contenu de la table `MENU_ITEM`

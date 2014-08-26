@@ -1,0 +1,228 @@
+<?xml version="1.0" ?>
+<menu>
+ <section nom="Boissons">
+  <item>
+   <id>26</id>
+   <titre>THÉ</titre>
+   <description>Th� Earl Grey</description>
+   <prix>2.00</prix>
+  </item>
+  <item>
+   <id>27</id>
+   <titre>CAF�</titre>
+   <description>Caf� de Colombie</description>
+   <prix>2.00</prix>
+  </item>
+  <item>
+   <id>28</id>
+   <titre>LAIT</titre>
+   <description>Lait de vache 2%</description>
+   <prix>2.00</prix>
+  </item>
+  <item>
+   <id>29</id>
+   <titre>COLA</titre>
+   <description>Coca-Cola</description>
+   <prix>1.99</prix>
+  </item>
+  <item>
+   <id>30</id>
+   <titre>EAU MIN�RALE</titre>
+   <description>Eau Perrier</description>
+   <prix>3.00</prix>
+  </item>
+  <item>
+   <id>31</id>
+   <titre>EAU EN BOUTEILLE</titre>
+   <description>Eau Labrador</description>
+   <prix>1.99</prix>
+  </item>
+ </section>
+ <section nom="Desserts">
+  <item>
+   <id>21</id>
+   <titre>COUPE GLAC�E</titre>
+   <description>Cr�me glac�e � la vanille, sauce chocolat, arachides et cerise</description>
+   <prix>3.99</prix>
+  </item>
+  <item>
+   <id>22</id>
+   <titre>G�TEAU AU FROMAGE</titre>
+   <description>Style 'New York', avec sauce aux cerises</description>
+   <prix>4.00</prix>
+  </item>
+  <item>
+   <id>23</id>
+   <titre>BROWNIE AU CHOCOLAT</titre>
+   <description>Servi avec sauce au chocolat bien chaude. Contient des arachides</description>
+   <prix>3.25</prix>
+  </item>
+  <item>
+   <id>24</id>
+   <titre>TARTE AUX POMMES</titre>
+   <description>Avec pommes Courtland du Qu�bec</description>
+   <prix>3.75</prix>
+  </item>
+  <item>
+   <id>25</id>
+   <titre>POUDING CH�MEUR</titre>
+   <description>Avec sauce � la cassonade</description>
+   <prix>3.00</prix>
+  </item>
+ </section>
+ <section nom="Entr�es">
+  <item>
+   <id>5</id>
+   <titre>AILES DE POULET</titre>
+   <description>Poulet avec sauce piquante</description>
+   <prix>4.75</prix>
+  </item>
+  <item>
+   <id>6</id>
+   <titre>NACHOS </titre>
+   <description>chips mexicasa avec fromage fondu, salsa, cr�me s�re et jalapeno</description>
+   <prix>6.99</prix>
+  </item>
+  <item>
+   <id>7</id>
+   <titre>B�TONS DE FROMAGE</titre>
+   <description>B�tonnets de fromage mozzarella pann�s</description>
+   <prix>4.15</prix>
+  </item>
+  <item>
+   <id>8</id>
+   <titre>RONDELLES D�OIGNON</titre>
+   <description>Rondelles d'oignons rouges assaisonn�s</description>
+   <prix>3.25</prix>
+  </item>
+ </section>
+ <section nom="Les �-C�t�s">
+  <item>
+   <id>32</id>
+   <titre>PATATES FRITES</titre>
+   <description>Pommes de terre du Qu�bec bien grasses</description>
+   <prix>3.00</prix>
+  </item>
+  <item>
+   <id>33</id>
+   <titre>POUTINE</titre>
+   <description>Frites, fromage cottage, sauve brune</description>
+   <prix>5.00</prix>
+  </item>
+  <item>
+   <id>34</id>
+   <titre>PAIN � L'AIL</titre>
+   <description>Baguette de pain avec beurre � l'ail</description>
+   <prix>2.00</prix>
+  </item>
+  <item>
+   <id>35</id>
+   <titre>BACON</titre>
+   <description>Tranches de bacon fum�</description>
+   <prix>2.00</prix>
+  </item>
+ </section>
+ <section nom="Plats">
+  <item>
+   <id>13</id>
+   <titre>HAMBURGER</titre>
+   <description>Ambourgeois original avec laitue et tomate</description>
+   <prix>4.00</prix>
+  </item>
+  <item>
+   <id>14</id>
+   <titre>CHEESEBURGER</titre>
+   <description>B�uf hach� servi avec fromage cheddar, laitue et tomate</description>
+   <prix>5.50</prix>
+  </item>
+  <item>
+   <id>15</id>
+   <titre>SANDWICH 'SMOKED MEAT'</titre>
+   <description>Sandwich � la viande fum�e, servi avec cornichon et choucroute</description>
+   <prix>6.99</prix>
+  </item>
+  <item>
+   <id>16</id>
+   <titre>CLUB SANDWICH</titre>
+   <description>Avec bacon, laitue, tomate et mayonnaise</description>
+   <prix>4.99</prix>
+  </item>
+  <item>
+   <id>17</id>
+   <titre>SPAGHETTI NAPOLITANA</titre>
+   <description>Sauce aux tomates</description>
+   <prix>5.00</prix>
+  </item>
+  <item>
+   <id>18</id>
+   <titre>SPAGHETTI BOLOGNAISE</titre>
+   <description>Sauce � la viande</description>
+   <prix>5.99</prix>
+  </item>
+  <item>
+   <id>19</id>
+   <titre>LASAGNE</titre>
+   <description>Gratin�e au four avec sauce � la viande et sauce b�chamel</description>
+   <prix>8.00</prix>
+  </item>
+  <item>
+   <id>20</id>
+   <titre>P�T� CHINOIS</titre>
+   <description>Steak, bl� d'inde, patates</description>
+   <prix>6.50</prix>
+  </item>
+ </section>
+ <section nom="Salades">
+  <item>
+   <id>9</id>
+   <titre>SALADE C�SAR</titre>
+   <description>Laitue romaine avec vinaigrette c�sar � l'ail</description>
+   <prix>5.00</prix>
+  </item>
+  <item>
+   <id>10</id>
+   <titre>SALADE C�SAR AU POULET</titre>
+   <description>Laitue romaine avec vinaigrette c�sar � l'ail, et lani`res de poulet grill�</description>
+   <prix>8.00</prix>
+  </item>
+  <item>
+   <id>11</id>
+   <titre>SALADE GRECQUE</titre>
+   <description>Laitue verte avec fromage feta, olives noires et basilic</description>
+   <prix>6.00</prix>
+  </item>
+  <item>
+   <id>12</id>
+   <titre>SALADE JARDINI�RE</titre>
+   <description>Laitue verte avec huile d'olives et estragon</description>
+   <prix>4.00</prix>
+  </item>
+ </section>
+ <section nom="Soupes">
+  <item>
+   <id>1</id>
+   <titre>SOUPE AUX POIS</titre>
+   <description>Soupe aux pois avec morceaux de jambon</description>
+   <prix>2.99</prix>
+  </item>
+  <item>
+   <id>2</id>
+   <titre>SOUPE AUX NOUILLES ET POULET</titre>
+   <description>Avec nouilles aux oeufs et morceaux de poulet</description>
+   <prix>2.50</prix>
+  </item>
+  <item>
+   <id>3</id>
+   <titre>GASPACHO</titre>
+   <description>Soupe froide aux tomates</description>
+   <prix>3.99</prix>
+  </item>
+  <item>
+   <id>4</id>
+   <titre>SOUPE MINESTRONE</titre>
+   <description>Soupe aux l�gumes (pois, carottes, c�leri, oignons)</description>
+   <prix>2.25</prix>
+  </item>
+ </section>
+</menu>
+

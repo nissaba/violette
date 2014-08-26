@@ -1,10 +1,9 @@
-
 -- phpMyAdmin SQL Dump
 -- version 4.1.8
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Ven 22 Août 2014 à 14:25
+-- Généré le :  Mar 26 Août 2014 à 21:05
 -- Version du serveur :  5.5.37-cll
 -- Version de PHP :  5.4.23
 
@@ -21,18 +20,19 @@ SET time_zone = "+00:00";
 -- Structure de la table `EMPLOYE`
 --
 
+DROP TABLE IF EXISTS `EMPLOYE`;
 CREATE TABLE IF NOT EXISTS `EMPLOYE` (
   `EMPLOYE_ID` int(11) NOT NULL AUTO_INCREMENT,
-  `USERNAME` varchar(10) COLLATE armscii8_bin NOT NULL,
-  `NOM` varchar(20) COLLATE armscii8_bin NOT NULL,
-  `PRENOM` varchar(10) COLLATE armscii8_bin NOT NULL,
-  `PASSWORD` varchar(40) COLLATE armscii8_bin NOT NULL,
+  `USERNAME` varchar(10) CHARACTER SET armscii8 COLLATE armscii8_bin NOT NULL,
+  `NOM` varchar(20) CHARACTER SET armscii8 COLLATE armscii8_bin NOT NULL,
+  `PRENOM` varchar(10) CHARACTER SET armscii8 COLLATE armscii8_bin NOT NULL,
+  `PASSWORD` varchar(40) CHARACTER SET armscii8 COLLATE armscii8_bin NOT NULL,
   `FONCTION_ID` int(11) NOT NULL,
-  `COMMANTAIRE` varchar(300) COLLATE armscii8_bin DEFAULT NULL,
+  `COMMANTAIRE` varchar(300) CHARACTER SET armscii8 COLLATE armscii8_bin DEFAULT NULL,
   PRIMARY KEY (`EMPLOYE_ID`),
   UNIQUE KEY `nom` (`NOM`),
   KEY `FONCTION_ID` (`FONCTION_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=armscii8 COLLATE=armscii8_bin AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=11 ;
 
 --
 -- Contenu de la table `EMPLOYE`

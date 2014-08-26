@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Ven 22 Août 2014 à 15:47
+-- Généré le :  Mar 26 Août 2014 à 21:06
 -- Version du serveur :  5.5.37-cll
 -- Version de PHP :  5.4.23
 
@@ -20,28 +20,29 @@ SET time_zone = "+00:00";
 -- Structure de la table `FACTURE`
 --
 
+DROP TABLE IF EXISTS `FACTURE`;
 CREATE TABLE IF NOT EXISTS `FACTURE` (
-  `COMPLET` tinyint(1) DEFAULT '0',
-  `FACTURE_ID` int(11) NOT NULL,
+  `FACTURE_ID` int(11) NOT NULL AUTO_INCREMENT,
   `EMPLOYE_ID` int(11) NOT NULL,
   `DATE` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `NUMERO_TABLE` tinyint(3) NOT NULL,
   `SIEGE` tinyint(3) NOT NULL,
+  `COMPLET` tinyint(1) DEFAULT '0',
   `SOUS_TOTAL` decimal(5,2) DEFAULT NULL,
   `TOTAL` decimal(5,2) DEFAULT NULL,
   `TPS` decimal(5,2) DEFAULT NULL,
   `TVQ` decimal(5,2) DEFAULT NULL,
   PRIMARY KEY (`FACTURE_ID`),
   KEY `EMPLOYE_ID` (`EMPLOYE_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=3 ;
 
 --
 -- Contenu de la table `FACTURE`
 --
 
-INSERT INTO `FACTURE` (`COMPLET`, `FACTURE_ID`, `EMPLOYE_ID`, `DATE`, `NUMERO_TABLE`, `SIEGE`, `SOUS_TOTAL`, `TOTAL`, `TPS`, `TVQ`) VALUES
-(0, 0, 1, '2014-08-21 18:25:51', 1, 1, '8.99', '10.34', '0.45', '0.90'),
-(0, 1, 2, '2014-08-21 18:26:32', 2, 1, '20.51', '23.59', '1.03', '2.05');
+INSERT INTO `FACTURE` (`FACTURE_ID`, `EMPLOYE_ID`, `DATE`, `NUMERO_TABLE`, `SIEGE`, `COMPLET`, `SOUS_TOTAL`, `TOTAL`, `TPS`, `TVQ`) VALUES
+(1, 1, '2014-08-22 20:53:00', 1, 1, 1, '8.99', '10.34', '0.45', '0.90'),
+(2, 2, '2014-08-22 20:52:53', 4, 1, 1, '7.25', '8.33', '0.36', '0.72');
 
 --
 -- Déclencheurs `FACTURE`
@@ -64,6 +65,10 @@ CREATE TRIGGER `FACTURE_BUPD` BEFORE UPDATE ON `FACTURE`
 	IF (OLD.COMPLET = TRUE) THEN
     	SIGNAL SQLSTATE VALUE '45000'
         SET MESSAGE_TEXT = "Impossible de modifier une facture complete.";
+    ELSEIF (NEW.COMPLET = TRUE) THEN
+    	update LIGNE_COMMAND_ITEM 
+        set SERVI = true
+        where FACTURE_ID = NEW.FACTURE_ID and SERVI = false;
     END IF;
 END
 //
