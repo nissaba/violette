@@ -53,7 +53,7 @@ function Commande() {
 				strJSON += ",";
 			}
 		}
-		strJSON += "]";
+		strJSON += "]}";
 		return strJSON;
 	}
 }
@@ -138,6 +138,10 @@ function afficherConfirmation() {
 	prendreCommande();
 	factureConfirmation.textContent = factureConfirmation.textContent + f.factureId;
 	divDetail.textContent = f.commandes[0].toString();
+	// test de validation du JSON
+	myJSONtext = f.commandes[0].toString();
+	myObject = JSON.parse(myJSONtext);
+	divDetail.textContent += myObject.commande[0].quantite[0];
 }
 
  /*
