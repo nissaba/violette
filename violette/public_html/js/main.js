@@ -7,9 +7,9 @@
 var blabla = "bli bli",
 	//chemins différents selon l'environnement de travail avec easyPHP
 	//SERVER_PATH = "http://127.0.0.1:8888/violette/public_html/";
-	SERVER_PATH = "http://127.0.0.1:80/projects/projet_final/public_html/",
+	SERVER_PATH = "http://127.0.0.1/projects/projet_final/public_html/",
 	// DOM cache
-	employeId = 3,
+	employeId = 0,
 	factureSession = 0,
 	factures = [],
 	tableOuverte = "null";
@@ -23,10 +23,11 @@ function Facture(factureId, numeroTable, siege, date, employeId) {
 	this.siege = siege;
 	this.date = date;
 	this.commandes = [];
-	this.ajouterCommande = function() {
-		this.commandes.push(new Commande());
-    };
 }
+Facture.prototype.ajouterCommande = function() {
+		this.commandes.push(new Commande());
+};
+
 
 function trouverFacture(factureId) {
 	var i;
@@ -42,30 +43,31 @@ function trouverFacture(factureId) {
 
 function Commande() {
 	this.ligneCommandes = [];
-	this.ajouterLigneCommande = function(menuItemId, quantite) {
-		this.ligneCommandes.push(new LigneCommande(menuItemId, quantite));
-	} 
-	this.toString = function() {
-		var strJSON = '{"commande":[';
-		for ( i = 0; i < this.ligneCommandes.length; i++) {
-			strJSON += this.ligneCommandes[i].toString();
-			if (i < this.ligneCommandes.length - 1) {
-				strJSON += ",";
-			}
-		}
-		strJSON += "]}";
-		return strJSON;
-	}
 }
+Commande.prototype.ajouterLigneCommande = function(menuItemId, quantite) {
+	this.ligneCommandes.push(new LigneCommande(menuItemId, quantite));
+};
+Commande.prototype.toString = function() {
+	var strJSON = '{"commande":[';
+	for ( i = 0; i < this.ligneCommandes.length; i++) {
+		strJSON += this.ligneCommandes[i].toString();
+		if (i < this.ligneCommandes.length - 1) {
+			strJSON += ",";
+		}
+	}
+	strJSON += "]}";
+	return strJSON;
+};
+
 // Objet LigneCommande
 
 function LigneCommande(menuItemId, quantite) {
 	this.menuItemId = menuItemId;
 	this.quantite = quantite;
-	this.toString = function() {
-		return '{"menuItemId":"' + this.menuItemId + '", "quantite":"' + this.quantite + '"}';
-	}
 }
+LigneCommande.prototype.toString = function() {
+	return '{"menuItemId":"' + this.menuItemId + '", "quantite":"' + this.quantite + '"}';
+};
 
 /*
  * Créeation d'une facture prenant la table et le siège du DOM et crée 
@@ -467,6 +469,8 @@ function message(msg) {
 
 // fin de la création du menu dans le DOM.
 
+// Section des requêtes au serveur
+
 /*
  * Function pour la requête au serveur pour vérifier l'employé accédant à 
  * l'application et charge le bon HTML selon la fonction de l'employé.
@@ -488,6 +492,7 @@ function requeteLogin() {
 				document.getElementById("erreur_login").innerHTML = "Le nom de l'utilisateur ou le mot de passe est erroné!";
 			} else {
 				var fonctionId = parseInt(response.getElementsByTagName("fonction_id")[0].textContent);
+				window.name = response.getElementsByTagName("employe_id")[0].textContent;
 				switch (fonctionId) {
 				case 1:
 					return window.location.href = SERVER_PATH + "gerance.html";
@@ -517,6 +522,7 @@ function requeteMenu() {
 		datatype: 'xml',
 		success: function (response) {
 			construireMenu(response);
+			employeId = window.name;
 		},
 		error: function (response) { return alert("erreur : " + response.responseText); }
     });
