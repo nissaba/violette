@@ -268,17 +268,20 @@ font-weight:bold;
 	
 /*	bar_btn_page_commande */
 	#bar_btn_page_commande{
-		width;75%;
+		width:100;
 		display:inline-block}
 	
 	#btn_retour_table{
-		width;18%;
+		width:15%;
 		border-radius: 30px 0px 0px 30px;}
     #btn_confirmation{
-		width;18%;
+		width:25%;
 		border-radius: 0px 0px 0px 0px;}
-	#btn_facture_commande{width;18%;border-radius: 0px 0px 0px 0px;}
-	#btn_bar{width;18%;border-radius: 0px 30px 30px 0px;}
+	#btn_facture_commande{width:25
+		border-radius: 0px 0px 0px 0px;}
+		
+	#btn_commande_plus{width:15%;border-radius: 0px 30px 30px 0px;}
+	//#btn_bar{width:18%;border-radius: 0px 30px 30px 0px;}
 	
 /* Fin bar_btn_page_commande */	
 	
