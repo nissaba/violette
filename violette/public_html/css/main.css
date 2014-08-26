@@ -264,15 +264,72 @@ font-weight:bold;
 	padding: 5px 10px;
 	font-size: 1.0em;
 }
+	
+	
+/*	bar_btn_page_commande */
+	#bar_btn_page_commande{
+		width;75%;
+		display:inline-block}
+	
+	#btn_retour_table{
+		width;18%;
+		border-radius: 30px 0px 0px 30px;}
+    #btn_confirmation{
+		width;18%;
+		border-radius: 0px 0px 0px 0px;}
+	#btn_facture_commande{width;18%;border-radius: 0px 0px 0px 0px;}
+	#btn_bar{width;18%;border-radius: 0px 30px 30px 0px;}
+	
+/* Fin bar_btn_page_commande */	
+	
+	
+	
+/* bar_btn_page_confirmation */
+#bar_btn_page_confirmation{}	
+#btn_retour_commande{
+	width:25%;
+	
+	border-radius: 30px 0px 0px 30px;}
+#btn_cuisine{
+	width:25%;
+	border-radius: 0px 0px 0px 0px;}
+#btn_facture_confirmation{
+	width:25%;
+	border-radius: 0px 30px 30px 0px;}
+/* Fin bar_btn_page_confirmation */	
+	
+	
+
+
+
+
+/* bar_btn_page_facture */
+#bar_btn_page_facture{
+	width:75%;
+	margin:0 auto;
+	//display:inline-block;
+}
+#btn_retour_confirmation{
+	width:38%;
+	border-radius: 30px 0px 0px 30px;}
+#btn_facture_payee{
+	width:38%;
+	border-radius: 0px 30px 30px 0px;}
+/* Fin bar_btn_page_facture */
+
+
+
 
 #btn_quitter{
+	//display:inline-block;
 	width:75%;
+	margin:0 auto;
+	border-radius: 30px 30px 30px 30px;
+	//border-radius: 30px;
+	display:block;
+	
 }
 
-.bar_btn_page_commande{
- display: inline-block;
-
-}
 
 	[class*='btn_']:hover {
 		background-color: #FFA420;
@@ -293,10 +350,10 @@ font-weight:bold;
 		}
                 
            [class="btn_bar"]     {
-                display:block; 
+                //display:block; 
                 width:30%; 
                 margin:0 auto; 
-                border-radius: 30px;
+                //border-radius: 30px;
            }
 
 /*SECTION CONTAINER*/
