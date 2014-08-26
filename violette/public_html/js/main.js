@@ -45,14 +45,33 @@ function Commande() {
 	this.ajouterLigneCommande = function(menuItemId, quantite) {
 		this.ligneCommandes.push(new LigneCommande(menuItemId, quantite));
 	} 
+	this.toString = function() {
+		var strJSON = '{"commande":[';
+		for ( i = 0; i < this.ligneCommandes.length; i++) {
+			strJSON += this.ligneCommandes[i].toString();
+			if (i < this.ligneCommandes.length - 1) {
+				strJSON += ",";
+			}
+		}
+		strJSON += "]";
+		return strJSON;
+	}
 }
 // Objet LigneCommande
 
 function LigneCommande(menuItemId, quantite) {
 	this.menuItemId = menuItemId;
 	this.quantite = quantite;
+	this.toString = function() {
+		return '{"menuItemId":"' + this.menuItemId + '", "quantite":"' + this.quantite + '"}';
+	}
 }
 
+/*
+ * Créeation d'une facture prenant la table et le siège du DOM et crée 
+ * un nouvel objet Facture dans le tableau factures. La fonction
+ * retourne la dernière facture créée.
+ */
 function creerFacture(id) {
 	numeroTable = document.getElementById("facture_" + id).parentNode.id.substring(6);
 	siege = document.getElementById("siegefacture_" + id).value;
@@ -87,6 +106,12 @@ function ajouterCommandeBouton() {
 	commandeSpan.textContent = commandeSpan.textContent.slice(0,13) + f.commandes.length;
 }
 
+/*
+ * Cette function récupère du DOM les inputs de class quantite et la facture active.
+ * Tous les inputs ayant une valeur plus grande de zéro sont ajoutés à une ligneCommande.
+ * Les inputs ayant un id finnissant par le menuItem_id de la BD, elle le récupère
+ * avec un substring.
+ */
 function prendreCommande() {
 	var items = document.getElementsByClassName("quantite"),
 		i,
@@ -99,9 +124,20 @@ function prendreCommande() {
 	}
 }
 
+/*
+ * Change la page visible, ici la confirmation de la commande sélectionnée.
+ * Elle invoque prendreCommande pour enregistrer celle-ci dans l'objet commande
+ * de la facture active.
+ */
 function afficherConfirmation() {
+	var factureSpan = document.getElementById("entete_no_facture"),
+		factureConfirmation = document.getElementById("entete_no_facture_id"),
+		divDetail = document.getElementById("detail_commande_id"),
+		f = trouverFacture(factureSpan.textContent.substring(12));
 	gererVisibilite(['none','none','block','none']);
 	prendreCommande();
+	factureConfirmation.textContent = factureConfirmation.textContent + f.factureId;
+	divDetail.textContent = f.commandes[0].toString();
 }
 
  /*
@@ -131,15 +167,16 @@ function ouvrirTable(tableId) {
 			ouvrirTable(tableOuverte);
 		}
 		lesFactures = table.getElementsByClassName("barre_facture");
-		visibilite = (lesFactures[0].style.display === "none") ? "block" : "none";
+		visibilite = (lesFactures[0].style.display === "none") ? "inline-block" : "none";
 		for (i = 0; i < lesFactures.length; i++) {
 			lesFactures[i].style.display = visibilite;
 		}
-		tableOuverte = (visibilite === "block") ? tableId : "null";
+		tableOuverte = (visibilite === "inline-block") ? tableId : "null";
 	}
 }
 
-/* Function qui gere le "collapse/expand" d'une section du 
+/*
+ * Function qui gere le "collapse/expand" d'une section du 
  * menu.  C'est le div "barre_item" qui est le parent des éléments
  * du menu.
  */
@@ -184,6 +221,10 @@ function incrementerSiege(facture, inc) {
 	}
 }
 
+/*
+ * function pour incrémenter/décrémenter la quantité
+ * pour un item du menu.
+ */
 function incrementerQuantite(index, inc) {
 	var quantite = document.getElementById("quantite" + index);
 	if ((parseInt(quantite.value) > 0) && !(inc)) {
@@ -201,7 +242,7 @@ function creerTableFacture() {
 	facture.className = "barre_facture";
 	facture.id = "facture_" + factureSession;
 	factureStyle.property = "display";
-	factureStyle.display = "block";
+	factureStyle.display = "inline-block";
 	facture.appendChild(factureStyle);
 	return facture;
 }
