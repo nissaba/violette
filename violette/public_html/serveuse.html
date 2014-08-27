@@ -120,12 +120,12 @@ and open the template in the editor.
         <div class="page" id="page_commande" style="display:none">
             <div class="entete_commande" id="entete_commande_id">
 				<div class="entete_commande_ligne" id="entete_commande_ligne_1">
-					<span class="entete_commande_span" id="entete_no_facture"> | facture: </span>
-					<span class="entete_commande_span" id="entete_no_table"> |&nbsp; table: </span>
+					<span class="entete_commande_span" id="entete_no_facture">Facture: </span>
+					<span class="entete_commande_span" id="entete_no_table">Table: </span>
 				</div>
 				<div class="entete_commande_ligne" id="entete_commande_ligne_2">
-					<span class="entete_commande_span" id="entete_no_commande"> | commande: </span>
-					<span class="entete_commande_span" id="entete_no_siege"> | si&egrave;ge: </span>
+					<span class="entete_commande_span" id="entete_no_commande">Commande: </span>
+					<span class="entete_commande_span" id="entete_no_siege">Si&egrave;ge: </span>
 				</div>
             </div>
             <ul class="liste_menu" id="liste_menu_sections">
@@ -141,8 +141,8 @@ and open the template in the editor.
     <!-- page 'CONFIRMATION': affichage d'un résumé de la commande avant l'envoi vers la cuisine -->
         <div class="page" id="page_confirme_commande" style="display:none">
             <div class="entete_facture" id="entete_facture_id">
-                <span class="entete_no_facture" id="entete_no_facture_id">&nbsp; | facture:  </span>
-                <span class="entete_no_table" id="entete_no_table_id">&nbsp; &nbsp; table: &nbsp; </span>	
+                <span class="entete_no_facture" id="entete_no_facture_id">Facture: </span>
+                <span class="entete_no_table" id="entete_no_table_id">Table: </span>	
             </div>
             <div class="detail_commande" id="detail_commande_id">
 <!--                 <div class="serveuse_items" id="serveuse_item_1"> 
@@ -160,7 +160,7 @@ and open the template in the editor.
             </div>
             <div class="bar_btn" id="bar_btn_page_confirmation">
                 <button class="btn_bar" id="btn_retour_commande" onclick="gererVisibilite(['none','block','none','none']);"> &lsaquo; </button>
-                <button class="btn_bar" id="btn_cuisine">Cuisine</button>
+                <button class="btn_bar" id="btn_cuisine" onclick="envoyerCuisine();">Cuisine</button>
                 <button class="btn_bar" id="btn_facture_confirmation" onclick="gererVisibilite(['none','none','none','block']);">Facture</button>
             </div>
         </div>
