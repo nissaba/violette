@@ -6,32 +6,31 @@
 
 var blabla = "bli bli",
 	//chemins différents selon l'environnement de travail avec easyPHP
-	//SERVER_PATH = "http://127.0.0.1:8888/violette/public_html/";
-
+	//SERVER_PATH = "http://violette.cabserver.net/";
+	SERVER_PATH = "http://127.0.0.1:8888/violette/public_html/";
 	//SERVER_PATH = "http://127.0.0.1/projects/projet_final/public_html/",
-
-	//SERVER_PATH = "http://127.0.0.1:80/projects/projet_final/public_html/",
-
 	// DOM cache
-	employeId = 0,
+	employeId = 4,
 	factureSession = 0,
 	factures = [],
 	tableOuverte = "null";
 
 // Objet Facture et fonctions associées
 
-function Facture(factureId, numeroTable, siege, date, employeId) {
+function Facture(factureId, numeroTable, siege, employeId) {
 	this.factureId = factureId;
 	this.employeId = employeId;
 	this.numeroTable = numeroTable;
 	this.siege = siege;
-	this.date = date;
+	this.factureIdBD = 5;
 	this.commandes = [];
 }
 Facture.prototype.ajouterCommande = function() {
-		this.commandes.push(new Commande());
+	this.commandes.push(new Commande());
 };
-
+Facture.prototype.toString = function() {
+	return '[{"employeId":' + this.employeId + ', "numeroTable":' + this.numeroTable + ', "siege":' + this.siege + '}]';
+};
 
 function trouverFacture(factureId) {
 	var i;
@@ -51,15 +50,15 @@ function Commande() {
 Commande.prototype.ajouterLigneCommande = function(menuItemId, quantite) {
 	this.ligneCommandes.push(new LigneCommande(menuItemId, quantite));
 };
-Commande.prototype.toString = function() {
-	var strJSON = '{"commande":[';
+Commande.prototype.toString = function(factureIdBD) {
+	var strJSON = '[{"factureIdBD":'+factureIdBD+'}, ';
 	for ( i = 0; i < this.ligneCommandes.length; i++) {
 		strJSON += this.ligneCommandes[i].toString();
 		if (i < this.ligneCommandes.length - 1) {
 			strJSON += ",";
 		}
 	}
-	strJSON += "]}";
+	strJSON += "]";
 	return strJSON;
 };
 
@@ -70,7 +69,7 @@ function LigneCommande(menuItemId, quantite) {
 	this.quantite = quantite;
 }
 LigneCommande.prototype.toString = function() {
-	return '{"menuItemId":"' + this.menuItemId + '", "quantite":"' + this.quantite + '"}';
+	return '{"menuItemId":' + this.menuItemId + ', "quantite":' + this.quantite + '}';
 };
 
 /*
@@ -81,8 +80,7 @@ LigneCommande.prototype.toString = function() {
 function creerFacture(id) {
 	numeroTable = document.getElementById("facture_" + id).parentNode.id.substring(6);
 	siege = document.getElementById("siegefacture_" + id).value;
-	date = new Date();
-	factures.push(new Facture(id, numeroTable, siege, date, employeId));
+	factures.push(new Facture(id, numeroTable, siege, employeId));
 	factures[factures.length - 1].ajouterCommande();
 	return factures[factures.length - 1];
 }
@@ -143,11 +141,11 @@ function afficherConfirmation() {
 	gererVisibilite(['none','none','block','none']);
 	prendreCommande();
 	factureConfirmation.textContent = factureConfirmation.textContent + f.factureId;
-	divDetail.textContent = f.commandes[0].toString();
+	divDetail.textContent = f.commandes[0].toString(f.factureIdBD);
 	// test de validation du JSON
-	myJSONtext = f.commandes[0].toString();
+	myJSONtext = f.commandes[0].toString(f.factureIdBD);
 	myObject = JSON.parse(myJSONtext);
-	divDetail.textContent += myObject.commande[0].quantite[0];
+	divDetail.textContent += f.toString();
 }
 
  /*
@@ -525,7 +523,8 @@ function requeteMenu() {
 		async: false,
 		datatype: 'xml',
 		success: function (response) {
-			construireMenu(response);
+ 			construireMenu(response);
+			window.name = "4";
 			employeId = window.name;
 		},
 		error: function (response) { return alert("erreur : " + response.responseText); }

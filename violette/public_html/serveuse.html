@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
@@ -12,10 +12,9 @@ and open the template in the editor.
 			#FFD133 = jaune foncé
 			#FFEDD0 = beige
             -->
-<html>
+<html lang="fr-CA">
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+        <meta charset="UTF-16" name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
         <title>Interface Serveuse</title>
         
         <link rel="stylesheet"  href= "css/main.css" type="text/css" > 
@@ -120,10 +119,14 @@ and open the template in the editor.
     <!-- page 'COMMANDE': liste des sections du menu: offrent un dropdown des items de chaque section lors de la prise de commande(s) -->
         <div class="page" id="page_commande" style="display:none">
             <div class="entete_commande" id="entete_commande_id">
-                <span class="entete_commande_span" id="entete_no_table">&nbsp; table: </span>
-                <span class="entete_commande_span" id="entete_no_facture"> | facture: </span>
-                <span class="entete_commande_span" id="entete_no_commande"> | commande: </span>
-                <span class="entete_commande_span" id="entete_no_siege"> | si&egrave;ge: </span>
+				<div class="entete_commande_ligne" id="entete_commande_ligne_1">
+					<span class="entete_commande_span" id="entete_no_facture"> | facture: </span>
+					<span class="entete_commande_span" id="entete_no_table"> |&nbsp; table: </span>
+				</div>
+				<div class="entete_commande_ligne" id="entete_commande_ligne_2">
+					<span class="entete_commande_span" id="entete_no_commande"> | commande: </span>
+					<span class="entete_commande_span" id="entete_no_siege"> | si&egrave;ge: </span>
+				</div>
             </div>
             <ul class="liste_menu" id="liste_menu_sections">
             </ul>
@@ -138,9 +141,8 @@ and open the template in the editor.
     <!-- page 'CONFIRMATION': affichage d'un résumé de la commande avant l'envoi vers la cuisine -->
         <div class="page" id="page_confirme_commande" style="display:none">
             <div class="entete_facture" id="entete_facture_id">
-                <div class="entete_datestamp" id="entete_datestamp_id">&nbsp; heure: &nbsp; </div>	
-                <span class="entete_no_table" id="entete_no_table_id">&nbsp; &nbsp; table: &nbsp; </span>	
                 <span class="entete_no_facture" id="entete_no_facture_id">&nbsp; | facture:  </span>
+                <span class="entete_no_table" id="entete_no_table_id">&nbsp; &nbsp; table: &nbsp; </span>	
             </div>
             <div class="detail_commande" id="detail_commande_id">
 <!--                 <div class="serveuse_items" id="serveuse_item_1"> 
