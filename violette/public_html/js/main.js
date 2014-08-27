@@ -143,19 +143,19 @@ function afficherConfirmation() {
 	var factureSpan = document.getElementById("entete_no_facture"),
 		factureConfirmation = document.getElementById("entete_no_facture_id"),
 		tableConfirmation = document.getElementById("entete_no_table_id"),
-		divDetail = document.getElementById("detail_commande_id"),
 		f = trouverFacture(factureSpan.textContent.substring(9));
 	gererVisibilite(['none','none','block','none']);
 	//TODO: vérifier existence de la commande
 	prendreCommande();
 	factureConfirmation.textContent = factureConfirmation.textContent.slice(0,9) + f.factureId;
 	tableConfirmation.textContent = tableConfirmation.textContent.slice(0,7) + f.numeroTable;
-	divDetail.textContent = f.commandes[f.commandes.length-1].toString(f.factureIdBD);
 	// test de validation du JSON
-	myJSONtext = f.commandes[f.commandes.length-1].toString(f.factureIdBD);
+	construireDOMCommande(f);
+	myJSONtext = f.toString();
 	myObject = JSON.parse(myJSONtext);
-	myObject = JSON.parse(f.toString());
-	divDetail.textContent += "\n" + f.toString();
+	myObject = JSON.parse(f.commandes[f.commandes.length-1].toString(f.factureIdBD));
+	myJSONtext += "\n" + f.commandes[f.commandes.length-1].toString(f.factureIdBD);
+	message(myJSONtext);
 }
 
 function envoyerCuisine() {
@@ -274,7 +274,41 @@ function viderInputQuantite() {
 	}
 }
 
-// début de la création d'un élément facture dans le DOM.
+function viderDOMCommande() {
+	var divDetail = document.getElementById("detail_commande_id"),
+		i;
+	childs = divDetail.childNodes;
+	for (i = 0; i < childs.length; i++) {
+		divDetail.removeChild(childs[i]);
+		alert(childs.id);
+	}
+	alert(childs.length);
+}
+
+// Début de la création du DOM pour la confirmation d'une commnde
+
+function creerTitreCommande(numCommande) {
+	var divTitre = document.createElement("DIV"),
+		titre = document.createElement("H2");
+	divTitre.className = "titre_commande_div";
+	divTitre.id = divTitre.className+numCommande;
+	titre.className = "titre_commande_h";
+	titre.id = titre.className + numCommande;
+	titre.textContent = "Commande " + numCommande;
+	divTitre.appendChild(titre);
+	return divTitre;
+}
+
+function construireDOMCommande(facture) {
+	var divDetail = document.getElementById("detail_commande_id");
+	viderDOMCommande();
+	titre = creerTitreCommande(facture.commandes.length);
+	divDetail.appendChild(titre);
+}
+
+// Fin de la création du DOM pour la confirmation d'une commnde
+
+// Début de la création d'un élément facture dans le DOM.
 
 function creerTableFacture() {
 	var facture = document.createElement("TABLE"),
@@ -369,9 +403,9 @@ function ajouterFacture(id) {
 	}, false);
 }
 
-// fin de la création d'un élément facture dans le DOM.
+// Fin de la création d'un élément facture dans le DOM.
 
-// début de la création du menu dans le DOM.
+// Début de la création du menu dans le DOM.
 
 function creerSectionMenu(index) {
 	var ligne = document.createElement("LI");
@@ -490,6 +524,12 @@ function construireMenu(menuXML) {
 	}
 }
 
+// Fin de la création du menu dans le DOM.
+
+/*
+ * Function pour les résultats de tests.  Le message s'ajoute en bas de
+ * page et s'efface en cliquant dessus.
+ */
 function message(msg) {
 	boite = document.createElement("DIV");
 	boite.className = "message";
@@ -501,8 +541,6 @@ function message(msg) {
 		body.removeChild(body.lastChild);
 	}, false);
 }
-
-// fin de la création du menu dans le DOM.
 
 // Section des requêtes au serveur
 

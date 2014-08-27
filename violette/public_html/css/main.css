@@ -47,14 +47,22 @@ body {
         border-bottom-style: groove;  
 }
 
-h1 {
+#app {
 	color: #2E1C08;
 	margin: 10px;
 }
 
-h2 {
+/* login? */
+#titre_login {
 	color: #FFEDD0;
 	font-size: 2.2em;	
+	font-weight: 200;
+	margin: 0 0 24px 0;
+}
+
+.detail_commande {
+	color: #2E1C08;
+	font-size: 1.8em;	
 	font-weight: 200;
 	margin: 0 0 24px 0;
 }
