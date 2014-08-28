@@ -7,10 +7,10 @@
  var blabla = "bli bli",
 	//chemins différents selon l'environnement de travail avec easyPHP
 	//SERVER_PATH = "http://violette.cabserver.net/";
-	//SERVER_PATH = "http://127.0.0.1:8888/violette/public_html/";
-	SERVER_PATH = "http://127.0.0.1/projects/projet_final/public_html/",
+	SERVER_PATH = "http://127.0.0.1:8888/violette/public_html/";
+	//SERVER_PATH = "http://127.0.0.1/projects/projet_final/public_html/",
 	// DOM cache
-	employeId,
+	employeId = -1,
 	factureSession = 0,
 	factures = [],
 	tableOuverte = "null",
@@ -151,11 +151,16 @@ function afficherConfirmation() {
 	tableConfirmation.textContent = tableConfirmation.textContent.slice(0,7) + f.numeroTable;
 	// test de validation du JSON
 	construireDOMCommande(f);
-	myJSONtext = f.toString();
-	myObject = JSON.parse(myJSONtext);
-	myObject = JSON.parse(f.commandes[f.commandes.length-1].toString(f.factureIdBD));
-	myJSONtext += "\n" + f.commandes[f.commandes.length-1].toString(f.factureIdBD);
+	myJSONtext = JSON.stringify(f.commandes[0]);
+	//myJSONtext = f.toString();
+	//myObject = JSON.parse(myJSONtext);
+	//myObject = JSON.parse(f.commandes[f.commandes.length-1].toString(f.factureIdBD));
+	//myJSONtext += "\n" + f.commandes[f.commandes.length-1].toString(f.factureIdBD);
 	message(myJSONtext);
+	myJSONtext = JSON.stringify(f);
+	message(myJSONtext);
+	myJSONtext = '{"facture":{"employeId":4, "numeroTable":3, "siege":"2"}}';
+	myObject = JSON.parse(myJSONtext);
 }
 
 function envoyerCuisine() {
@@ -278,11 +283,9 @@ function viderDOMCommande() {
 	var divDetail = document.getElementById("detail_commande_id"),
 		i;
 	childs = divDetail.childNodes;
-	for (i = 0; i < childs.length; i++) {
-		divDetail.removeChild(childs[i]);
-		alert(childs.id);
+	while(divDetail.firstChild) {
+		divDetail.removeChild(divDetail.firstChild);
 	}
-	alert(childs.length);
 }
 
 // Début de la création du DOM pour la confirmation d'une commnde
@@ -299,11 +302,49 @@ function creerTitreCommande(numCommande) {
 	return divTitre;
 }
 
+function creerItemCommande(facture) {
+	var tableItem = document.createElement("TABLE"),
+		i;
+	tableItem.className = "table_commande";
+	tableItem.id = tableItem.className + "_id";
+	for (i = 0; i < facture.commandes[facture.commandes.length - 1].ligneCommandes.length; i++) {
+		tr = document.createElement("TR");
+		tr.className = "tr_commande_item";
+		tr.id = tr.className + i;
+		btnEnlever = document.createElement("BUTTON");
+		btnEnlever.className = "btn_enlever_commande";
+		btnEnlever.id = btnEnlever+i;
+		btnEnlever.textContent = "X";
+		tdItem = document.createElement("TD");
+		tdItem.className = "td_item_commande";
+		tdItem.id = tdItem.className + i;
+		menuItemId = facture.commandes[facture.commandes.length - 1].ligneCommandes[i].menuItemId;
+		tdItem.textContent = document.getElementById("menu_item"+menuItemId).textContent;
+		tdQte = document.createElement("TD");
+		tdQte.className = "td_quantite_commande";
+		tdQte.id = tdQte.className + i
+		tdQte.textContent = facture.commandes[facture.commandes.length - 1].ligneCommandes[i].quantite;
+		tdPrix = document.createElement("TD");
+		tdPrix.className = "td_prix_commande";
+		tdPrix.id = tdPrix.className + i;
+		menuItemId = facture.commandes[facture.commandes.length - 1].ligneCommandes[i].menuItemId;
+		tdPrix.textContent = document.getElementById("menu_item"+menuItemId).getAttribute("prix");
+		tr.appendChild(btnEnlever);
+		tr.appendChild(tdItem);
+		tr.appendChild(tdQte);
+		tr.appendChild(tdPrix);
+		tableItem.appendChild(tr);
+	}
+	return tableItem;
+}
+
 function construireDOMCommande(facture) {
 	var divDetail = document.getElementById("detail_commande_id");
 	viderDOMCommande();
 	titre = creerTitreCommande(facture.commandes.length);
+	item = creerItemCommande(facture);
 	divDetail.appendChild(titre);
+	divDetail.appendChild(item);
 }
 
 // Fin de la création du DOM pour la confirmation d'une commnde

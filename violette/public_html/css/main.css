@@ -67,6 +67,10 @@ body {
 	margin: 0 0 24px 0;
 }
 
+.tr_commande_item{
+
+}
+
 /* div#page_tables {
 	height: auto !important;
 	height:100%;
@@ -112,7 +116,7 @@ body {
     //width: 300px;
 */
 
-tr{
+.ligne_tableau{
    table-layout: fixed;
     width: 20px; 
     
