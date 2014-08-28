@@ -7,8 +7,8 @@
  var blabla = "bli bli",
 	//chemins différents selon l'environnement de travail avec easyPHP
 	//SERVER_PATH = "http://violette.cabserver.net/";
-	SERVER_PATH = "http://127.0.0.1:8888/violette/public_html/";
-	//SERVER_PATH = "http://127.0.0.1/projects/projet_final/public_html/",
+	//SERVER_PATH = "http://127.0.0.1:8888/violette/public_html/";
+	SERVER_PATH = "http://127.0.0.1/projects/projet_final/public_html/",
 	// DOM cache
 	employeId = -1,
 	factureSession = 0,
@@ -46,11 +46,13 @@ function trouverFacture(factureId) {
 // Objet commande
 
 function Commande() {
+	this.modifie = false;
 	this.ligneCommandes = [];
 }
 Commande.prototype.ajouterLigneCommande = function(menuItemId, quantite) {
 	this.ligneCommandes.push(new LigneCommande(menuItemId, quantite));
 };
+// validation this.ligneCommandes[i].modifie = false
 Commande.prototype.toString = function(factureIdBD) {
 	var strJSON = '[{"factureIdBD":'+factureIdBD+'}, ';
 	for ( i = 0; i < this.ligneCommandes.length; i++) {
@@ -66,12 +68,44 @@ Commande.prototype.toString = function(factureIdBD) {
 // Objet LigneCommande
 
 function LigneCommande(menuItemId, quantite) {
+	this.envoye = false;
 	this.menuItemId = menuItemId;
 	this.quantite = quantite;
+	this.note = null;
 }
 LigneCommande.prototype.toString = function() {
 	return '{"menuItemId":' + this.menuItemId + ', "quantite":' + this.quantite + '}';
 };
+
+function getFactureInterface() {
+	var factureSpan = document.getElementById("entete_no_facture"),
+		f = trouverFacture(factureSpan.textContent.substring(9));
+	return f;
+}
+
+function getCommandeInterface() {
+	var f = getFactureInterface(),
+		commandeSpan = document.getElementById("entete_no_commande"),
+		commande = f.commandes[commandeSpan.textContent.substring(10) - 1];
+	return commande;
+}
+
+function verifierModCommande(commande){
+	var i;
+	for (i = 0; i < commande.ligneCommandes.length; i++){
+		item = commande.ligneCommandes[i].menuItemId;
+		if (document.getElementById("quantite"+item).value != commande.ligneCommandes[i].quantite) {
+			return true;
+		}
+	}
+	inputs = document.getElementsByClassName("quantite");
+	for (i = 0;i < inputs.length; i+=) {
+		if (inputs.value > 0) {
+			return true;
+		}
+	}
+	return false;
+}
 
 /*
  * Créeation d'une facture prenant la table et le siège du DOM et crée 
@@ -88,7 +122,8 @@ function creerFacture(id) {
 
 /* Function pour afficher l'information de la facture sélectionnée
  * les slice correpondent à la longueur du texte dans serveuse.html
- * aux Ids correspondant.
+ * aux Ids correspondant.  Si l'objet Facture n'existe pas un nouveau est
+ * créé.
  */
 function afficherEnteteCommande(factureId) {
 	var numeroTableSpan = document.getElementById("entete_no_table"),
@@ -96,8 +131,16 @@ function afficherEnteteCommande(factureId) {
 		siegeSpan = document.getElementById("entete_no_siege"),
 		commandeSpan = document.getElementById("entete_no_commande"),
 		f = trouverFacture(factureId);
+	viderInputQuantite();
+	desactiverBoutonFacture(true);
 	if (f == -1) {
 		f = creerFacture(factureId);
+	} else {
+		if (f.factureIdBD > -1) {
+			desactiverBoutonFacture(false);
+		}
+		afficherInputQuantite(f.commandes[f.commandes.length-1]);
+		verifierQuantiteVide();
 	}
 	gererVisibilite(["none", "block", "none", "none"]);
 	numeroTableSpan.textContent = numeroTableSpan.textContent.slice(0,7) + f.numeroTable;
@@ -107,9 +150,8 @@ function afficherEnteteCommande(factureId) {
 }
 
 function ajouterCommandeBouton() {
-	var factureSpan = document.getElementById("entete_no_facture"),
-		commandeSpan = document.getElementById("entete_no_commande"),
-		f = trouverFacture(factureSpan.textContent.substring(9));
+	var f = getFactureInterface(),
+		commandeSpan = document.getElementById("entete_no_commande");
 	prendreCommande(); //retour boolean?
 	f.ajouterCommande();
 	commandeSpan.textContent = commandeSpan.textContent.slice(0,10) + f.commandes.length;
@@ -125,8 +167,7 @@ function ajouterCommandeBouton() {
 function prendreCommande() {
 	var items = document.getElementsByClassName("quantite"),
 		i,
-		factureSpan = document.getElementById("entete_no_facture"),
-		f = trouverFacture(factureSpan.textContent.substring(9));
+		f = getFactureInterface();
 	for (i = 0; i < items.length; i++) {
 		if (items[i].value > 0) {
 			f.commandes[f.commandes.length - 1].ajouterLigneCommande(items[i].id.substring(8), items[i].value);
@@ -140,10 +181,9 @@ function prendreCommande() {
  * de la facture active.
  */
 function afficherConfirmation() {
-	var factureSpan = document.getElementById("entete_no_facture"),
-		factureConfirmation = document.getElementById("entete_no_facture_id"),
+	var factureConfirmation = document.getElementById("entete_no_facture_id"),
 		tableConfirmation = document.getElementById("entete_no_table_id"),
-		f = trouverFacture(factureSpan.textContent.substring(9));
+		f = getFactureInterface();
 	gererVisibilite(['none','none','block','none']);
 	//TODO: vérifier existence de la commande
 	prendreCommande();
@@ -164,9 +204,8 @@ function afficherConfirmation() {
 }
 
 function envoyerCuisine() {
-	var factureSpan = document.getElementById("entete_no_facture"),
-		f = trouverFacture(factureSpan.textContent.substring(9));
-	if (f.factureIdBD != -1) {
+	var f = getFactureInterface();
+	if ((f.factureIdBD != -1) && (getCommandeInterface().modifie)){
 		requeteNouvelleCommande(f);
 	} else {
 		requeteNouvelleFacture(f);
@@ -229,6 +268,18 @@ function ouvrirSection(sectionId) {
 }
 
 /*
+ * Cette function ferme toutes les sections du menu.
+ */
+function fermerSections() {
+	var menuItems = document.getElementsByClassName("barre_item"),
+		i;
+		for (i = 0; i < menuItems.length; i++) {
+			menuItems[i].style.display = "none";
+		}
+		sectionOuverte = "null";
+}
+
+/*
  * Function pour incrémenter/décrémenter (selon inc) la valeur numérique
  * dans la pastille à la table passer en paramètre. La pastille ne sera
  * affichée seulement si elle contient une valeur plus grande que zéro.
@@ -269,6 +320,18 @@ function incrementerQuantite(index, inc) {
 	} else if ((parseInt(quantite.value) < 20) && (inc)) {
 		quantite.value = parseInt(quantite.value) + 1;
 	}
+	verifierQuantiteVide();
+	verifierModCommande(getCommandeInterface());
+				desactiverBoutonCuisine(false);
+			commande.modifie = true;
+}
+
+function afficherInputQuantite(commande) {
+	var i;
+	for (i = 0; i < commande.ligneCommandes.length; i++){
+		item = commande.ligneCommandes[i].menuItemId;
+		document.getElementById("quantite"+item).value = commande.ligneCommandes[i].quantite;
+	}
 }
 
 function viderInputQuantite() {
@@ -277,6 +340,22 @@ function viderInputQuantite() {
 	for (i = 0; i < inputs.length; i++) {
 		inputs[i].value = 0;
 	}
+	fermerSections();
+	desactiverBoutonResume(true);
+	desactiverBoutonAjoutCommande(true);
+}
+
+function verifierQuantiteVide() {
+	var inputs = document.getElementsByClassName("quantite"),
+		i;
+	for (i = 0; i < inputs.length; i++) {
+		if (inputs[i].value > 0) {
+			desactiverBoutonResume(false);
+			desactiverBoutonAjoutCommande(false);
+			return false;
+		}
+	}
+	return true;
 }
 
 function viderDOMCommande() {
@@ -286,6 +365,25 @@ function viderDOMCommande() {
 	while(divDetail.firstChild) {
 		divDetail.removeChild(divDetail.firstChild);
 	}
+}
+
+function desactiverBoutonFacture(isInactif) {
+	var btnCommande = document.getElementById("btn_facture_commande");
+		btnConfirmation = document.getElementById("btn_facture_confirmation");
+	btnCommande.disabled = isInactif;
+	btnConfirmation.disabled = isInactif;
+} 
+
+function desactiverBoutonResume(isInactif) {
+	document.getElementById("btn_confirmation").disabled = isInactif;
+}
+
+function desactiverBoutonAjoutCommande(isInactif) {
+	document.getElementById("btn_commande_plus").disabled = isInactif;
+}
+
+function desactiverBoutonCuisine(isInactif) {
+	document.getElementById"btn_cuisine").disabled = isInactif;
 }
 
 // Début de la création du DOM pour la confirmation d'une commnde
@@ -563,6 +661,7 @@ function construireMenu(menuXML) {
 		}, false);
 		ouvrirSection(section.id);
 	}
+	desactiverBoutonFacture(true);
 }
 
 // Fin de la création du menu dans le DOM.
@@ -654,8 +753,9 @@ function requeteNouvelleFacture(facture) {
 		success: function (response) {
  			facture.factureIdBD = response.responseText;
 			requeteNouvelleCommande(facture);
+			desactiverBoutonFacture(false);
 		},
-		error: function (response) { return alert("erreur : " + response.responseText); }
+		error: function (response) { return alert("erreur : nouvelle facture"); }
     });
 	return false;
 }
@@ -668,9 +768,10 @@ function requeteNouvelleCommande(facture) {
 		data: "ACTION=nouvelle_commande&commande=" + facture.commandes[facture.commandes.length - 1].toString(facture.factureIdBD),
 		datatype: 'xml',
 		success: function (response) {
+			//mettre ligneCommande.envoye à true
  			alert(blabla);
 		},
-		error: function (response) { return alert("erreur : " + response.responseText); }
+		error: function (response) { return alert("erreur : nouvelle commande"); }
     });
 	return false;
 }
