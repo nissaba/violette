@@ -1,5 +1,20 @@
 {"facture":[{"employeId":4, "numeroTable":3, "siege":"2"}]}
-{"commande":[{"menuItemId":"21", "quantite":"2"},{"menuItemId":"23", "quantite":"1"},{"menuItemId":"32", "quantite":"3"},{"menuItemId":"34", "quantite":"1"}]}
+
+
+
 [{"employeId":4, "numeroTable":2, "siege":1}]
+
 [{"factureIdBD":-1}, {"menuItemId":5, "quantite":1},{"menuItemId":7, "quantite":1}]
+
 {"factureId":"1","employeId":"4","numeroTable":"2","siege":"1","factureIdBD":-1,"commandes":[{"ligneCommandes":[{"menuItemId":"27","quantite":"1"},{"menuItemId":"28","quantite":"1"},{"menuItemId":"21","quantite":"1"}]}]}
+
+$var->factureid .....
+
+for $var->commandes
+
+
+-- nouvel facture
+{"employeId":4, "numeroTable":3, "siege":"2"}
+
+-- ajouter item a une facture
+{"factureid":3,"ligneCommandItems":[{"menuItemId":"21", "quantite":"2"},{"menuItemId":"23", "quantite":"1"},{"menuItemId":"32", "quantite":"3"},{"menuItemId":"34", "quantite":"1"}]}

@@ -1,11 +1,16 @@
 <?php
 
 function initieFacture($db, $empID, $numTable, $siege){
-    //$db->pre
-    return 1;
+    
+    $sql = "insert into FACTURE (EMPLOYE_ID, NUMERO_TABLE, SIEGE) values(?,?,?);";
+    $stmt = $db->prepare($sql);
+    $stmt->bind_param("iii", $empID, $numTable, $siege);
+    $stmt->execute();
+    $id = mysqli_insert_id($db);
+    return $id;
 }
 
-function updateData($param){
+function ajouterItems($factureId, ){
     
 }
 
