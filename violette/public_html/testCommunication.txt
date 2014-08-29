@@ -18,3 +18,7 @@ for $var->commandes
 
 -- ajouter item a une facture
 {"factureid":3,"ligneCommandItems":[{"menuItemId":"21", "quantite":"2"},{"menuItemId":"23", "quantite":"1"},{"menuItemId":"32", "quantite":"3"},{"menuItemId":"34", "quantite":"1"}]}
+
+-- 64 encode --
+{"employeId":4, "numeroTable":3, "siege":6}
+eyJlbXBsb3llSWQiOjQsICJudW1lcm9UYWJsZSI6MywgInNpZWdlIjo2fQ== 

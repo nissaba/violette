@@ -7,8 +7,8 @@
  var blabla = "bli bli",
 	//chemins différents selon l'environnement de travail avec easyPHP
 	//SERVER_PATH = "http://violette.cabserver.net/";
-	//SERVER_PATH = "http://127.0.0.1:8888/violette/public_html/";
-	SERVER_PATH = "http://127.0.0.1/projects/projet_final/public_html/",
+	SERVER_PATH = "http://127.0.0.1:8888/violette/public_html/",
+	//SERVER_PATH = "http://127.0.0.1/projects/projet_final/public_html/",
 	// DOM cache
 	employeId = -1,
 	factureSession = 0,
@@ -30,7 +30,7 @@ Facture.prototype.ajouterCommande = function() {
 	this.commandes.push(new Commande());
 };
 Facture.prototype.toString = function() {
-	return '[{"employeId":' + this.employeId + ', "numeroTable":' + this.numeroTable + ', "siege":' + this.siege + '}]';
+	return '{"employeId":' + this.employeId + ', "numeroTable":' + this.numeroTable + ', "siege":' + this.siege + '}';
 };
 
 function trouverFacture(factureId) {
@@ -54,7 +54,7 @@ Commande.prototype.ajouterLigneCommande = function(menuItemId, quantite) {
 };
 // validation this.ligneCommandes[i].modifie = false
 Commande.prototype.toString = function(factureIdBD) {
-	var strJSON = '[{"factureIdBD":'+factureIdBD+'}, ';
+	var strJSON = '{"factureIdBD":'+factureIdBD+'},"lignesCommandes":[';
 	for ( i = 0; i < this.ligneCommandes.length; i++) {
 		strJSON += this.ligneCommandes[i].toString();
 		if (i < this.ligneCommandes.length - 1) {
@@ -91,18 +91,20 @@ function getCommandeInterface() {
 }
 
 function verifierModCommande(commande){
-	var i;
+	var i,items;
 	for (i = 0; i < commande.ligneCommandes.length; i++){
 		item = commande.ligneCommandes[i].menuItemId;
 		if (document.getElementById("quantite"+item).value != commande.ligneCommandes[i].quantite) {
+			alert(document.getElementById("quantite"+item).value+"\n"+ commande.ligneCommandes[i].quantite);
 			return true;
 		}
 	}
 	inputs = document.getElementsByClassName("quantite");
-	for (i = 0;i < inputs.length; i+=) {
-		if (inputs.value > 0) {
-			return true;
-		}
+	if (inputs.value > 0) {
+		items++;
+	}
+	if(commande.ligneCommandes.length != items) {
+		return true;
 	}
 	return false;
 }
@@ -191,16 +193,15 @@ function afficherConfirmation() {
 	tableConfirmation.textContent = tableConfirmation.textContent.slice(0,7) + f.numeroTable;
 	// test de validation du JSON
 	construireDOMCommande(f);
-	myJSONtext = JSON.stringify(f.commandes[0]);
-	//myJSONtext = f.toString();
 	//myObject = JSON.parse(myJSONtext);
 	//myObject = JSON.parse(f.commandes[f.commandes.length-1].toString(f.factureIdBD));
+	
+	myJSONtext = btoa(f.toString());
+	myJSONtext += "\n" + f.toString();
 	//myJSONtext += "\n" + f.commandes[f.commandes.length-1].toString(f.factureIdBD);
 	message(myJSONtext);
-	myJSONtext = JSON.stringify(f);
-	message(myJSONtext);
-	myJSONtext = '{"facture":{"employeId":4, "numeroTable":3, "siege":"2"}}';
-	myObject = JSON.parse(myJSONtext);
+	//myJSONtext = '{"facture":{"employeId":4, "numeroTable":3, "siege":"2"}}';
+	//myObject = JSON.parse(myJSONtext);
 }
 
 function envoyerCuisine() {
@@ -315,15 +316,19 @@ function incrementerSiege(facture, inc) {
  */
 function incrementerQuantite(index, inc) {
 	var quantite = document.getElementById("quantite" + index);
+	desactiverBoutonCuisine(true);
 	if ((parseInt(quantite.value) > 0) && !(inc)) {
 		quantite.value = parseInt(quantite.value) - 1;
 	} else if ((parseInt(quantite.value) < 20) && (inc)) {
 		quantite.value = parseInt(quantite.value) + 1;
 	}
-	verifierQuantiteVide();
-	verifierModCommande(getCommandeInterface());
-				desactiverBoutonCuisine(false);
-			commande.modifie = true;
+	if(verifierQuantiteVide()) {
+		desactiverBoutonResume(true)
+	}
+	getCommandeInterface().modifie = verifierModCommande(getCommandeInterface());
+	if(getCommandeInterface().modifie) {
+		desactiverBoutonCuisine(false);
+	}
 }
 
 function afficherInputQuantite(commande) {
@@ -383,7 +388,7 @@ function desactiverBoutonAjoutCommande(isInactif) {
 }
 
 function desactiverBoutonCuisine(isInactif) {
-	document.getElementById"btn_cuisine").disabled = isInactif;
+	document.getElementById("btn_cuisine").disabled = isInactif;
 }
 
 // Début de la création du DOM pour la confirmation d'une commnde
@@ -662,6 +667,7 @@ function construireMenu(menuXML) {
 		ouvrirSection(section.id);
 	}
 	desactiverBoutonFacture(true);
+	desactiverBoutonCuisine(true);
 }
 
 // Fin de la création du menu dans le DOM.
