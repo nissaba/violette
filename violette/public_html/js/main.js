@@ -16,23 +16,6 @@
 	tableOuverte = "null",
 	sectionOuverte = "null";
 
-// Objet Facture et fonctions associées
-
-function Facture(factureId, numeroTable, siege, employeId) {
-	this.factureId = factureId;
-	this.employeId = employeId;
-	this.numeroTable = numeroTable;
-	this.siege = siege;
-	this.factureIdBD = -1;
-	this.commandes = [];
-}
-Facture.prototype.ajouterCommande = function() {
-	this.commandes.push(new Commande());
-};
-Facture.prototype.toString = function() {
-	return '{"employeId":' + this.employeId + ', "numeroTable":' + this.numeroTable + ', "siege":' + this.siege + '}';
-};
-
 function trouverFacture(factureId) {
 	var i;
 	for (i = 0; i < factures.length; i++) {
@@ -42,40 +25,6 @@ function trouverFacture(factureId) {
 	}
 	return -1;
 }
-
-// Objet commande
-
-function Commande() {
-	this.modifie = false;
-	this.ligneCommandes = [];
-}
-Commande.prototype.ajouterLigneCommande = function(menuItemId, quantite) {
-	this.ligneCommandes.push(new LigneCommande(menuItemId, quantite));
-};
-// validation this.ligneCommandes[i].modifie = false
-Commande.prototype.toString = function(factureIdBD) {
-	var strJSON = '{"factureid":'+factureIdBD+',"ligneCommandItems":[';
-	for ( i = 0; i < this.ligneCommandes.length; i++) {
-		strJSON += this.ligneCommandes[i].toString();
-		if (i < this.ligneCommandes.length - 1) {
-			strJSON += ",";
-		}
-	}
-	strJSON += "]}";
-	return strJSON;
-};
-
-// Objet LigneCommande
-
-function LigneCommande(menuItemId, quantite) {
-	this.envoye = false;
-	this.menuItemId = menuItemId;
-	this.quantite = quantite;
-	this.note = null;
-}
-LigneCommande.prototype.toString = function() {
-	return '{"menuItemId":"' + this.menuItemId + '", "quantite":"' + this.quantite + '"}';
-};
 
 function getFactureInterface() {
 	var factureSpan = document.getElementById("entete_no_facture"),
@@ -444,80 +393,26 @@ function construireDOMCommande(facture) {
 
 // Début de la création d'un élément facture dans le DOM.
 
-function creerTableFacture() {
-	var facture = document.createElement("TABLE"),
-		factureStyle = document.createElement("STYLE");
-	facture.className = "barre_facture";
-	facture.id = "facture_" + factureSession;
-	factureStyle.property = "display";
-	factureStyle.display = "inline-block";
-	facture.appendChild(factureStyle);
-	return facture;
-}
-
-function creerLignefacture(factureId) {
-	var ligne = document.createElement("TR");
-	ligne.className = "ligne_tableau";
-	ligne.id = ligne.className + factureId;
-	return ligne;
-}
-
-function creerNomFacture(factureId) {
-	var nom = document.createElement("TD");
-	nom.className = "nom_facture";
-	nom.id = "nom_" + factureId;
-	nom.setAttribute("facture_id", factureId.substring(8));
-	nom.innerHTML = factureId.replace("_", " ");
-	return nom;
-}
-
-function creerEspaceFacture(factureId) {
-	var espace = document.createElement("TD");
-	espace.className = "espace";
-	espace.id = "espace_btn_" + factureId;
-	return espace;
-}
-
-function creerBoutonIncrementFacture(factureId, isPlus) {
-	var bouton = document.createElement("BUTTON");
-	bouton.className = (isPlus) ? "btn_plus" : "btn_moins";
-	bouton.id = bouton.className + factureId;
-	bouton.innerHTML = (isPlus) ? " + " : " - ";
-	return bouton;
-}
-
-function creerInputSiegeFacture(factureId) {
-	var siege = document.createElement("INPUT");
-	siege.setAttribute("type", "text");
-	siege.required = true;
-	siege.disabled = true;
-	siege.defaultValue = 1;
-	siege.className = "siege";
-	siege.id = siege.className + factureId;
-	return siege;
-}
-
 function ajouterFacture(id) {
 	var liTable = document.getElementById(id).parentNode,
-		td = document.createElement("TD");
-	td.className = "td_increment";
+		tdIncrement = creerTDIncrement("td_increment");
 	if ((tableOuverte !== liTable.id) && (tableOuverte !== "null")) {
 		ouvrirTable(tableOuverte);
 	}
 	tableOuverte = liTable.id;
 	factureSession++;
 	viderInputQuantite();
-	facture = creerTableFacture();
-	ligne = creerLignefacture(facture.id);
-	nom = creerNomFacture(facture.id);
+	facture = creerTableFacture("barre_facture");
+	ligne = creerLignefacture("ligne_tableau", facture.id);
+	nom = creerNomFacture("nom_facture", facture.id);
 	btnMoins = creerBoutonIncrementFacture(facture.id, false);
 	btnPlus = creerBoutonIncrementFacture(facture.id, true);
-	td.appendChild(btnMoins);
-	td.appendChild(creerInputSiegeFacture(facture.id));
-	td.appendChild(btnPlus);
+	tdIncrement.appendChild(btnMoins);
+	tdIncrement.appendChild(creerInputSiegeFacture("siege", facture.id));
+	tdIncrement.appendChild(btnPlus);
 	ligne.appendChild(nom);
-	ligne.appendChild(creerEspaceFacture(facture.id));
-	ligne.appendChild(td);
+	ligne.appendChild(creerEspaceFacture("espace", facture.id));
+	ligne.appendChild(tdIncrement);
 	facture.appendChild(ligne);
 	liTable.appendChild(facture);
 	incrementerPastille(liTable, 1);
