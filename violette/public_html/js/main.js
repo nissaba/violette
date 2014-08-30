@@ -7,8 +7,8 @@
  var blabla = "bli bli",
 	//chemins différents selon l'environnement de travail avec easyPHP
 	//SERVER_PATH = "http://violette.cabserver.net/";
-	SERVER_PATH = "http://127.0.0.1:8888/violette/public_html/",
-	//SERVER_PATH = "http://127.0.0.1/projects/projet_final/public_html/",
+	//SERVER_PATH = "http://127.0.0.1:8888/violette/public_html/",
+	SERVER_PATH = "http://127.0.0.1/projects/projet_final/public_html/",
 	// DOM cache
 	employeId = -1,
 	factureSession = 0,
@@ -54,14 +54,14 @@ Commande.prototype.ajouterLigneCommande = function(menuItemId, quantite) {
 };
 // validation this.ligneCommandes[i].modifie = false
 Commande.prototype.toString = function(factureIdBD) {
-	var strJSON = '{"factureIdBD":'+factureIdBD+'},"lignesCommandes":[';
+	var strJSON = '{"factureid":'+factureIdBD+',"ligneCommandItems":[';
 	for ( i = 0; i < this.ligneCommandes.length; i++) {
 		strJSON += this.ligneCommandes[i].toString();
 		if (i < this.ligneCommandes.length - 1) {
 			strJSON += ",";
 		}
 	}
-	strJSON += "]";
+	strJSON += "]}";
 	return strJSON;
 };
 
@@ -74,7 +74,7 @@ function LigneCommande(menuItemId, quantite) {
 	this.note = null;
 }
 LigneCommande.prototype.toString = function() {
-	return '{"menuItemId":' + this.menuItemId + ', "quantite":' + this.quantite + '}';
+	return '{"menuItemId":"' + this.menuItemId + '", "quantite":"' + this.quantite + '"}';
 };
 
 function getFactureInterface() {
@@ -191,17 +191,7 @@ function afficherConfirmation() {
 	prendreCommande();
 	factureConfirmation.textContent = factureConfirmation.textContent.slice(0,9) + f.factureId;
 	tableConfirmation.textContent = tableConfirmation.textContent.slice(0,7) + f.numeroTable;
-	// test de validation du JSON
 	construireDOMCommande(f);
-	//myObject = JSON.parse(myJSONtext);
-	//myObject = JSON.parse(f.commandes[f.commandes.length-1].toString(f.factureIdBD));
-	
-	myJSONtext = btoa(f.toString());
-	myJSONtext += "\n" + f.toString();
-	//myJSONtext += "\n" + f.commandes[f.commandes.length-1].toString(f.factureIdBD);
-	message(myJSONtext);
-	//myJSONtext = '{"facture":{"employeId":4, "numeroTable":3, "siege":"2"}}';
-	//myObject = JSON.parse(myJSONtext);
 }
 
 function envoyerCuisine() {
@@ -754,28 +744,33 @@ function requeteNouvelleFacture(facture) {
 		url: SERVER_PATH + "facturation.php",
 		type: 'POST',
 		async: false,
-		data: "ACTION=nouvelle_facture&facture=" + facture.toString(),
+		data: "ACTION=insertfacture&DATA=" + btoa(facture.toString()),
 		datatype: 'xml',
 		success: function (response) {
- 			facture.factureIdBD = response.responseText;
+ 			facture.factureIdBD = response.getElementsByTagName("facture_id")[0].textContent;
 			requeteNouvelleCommande(facture);
 			desactiverBoutonFacture(false);
 		},
-		error: function (response) { return alert("erreur : nouvelle facture"); }
+		error: function (response) { 
+			return alert("erreur : nouvelle facture"); 
+		}
     });
 	return false;
 }
 
 function requeteNouvelleCommande(facture) {
+	var i;
 	$.ajax({
 		url: SERVER_PATH + "facturation.php",
 		type: 'POST',
 		async: false,
-		data: "ACTION=nouvelle_commande&commande=" + facture.commandes[facture.commandes.length - 1].toString(facture.factureIdBD),
+		data: "ACTION=facutreAjouteItems&DATA=" + btoa(facture.commandes[facture.commandes.length - 1].toString(facture.factureIdBD)),
 		datatype: 'xml',
 		success: function (response) {
 			//mettre ligneCommande.envoye à true
- 			alert(blabla);
+			for (i = 1; i <= parseInt(response.getElementsByTagName("nombre_item_ajouter")[0].textContent);i++){
+				facture.commandes[facture.commandes.length-1].ligneCommandes[facture.commandes[facture.commandes.length-1].ligneCommandes.length-i].envoye = true;
+			}
 		},
 		error: function (response) { return alert("erreur : nouvelle commande"); }
     });
