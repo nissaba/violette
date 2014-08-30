@@ -394,41 +394,28 @@ function construireDOMCommande(facture) {
 // Début de la création d'un élément facture dans le DOM.
 
 function ajouterFacture(id) {
-	var liTable = document.getElementById(id).parentNode,
-		tdIncrement = creerTDIncrement("td_increment");
+	var liTable = document.getElementById(id).parentNode;
 	if ((tableOuverte !== liTable.id) && (tableOuverte !== "null")) {
 		ouvrirTable(tableOuverte);
 	}
 	tableOuverte = liTable.id;
 	factureSession++;
 	viderInputQuantite();
-	facture = creerTableFacture("barre_facture");
-	ligne = creerLignefacture("ligne_tableau", facture.id);
-	nom = creerNomFacture("nom_facture", facture.id);
-	btnMoins = creerBoutonIncrementFacture(facture.id, false);
-	btnPlus = creerBoutonIncrementFacture(facture.id, true);
-	tdIncrement.appendChild(btnMoins);
-	tdIncrement.appendChild(creerInputSiegeFacture("siege", facture.id));
-	tdIncrement.appendChild(btnPlus);
-	ligne.appendChild(nom);
-	ligne.appendChild(creerEspaceFacture("espace", facture.id));
-	ligne.appendChild(tdIncrement);
-	facture.appendChild(ligne);
+	facture = creerTableFacture();
+	facture.appendChild(creerLignefacture(facture.id));
 	liTable.appendChild(facture);
 	incrementerPastille(liTable, 1);
-	nom.addEventListener("click", function (e) {
+	document.getElementById("nom_"+facture.id).addEventListener("click", function (e) {
 		e.preventDefault();
 		afficherEnteteCommande(e.currentTarget.getAttribute("facture_id"));
 	}, false);
-	btnPlus.addEventListener("click", function (e) {
+	document.getElementById("btn_plus"+facture.id).addEventListener("click", function (e) {
 		e.preventDefault();
-		msg = e.currentTarget.id.substring(8);
-		incrementerSiege(msg, true);
+		incrementerSiege(e.currentTarget.id.substring(8), true);
 	}, false);
-	btnMoins.addEventListener("click", function (e) {
+	document.getElementById("btn_moins"+facture.id).addEventListener("click", function (e) {
 		e.preventDefault();
-		msg = e.currentTarget.id.substring(9);
-		incrementerSiege(msg, false);
+		incrementerSiege(e.currentTarget.id.substring(9), false);
 	}, false);
 }
 
@@ -436,82 +423,14 @@ function ajouterFacture(id) {
 
 // Début de la création du menu dans le DOM.
 
-function creerSectionMenu(index) {
-	var ligne = document.createElement("LI");
-	ligne.className = "section";
-	ligne.id = ligne.className + index;
-	return ligne;
-}
-
-function creerTitreSectionMenu(index, text) {
-	var ligne = document.createElement("H3");
-	ligne.className = "section_titre";
-	ligne.id = ligne.className + index;
-	ligne.textContent = text;
-	return ligne;
-}
-
-function creerDivItem(index) {
-	var ligne = document.createElement("DIV"),
-		ligneStyle = document.createElement("STYLE");
-	ligne.className = "barre_item";
-	ligne.id = ligne.className + index;
-	ligneStyle.property = "display";
-	ligneStyle.display = "none";
-	ligne.appendChild(ligneStyle);
-	return ligne;
-}
-
-function creerTitreItem(index, text) {
-	var ligne = document.createElement("H5");
-	ligne.className = "menu_item";
-	ligne.id = ligne.className + index;
-	ligne.textContent = text.textContent;
-	ligne.setAttribute("prix",text.getAttribute("prix"));
-	ligne.setAttribute("description",text.getAttribute("description"));
-	return ligne;
-}
-
-function creerEspaceItem(index) {
-	var espace = document.createElement("SPAN");
-	espace.className = "espace_menu";
-	espace.id = espace.className + index;
-	return espace;
-}
-
-function creerDivBoutons(index) {
-	var ligne = document.createElement("DIV");
-	ligne.className = "menu_boutons";
-	ligne.id = ligne.className + index;
-	return ligne;
-}
-
-function creerBoutonIncrementMenu(index, isPlus) {
-	var bouton = document.createElement("BUTTON");
-	bouton.className = (isPlus) ? "btn_plus_menu" : "btn_moins_menu";
-	bouton.id = bouton.className + index;
-	bouton.innerHTML = (isPlus) ? " + " : " - ";
-	return bouton;
-}
-
-function creerInputQuantiteMenu(index) {
-	var input = document.createElement("INPUT");
-	input.setAttribute("type", "text");
-	input.disabled = true;
-	input.defaultValue = 0;
-	input.className = "quantite";
-	input.id = input.className + index;
-	return input;
-}
-
 function construireMenu(menuXML) {
 	var sections = menuXML.getElementsByTagName("section"),
 		listeMenu = document.getElementById("liste_menu_sections"),
 		i,
 		j;
 	for (i = 0; i < sections.length; i++) {
-		section = creerSectionMenu(i);
-		titre = creerTitreSectionMenu(i, sections[i].getAttribute("nom"));
+		section = creerSectionMenu("section", i);
+		titre = creerTitreSectionMenu("section_titre", i, sections[i].getAttribute("nom"));
 		items = sections[i].getElementsByTagName("item");
 		section.appendChild(titre);
 		for (j = 0; j < items.length; j++) {
@@ -521,12 +440,12 @@ function construireMenu(menuXML) {
 			textItem.setAttribute("description", descItem.textContent);
 			prixItem = descItem.nextSibling.nextSibling;
 			textItem.setAttribute("prix", prixItem.textContent);
-			divItem = creerDivItem(id);
-			menuItem = creerTitreItem(id.textContent, textItem);
-			espace = creerEspaceItem(id.textContent);
-			divBoutons = creerDivBoutons(id.textContent);
+			divItem = creerDivItem("barre_item", id);
+			menuItem = creerTitreItem("menu_item", id.textContent, textItem);
+			espace = creerEspaceItem("espace_menu", id.textContent);
+			divBoutons = creerDivBoutons("menu_boutons", id.textContent);
 			btnMoins = creerBoutonIncrementMenu(id.textContent, false);
-			quantite = creerInputQuantiteMenu(id.textContent);
+			quantite = creerInputQuantiteMenu("quantite", id.textContent);
 			btnPlus = creerBoutonIncrementMenu(id.textContent, true);
 			divBoutons.appendChild(btnMoins);
 			divBoutons.appendChild(quantite);
