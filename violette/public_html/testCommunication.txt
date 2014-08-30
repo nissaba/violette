@@ -17,8 +17,10 @@ for $var->commandes
 {"employeId":4, "numeroTable":3, "siege":"2"}
 
 -- ajouter item a une facture
-{"factureid":3,"ligneCommandItems":[{"menuItemId":"21", "quantite":"2"},{"menuItemId":"23", "quantite":"1"},{"menuItemId":"32", "quantite":"3"},{"menuItemId":"34", "quantite":"1"}]}
+{"factureid":9,"ligneCommandItems":[{"menuItemId":"21", "quantite":"2"},{"menuItemId":"23", "quantite":"1"},{"menuItemId":"32", "quantite":"3"},{"menuItemId":"34", "quantite":"1"}]}
+eyJmYWN0dXJlaWQiOjMsImxpZ25lQ29tbWFuZEl0ZW1zIjpbeyJtZW51SXRlbUlkIjoiMjEiLCAicXVhbnRpdGUiOiIyIn0seyJtZW51SXRlbUlkIjoiMjMiLCAicXVhbnRpdGUiOiIxIn0seyJtZW51SXRlbUlkIjoiMzIiLCAicXVhbnRpdGUiOiIzIn0seyJtZW51SXRlbUlkIjoiMzQiLCAicXVhbnRpdGUiOiIxIn1dfQ==
 
 -- 64 encode --
 {"employeId":4, "numeroTable":3, "siege":6}
-eyJlbXBsb3llSWQiOjQsICJudW1lcm9UYWJsZSI6MywgInNpZWdlIjo2fQ== 
+eyJlbXBsb3llSWQiOjQsICJudW1lcm9UYWJsZSI6MywgInNpZWdlIjo2fQ== <- javascripte base64
+eyJlbXBsb3llSWQiOjQsICJudW1lcm9UYWJsZSI6MywgInNpZWdlIjo2fQ== <- php base64

@@ -10,8 +10,22 @@ function initieFacture($db, $empID, $numTable, $siege){
     return $id;
 }
 
-function ajouterItems($factureId, ){
+function ajouterItems($db, $factureId, $dattaArray ){
     
+    $query = "insert into LIGNE_COMMAND_ITEM (FACTURE_ID, MENU_ITEM_ID, QUANTITE) values(";
+    foreach ($dattaArray as $item) {
+        $query .= $factureId . ', ' .$item->menuItemId . ', '. $item->quantite .'),(';
+    }
+    $query = substr($query, 0, -2);
+    $query .= ";";
+    
+    $res = $db->query($query);
+    if ($res){
+        $res = $db->affected_rows;
+    }else{
+        $res = 0;
+    }
+    return $res;
 }
 
 function selectData($param) {

@@ -26,10 +26,6 @@ $action = $_REQUEST['ACTION'];
 $data = json_decode(base64_decode($_REQUEST['DATA']));
 //$data = $tab_data[0];
 
-$employeID = $data->employeId;
-//$factureID = $data[->factureIdBD;
-$numTable = $data->numeroTable;
-$siege = $data->siege;
 
 
 $xml = new XMLWriter();
@@ -40,19 +36,18 @@ $xml->startElement('facturation');
 //$xml->writeElement("base64_test_value", base64_encode('{"factureId":"1","employeId":"4","numeroTable":"2","siege":"1","factureIdBD":-1,"commandes":[{"ligneCommandes":[{"menuItemId":"27","quantite":"1"},{"menuItemId":"28","quantite":"1"},{"menuItemId":"21","quantite":"1"}]}]}'));
 //$xml->writeElement("action",$action);
 //$xml->writeElement("post_data", $_REQUEST['DATA']);
-//$xml->writeElement("emp_id", $data->employeId.'');
+//$xml->writeElement("factureID", $data->factureid.'');
 
 
 if($action == 'insertfacture'){
-  $res = initieFacture($dbConnection, $employeID, $numTable, $siege);
+  $res = initieFacture($dbConnection, $data->employeId, $data->numeroTable, $data->siege);
   $xml->writeElement("facture_id", $res);
-}else if($action == 'update'){
-  $res = updateData();  
-}else if($action == 'getinfo'){
+}elseif($action == 'facutreAjouteItems'){
+  $res = ajouterItems($dbConnection, $data->factureid, $data->ligneCommandItems);  
+  $xml->writeElement("nombre_item_ajouter", $res);
+}elseif($action == 'getinfo'){
     $res = selectData();
 }
-
-
 $xml->endElement();
 $xml->flush();
 
