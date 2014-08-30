@@ -38,16 +38,36 @@ $xml->startElement('facturation');
 //$xml->writeElement("post_data", $_REQUEST['DATA']);
 //$xml->writeElement("factureID", $data->factureid.'');
 
-
-if($action == 'insertfacture'){
-  $res = initieFacture($dbConnection, $data->employeId, $data->numeroTable, $data->siege);
-  $xml->writeElement("facture_id", $res);
-}elseif($action == 'facutreAjouteItems'){
-  $res = ajouterItems($dbConnection, $data->factureid, $data->ligneCommandItems);  
-  $xml->writeElement("nombre_item_ajouter", $res);
-}elseif($action == 'getinfo'){
-    $res = selectData();
+switch ($action) {
+    case 'insertfacture':
+        $res = initieFacture($dbConnection, $data->employeId, $data->numeroTable, $data->siege);
+        $xml->writeElement("facture_id", $res);
+        break;
+    
+    case 'facutreAjouteItems':
+        $res = ajouterItems($dbConnection, $data->factureid, $data->ligneCommandItems);  
+        $xml->writeElement("nombre_item_ajouter", $res);
+        break;
+    
+    case 'effacerFacture':
+        $res = effacerIdDansTable($dbConnection, 'FACTURE', $data);
+        $xml->writeElement("facture_effacer", $res);
+        break;
+    
+    case 'effacerLigneCMDITem':
+        $res = effacerIdDansTable($dbConnection, 'LIGNE_COMMAND_ITEM', $data);
+        $xml->writeElement("ligne_cmd_item_effacer", $res);
+        break;
+    
+    case 'listLigneCMDItem':
+        
+        break;
+    
+    default:
+        $xml->writeElement("Commande_inconue", $action);
+        break;
 }
+
 $xml->endElement();
 $xml->flush();
 

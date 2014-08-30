@@ -1,0 +1,2 @@
+-- effacer une facture
+delete from FACTURE where FACTURE_ID = ?

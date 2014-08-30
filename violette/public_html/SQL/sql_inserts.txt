@@ -8,7 +8,7 @@ insert into FACTURE (EMPLOYE_ID, NUMERO_TABLE, SIEGE) values(?,?,?);
 insert into SECTION (TITRE) values(?);
 
 -- inser ligne_comand_item
-insert into LIGNE_COMMAND_ITEM values(?,?,?, select PRIX from MENU_ITEM where MENU_ITEM = ?, ?, ?);
+insert into LIGNE_COMMAND_ITEM (FACTURE_ID, MENU_ITEM_ID, QUANTITE) values(?,?,?);
 
 -- isert fonction
 insert into FONCTION (TITRE) values(?); 

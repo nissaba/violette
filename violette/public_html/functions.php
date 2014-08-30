@@ -28,34 +28,17 @@ function ajouterItems($db, $factureId, $dattaArray ){
     return $res;
 }
 
-function selectData($param) {
-    
+function effacerIdDansTable($db, $table, $id) {
+    $query = "delete from ? where FACTURE_ID = ?;";
+    $stmt = $db->prepare($query);
+    $stmt->bind_param('si', $table, $id);
+    $stmt-execute();
+    $res = $db->affected_rows;
+    return $res;   
 }
 
-function insertCursorToXML($res) {
-    $xml = new XMLWriter();
-    $xml->openMemory();
-    $xml->startDocument('1.0');
-    $xml->setIndent(true);
-    $xml->startElement('login');
+function listIdTable($db, $table, $id) {
     
-     $xml->endElement();
-     return $xml->outputMemory();
-}
-
-function sendDataFromResult($res) {
-    $xml = new XMLWriter();
-    $xml->openURI("php://output");
-    $xml->startDocument('1.0');
-    $xml->setIndent(true);
-    $xml->startElement('login');
-    
-    
-    foreach($result_array as $key => $value)
-    {
-        $xml->writeElement("$key", $value);      
-    }
-    $xml->endElement();
 }
 
 ?>
