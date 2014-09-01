@@ -32,7 +32,8 @@ body {
 	background-repeat: no-repeat;
 	-webkit-font-smoothing: antialiased;
 	font-family: "Open Sans", Arial, Helvetica, Geneva, sans-serif;
-	font-size: 16px;
+	//font-size: 16px;
+	font-size: 1em;
 	font-weight: 400;
 	height: auto !important;
 	/*height: 100%;*/
@@ -42,14 +43,16 @@ body {
 	color: #2E1C08;
 }
 [class="page"]{
-        border-bottom-width: 6px;  
+        //border-bottom-width: 6px;  
+		border-bottom-width: .365em;  
         border-bottom-color:#63100F ; 
         border-bottom-style: groove;  
 }
 
 #app {
 	color: #2E1C08;
-	margin: 10px;
+	//margin: 10px;
+	margin: 0.625em;
 }
 
 /* login? */
@@ -74,7 +77,8 @@ body {
 .table, .section {
 	display:inline-block;
 	width:100%;
-	height:55px;
+	//height:75px;
+	height:4.688em;
 	background-color:#63100F;
 	color:#FFEDD0;
 	padding-top:3px;
@@ -112,7 +116,8 @@ body {
 
 .ligne_tableau{
    table-layout: fixed;
-    width: 20px; 
+    //width: 20px;
+	width:1.250em;	
     
 }
 /* Affect la table X*/
@@ -150,9 +155,12 @@ body {
 .cercle{
 	background:#FFA420;
 	border-radius:50%;
-	width:25px;
-	height:25px;
-	border:2px solid #2E1C08;
+	//width:25px;
+	width:1.563em;
+	//height:25px;
+	height:1.563em;
+	//border:2px solid #2E1C08;
+	border:0.125em solid #2E1C08;
 	color: #2E1C08;
 	font-weight: bold;
 	font-style: italic;
@@ -186,7 +194,7 @@ body {
     width:40%;
     display: inline-block; 
 	padding-left:10%;
-	height:100%;
+	//height:100%;
 	width:100%;
     background-color:#FFEDD0;
 	color:#2E1C08;
@@ -195,6 +203,9 @@ body {
     border-bottom-style: solid; 
     padding-top:2%;
     margin-right: 2px;
+	
+	height:4.688em;
+	position: relative;
 }
 /* Same as barre_facture both need to do adjustment*/
 .barre_item {
@@ -242,10 +253,14 @@ width:10%;
 /* Commande */
 .barre_item{
 	display:block-inline;
+	//display:inline;
 	width:100%;
-	padding-left:5%;
+	//padding-left:5%;
+	padding-left:10%;
 	//margin-bottom:5%;
-	height: 100%;
+	//height: 100%;
+	height:4.688em;
+	position: relative;
 }
 
 .menu_item{
@@ -321,29 +336,32 @@ font-weight:bold;
 }
 .entete_facture{}
 .entete_no_facture{
+	width: 30%;
+	text-align: left;
 	font-weight: bold;
-    width: 65%;
-    margin-left: 10px;
+   // margin-left: -15px;
     float:left;
-
-
-	//font-weight: bold;
-   // width: 30%;
-    //float: left;
-   // text-align: right;
 	}
 .entete_no_table{
 	font-weight: bold;
-    width: 30%;
+   /* width: 30%;
     float: left;
     text-align: right;
+	
+	 border: 2px solid #44a1a1;
 
+	font-weight: bold;
+    width: 30%;
+    float: right;
+    text-align: right;
+/*	//margin-right: -40px;
+	
 	//font-weight: bold;
     //width: 30%;
     //margin-left: 15px;
     //float:left;
 	
-	 border: 2px solid #44a1a1;
+	 border: 2px solid #44a1a1;*/
 	}
 .detail_commande{
  
