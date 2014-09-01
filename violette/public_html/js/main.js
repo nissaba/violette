@@ -429,10 +429,8 @@ function construireMenu(menuXML) {
 		i,
 		j;
 	for (i = 0; i < sections.length; i++) {
-		section = creerSectionMenu("section", i);
-		titre = creerTitreSectionMenu("section_titre", i, sections[i].getAttribute("nom"));
+		section = creerSectionMenu(i, sections[i].getAttribute("nom"));
 		items = sections[i].getElementsByTagName("item");
-		section.appendChild(titre);
 		for (j = 0; j < items.length; j++) {
 			id = items[j].firstChild.nextSibling;
 			textItem = id.nextSibling.nextSibling;
@@ -440,31 +438,11 @@ function construireMenu(menuXML) {
 			textItem.setAttribute("description", descItem.textContent);
 			prixItem = descItem.nextSibling.nextSibling;
 			textItem.setAttribute("prix", prixItem.textContent);
-			divItem = creerDivItem("barre_item", id);
-			menuItem = creerTitreItem("menu_item", id.textContent, textItem);
-			espace = creerEspaceItem("espace_menu", id.textContent);
-			divBoutons = creerDivBoutons("menu_boutons", id.textContent);
-			btnMoins = creerBoutonIncrementMenu(id.textContent, false);
-			quantite = creerInputQuantiteMenu("quantite", id.textContent);
-			btnPlus = creerBoutonIncrementMenu(id.textContent, true);
-			divBoutons.appendChild(btnMoins);
-			divBoutons.appendChild(quantite);
-			divBoutons.appendChild(btnPlus);
-			divItem.appendChild(menuItem);
-			divItem.appendChild(espace);
-			divItem.appendChild(divBoutons);
-			section.appendChild(divItem);
-			btnPlus.addEventListener("click", function (e) {
-				e.preventDefault();
-				incrementerQuantite(e.currentTarget.id.substring(13), true);
-			}, false);
-			btnMoins.addEventListener("click", function (e) {
-				e.preventDefault();
-				incrementerQuantite(e.currentTarget.id.substring(14), false);
-			}, false);
+			section.appendChild(creerDivItem(id.textContent, textItem));
+			message(id + id.textContent);
 		}
 		listeMenu.appendChild(section);
-		titre.addEventListener("click", function (e) {
+		document.getElementById("section_titre"+i).addEventListener("click", function (e) {
 			e.preventDefault();
 			ouvrirSection(e.currentTarget.parentNode.id);
 		}, false);

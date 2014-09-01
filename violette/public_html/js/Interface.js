@@ -68,10 +68,11 @@ function creerInputSiegeFacture(classe, factureId) {
 
 // Interface menu/commande
 
-function creerSectionMenu(classe, index) {
+function creerSectionMenu(index, nom) {
 	var ligne = document.createElement("LI");
-	ligne.className = classe;
+	ligne.className = "section";
 	ligne.id = ligne.className + index;
+	ligne.appendChild(creerTitreSectionMenu("section_titre", index, nom));
 	return ligne;
 }
 
@@ -83,14 +84,17 @@ function creerTitreSectionMenu(classe, index, text) {
 	return ligne;
 }
 
-function creerDivItem(classe, index) {
+function creerDivItem(index, textItem) {
 	var ligne = document.createElement("DIV"),
 		ligneStyle = document.createElement("STYLE");
-	ligne.className = classe;
+	ligne.className = "barre_item";
 	ligne.id = ligne.className + index;
 	ligneStyle.property = "display";
 	ligneStyle.display = "none";
 	ligne.appendChild(ligneStyle);
+	ligne.appendChild(creerTitreItem("menu_item", index, textItem));
+	ligne.appendChild(creerEspaceItem("espace_menu", index));
+	ligne.appendChild(creerDivBoutons("menu_boutons", index));
 	return ligne;
 }
 
@@ -115,6 +119,9 @@ function creerDivBoutons(classe, index) {
 	var ligne = document.createElement("DIV");
 	ligne.className = classe;
 	ligne.id = ligne.className + index;
+	ligne.appendChild(creerBoutonIncrementMenu(index, false));
+	ligne.appendChild(creerInputQuantiteMenu("quantite", index));
+	ligne.appendChild(creerBoutonIncrementMenu(index, true));
 	return ligne;
 }
 
@@ -122,7 +129,19 @@ function creerBoutonIncrementMenu(index, isPlus) {
 	var bouton = document.createElement("BUTTON");
 	bouton.className = (isPlus) ? "btn_plus_menu" : "btn_moins_menu";
 	bouton.id = bouton.className + index;
+	message(bouton.id);
 	bouton.innerHTML = (isPlus) ? " + " : " - ";
+	if (bouton.className === "btn_plus_menu") {
+	bouton.addEventListener("click", function (e) {
+			e.preventDefault();
+			incrementerQuantite(e.currentTarget.id.substring(13), true);
+		}, false);
+	} else {
+	bouton.addEventListener("click", function (e) {
+			e.preventDefault();
+			incrementerQuantite(e.currentTarget.id.substring(14), false);
+		}, false);
+	}
 	return bouton;
 }
 
