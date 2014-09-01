@@ -1,4 +1,5 @@
 <?php
+
 //header('Access-Control-Allow-Origin:*');
 //header('Access-Control-Allow-Credentials: true');
 header('Content-type: text/xml');
@@ -6,8 +7,8 @@ include_once('config.php');
 include_once('functions.php');
 
 $dbConnection = new mysqli($host, $database_user, $database_password, $database_name);
- 
-if($dbConnection->connect_errno){
+
+if ($dbConnection->connect_errno) {
     $xml = new XMLWriter();
     $xml->openURI("php://output");
     $xml->startDocument('1.0');
@@ -22,7 +23,7 @@ if($dbConnection->connect_errno){
 // nouvel facture, mise a jour sur une facture, canceller une facture,
 // ajouter un item, enlever un item, changer la quantiter d'un item
 
-$action = $_REQUEST['ACTION']; 
+$action = $_REQUEST['ACTION'];
 $data = json_decode(base64_decode($_REQUEST['DATA']));
 //$data = $tab_data[0];
 
@@ -43,27 +44,31 @@ switch ($action) {
         $res = initieFacture($dbConnection, $data->employeId, $data->numeroTable, $data->siege);
         $xml->writeElement("facture_id", $res);
         break;
-    
+
     case 'factureAjouteItems':
-        $res = ajouterItems($dbConnection, $data->factureid, $data->ligneCommandItems);  
+        $res = ajouterItems($dbConnection, $data->factureid, $data->ligneCommandItems);
         $xml->writeElement("nombre_item_ajouter", $res);
         listeItemIdsFacture($dbConnection, $data->factureid, $xml);
         break;
-    
+
     case 'effacerFacture':
         $res = effacerIdDansTable($dbConnection, 'FACTURE', $data);
         $xml->writeElement("facture_effacer", $res);
         break;
-    
+
     case 'effacerLigneCMDITem':
         $res = effacerIdDansTable($dbConnection, 'LIGNE_COMMAND_ITEM', $data);
         $xml->writeElement("ligne_cmd_item_effacer", $res);
         break;
-    
+
     case 'listLigneCMDItem':
-        
+        getDetailLigneCommande();
         break;
-    
+
+    case 'printFacture':
+        getDetailFacture($dbConnection, $data->factureid, $xml);
+        break;
+
     default:
         $xml->writeElement("Commande_inconue", $action);
         break;
@@ -71,5 +76,4 @@ switch ($action) {
 
 $xml->endElement();
 $xml->flush();
-
 ?>
