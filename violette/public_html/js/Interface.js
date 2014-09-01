@@ -129,7 +129,6 @@ function creerBoutonIncrementMenu(index, isPlus) {
 	var bouton = document.createElement("BUTTON");
 	bouton.className = (isPlus) ? "btn_plus_menu" : "btn_moins_menu";
 	bouton.id = bouton.className + index;
-	message(bouton.id);
 	bouton.innerHTML = (isPlus) ? " + " : " - ";
 	if (bouton.className === "btn_plus_menu") {
 	bouton.addEventListener("click", function (e) {

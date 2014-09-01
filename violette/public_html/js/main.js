@@ -1,8 +1,3 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
  var blabla = "bli bli",
 	//chemins différents selon l'environnement de travail avec easyPHP
@@ -383,10 +378,8 @@ function creerItemCommande(facture) {
 function construireDOMCommande(facture) {
 	var divDetail = document.getElementById("detail_commande_id");
 	viderDOMCommande();
-	titre = creerTitreCommande(facture.commandes.length);
-	item = creerItemCommande(facture);
-	divDetail.appendChild(titre);
-	divDetail.appendChild(item);
+	divDetail.appendChild(creerTitreCommande(facture.commandes.length));
+	divDetail.appendChild(creerItemCommande(facture));
 }
 
 // Fin de la création du DOM pour la confirmation d'une commnde
@@ -439,7 +432,6 @@ function construireMenu(menuXML) {
 			prixItem = descItem.nextSibling.nextSibling;
 			textItem.setAttribute("prix", prixItem.textContent);
 			section.appendChild(creerDivItem(id.textContent, textItem));
-			message(id + id.textContent);
 		}
 		listeMenu.appendChild(section);
 		document.getElementById("section_titre"+i).addEventListener("click", function (e) {
