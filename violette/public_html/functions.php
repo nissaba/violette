@@ -28,7 +28,7 @@ function ajouterItems($db, $factureId, $dattaArray ){
     return $res;
 }
 
-function listeItemIdsFacture($dc, $factureID, $xml) {
+function listeItemIdsFacture($db, $factureID, $xml) {
     $query = "Select ID from LIGNE_COMMAND_ITEM where FACTURE_ID = ?;";
     $stmt = $db->prepare($query);
     $stmt->bind_param('i', $factureID);
