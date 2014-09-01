@@ -35,7 +35,7 @@ body {
 	font-size: 16px;
 	font-weight: 400;
 	height: auto !important;
-	height: 100%;
+	/*height: 100%;*/
 	line-height: 1.6em;
 	min-height: 100%;
 	width: 100%;
@@ -70,12 +70,6 @@ body {
 .tr_commande_item{
 
 }
-
-/* div#page_tables {
-	height: auto !important;
-	height:100%;
-	min-height: 100%;
-} */
 
 .table, .section {
 	display:inline-block;
@@ -173,7 +167,22 @@ body {
 
 */
 /* Affecte toute la barre facture sous table */
-[class="barre_facture"]{
+/*[class="barre_facture"]{
+    width:40%;
+    display: inline-block; 
+	padding-left:10%;
+	height:100%;
+	width:100%;
+    background-color:#00EDD0;
+	color:#2E1C08;
+    border-bottom-width: 2px;  
+    border-bottom-color: #2E1C08;  
+    border-bottom-style: solid; 
+    padding-top:2%;
+    margin-right: 2px;
+}*/
+
+.barre_facture{
     width:40%;
     display: inline-block; 
 	padding-left:10%;
@@ -187,7 +196,39 @@ body {
     padding-top:2%;
     margin-right: 2px;
 }
-
+/* Same as barre_facture both need to do adjustment*/
+.barre_item {
+    /*width:75%;*/
+    display: inline-block; 
+	/*padding-left:10%;*/
+	height:100%;
+	width:100%;
+    background-color:#FFEDD0;
+	color:#2E1C08;
+    border-bottom-width: 2px;  
+    border-bottom-color: #2E1C08;  
+    border-bottom-style: solid; 
+	padding-top:2%;
+    margin-right: 2px;
+}
+.menu_item{
+display: inline-block;
+padding-left:2%;
+/*	margin-bottom:5%;*/
+	height: 100%;
+/* margin-left: 10px;*/
+    float:left;
+ border: 2px solid #a1a1a1;
+width:10%;
+}
+.espace_menu{
+ border: 2px solid #44a1a1;
+width:2%;
+}
+.menu_boutons{
+ border: 2px solid #ffa1a1;
+width:10%;
+}
 /*background-color:#FFD133;*/
 /*[class="entete_commande"]{
    display: block;
@@ -224,12 +265,7 @@ p {
 	color:#2E1C08;
 }
 
-/*il{
-table-layout: fixed;
-width: 50%;
-}*/
-
-/* Ligne facture x*/
+/* Ligne facture x sous Table x*/
 [class="nom_facture"]{
     width: available;
     display: inline;
@@ -243,6 +279,104 @@ width: 50%;
 font-weight:bold;
 }
 
+/* En-tête de facture */
+#entete_no_table{
+	font-weight: bold;
+    width: 30%;
+    float: left;
+    text-align: right;
+	
+	 border: 2px solid #44a1a1;
+}
+#entete_no_facture{
+	font-weight: bold;
+    width: 65%;
+    margin-left: 10px;
+    float:left;
+}
+#entete_no_siege{
+	font-weight: bold;
+    width: 30%;
+    float: left;
+    text-align: right;
+	}
+#entete_no_commande{
+	font-weight: bold;
+    width: 65%;
+    margin-left: 10px;
+    float:left;
+	}
+	
+/* Commande -> résumé */
+#page_confirme_commande{
+
+}
+.entete_facture{}
+.entete_no_facture{
+	font-weight: bold;
+    width: 65%;
+    margin-left: 10px;
+    float:left;
+
+
+/*	//font-weight: bold;
+   // width: 30%;
+    //float: left;
+   // text-align: right;*/
+	}
+.entete_no_table{
+	font-weight: bold;
+    width: 30%;
+    float: left;
+    text-align: right;
+
+		 border: 2px solid #44a1a1;
+	}
+.detail_commande{
+ 
+}
+.table_commande{}
+#bar_btn_page_confirmation{/*Barre avec 3 boutons*/
+width: 100%;
+margin-left:12%}
+#btn_retour_commande{
+width: 24%;}
+#btn_cuisine{width: 24%;}
+#btn_facture_confirmation{width: 24%;}
+
+/* page facture*/
+
+.entete_nom_resto{text-align:center;
+font-weight:bold}
+.entete_nom_serveuse{
+font-weight: bold;
+/*float: left;*/
+text-align:left;
+
+ border: 2px solid #44a1a1;
+}
+.entete_no_table{
+text-align:left;}
+.entete_no_facture{text-align:right;
+	border: 2px solid #44a1a1;
+	}
+.facture_items{}
+.nom_item{text-align:left;
+	font-weight: bold;
+    width: 65%;
+    margin-left: 10px;
+    float:left;
+	}
+.qte_item{text-align:center;
+	font-weight: bold;
+	}
+.prix_item{text-align:right;
+	font-weight: bold;
+	}
+
+#bar_btn_page_facture{}
+#btn_retour_confirmation{}
+#btn_facture_payee{}
 
 /*BUTTON DESIGN*/
 [class*='btn_'] {
@@ -277,30 +411,37 @@ font-weight:bold;
 	font-size: 1.0em;
 }
 	
-	
+/* 	commande -> commande */
 /*	bar_btn_page_commande */
 	#bar_btn_page_commande{
 		width:100;
-		display:inline-block}
+		display:inline-block;
+		margin-left:13%;
+		}
 	
 	#btn_retour_table{
 		width:15%;
 		border-radius: 30px 0px 0px 30px;}
     #btn_confirmation{
-		width:25%;
+		width:27%;
 		border-radius: 0px 0px 0px 0px;}
-	#btn_facture_commande{width:25
+	#btn_facture_commande{
+		width:27;
 		border-radius: 0px 0px 0px 0px;}
 		
-	#btn_commande_plus{width:15%;border-radius: 0px 30px 30px 0px;}
-	//#btn_bar{width:18%;border-radius: 0px 30px 30px 0px;}
+	#btn_commande_plus{
+		width:15%;
+		border-radius: 0px 30px 30px 0px;}
+	
 	
 /* Fin bar_btn_page_commande */	
 	
 	
 	
 /* bar_btn_page_confirmation */
-#bar_btn_page_confirmation{}	
+/*#bar_btn_page_confirmation{
+	margin-left:20%
+	}	*/
 #btn_retour_commande{
 	width:25%;
 	
@@ -320,9 +461,11 @@ font-weight:bold;
 
 /* bar_btn_page_facture */
 #bar_btn_page_facture{
-	width:75%;
-	margin:0 auto;
-	//display:inline-block;
+	width:100%;
+	/*width:75%;*/
+	margin-left:12%;
+	/*margin:0 auto;*/
+	display:inline-block;
 }
 #btn_retour_confirmation{
 	width:38%;
@@ -336,11 +479,11 @@ font-weight:bold;
 
 
 #btn_quitter{
-	//display:inline-block;
+	/*display:inline-block;*/
 	width:75%;
 	margin:0 auto;
 	border-radius: 30px 30px 30px 30px;
-	//border-radius: 30px;
+	/*border-radius: 30px;*/
 	display:block;
 	
 }
@@ -479,11 +622,11 @@ form.login_form label {
 }
 
 [class="testtable"]{
-   // position:relative;
+   /* position:relative;*/
     
 }
 [class="testBoutton"]{
-    // position:absolute; right:0;
+    /* position:absolute; right:0;*/
     border: 1px solid #FFA420;
 	background-color: #63100F;
 	border-bottom: 2px solid #FFA420 ;
