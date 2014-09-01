@@ -198,9 +198,9 @@ body {
 }
 /* Same as barre_facture both need to do adjustment*/
 .barre_item {
-    /*width:75%;*/
+    //width:75%;
     display: inline-block; 
-	/*padding-left:10%;*/
+	//padding-left:10%;
 	height:100%;
 	width:100%;
     background-color:#FFEDD0;
@@ -214,9 +214,9 @@ body {
 .menu_item{
 display: inline-block;
 padding-left:2%;
-/*	margin-bottom:5%;*/
+//	margin-bottom:5%;
 	height: 100%;
-/* margin-left: 10px;*/
+// margin-left: 10px;
     float:left;
  border: 2px solid #a1a1a1;
 width:10%;
@@ -239,21 +239,27 @@ width:10%;
 	color:#2E1C08; 
 }*/
 
-
+/* Commande */
 .barre_item{
-	padding-left:10%;
-	margin-bottom:5%;
+	display:block-inline;
+	width:100%;
+	padding-left:5%;
+	//margin-bottom:5%;
 	height: 100%;
 }
 
 .menu_item{
-	width:90%;
+	width:60%;
 	background-color:#FFEDD0;
 	color:#2E1C08;
 }
 
 .menu_boutons{
-	width: 40%;
+	width: 30%;
+	
+	float:left;
+	//margin-top: 5%;
+	//margin-bottom: 5%;
 }
 
 p {
@@ -307,6 +313,8 @@ font-weight:bold;
     float:left;
 	}
 	
+.barre_item{}
+	
 /* Commande -> résumé */
 #page_confirme_commande{
 
@@ -319,10 +327,10 @@ font-weight:bold;
     float:left;
 
 
-/*	//font-weight: bold;
+	//font-weight: bold;
    // width: 30%;
     //float: left;
-   // text-align: right;*/
+   // text-align: right;
 	}
 .entete_no_table{
 	font-weight: bold;
@@ -330,7 +338,12 @@ font-weight:bold;
     float: left;
     text-align: right;
 
-		 border: 2px solid #44a1a1;
+	//font-weight: bold;
+    //width: 30%;
+    //margin-left: 15px;
+    //float:left;
+	
+	 border: 2px solid #44a1a1;
 	}
 .detail_commande{
  
@@ -350,7 +363,7 @@ width: 24%;}
 font-weight:bold}
 .entete_nom_serveuse{
 font-weight: bold;
-/*float: left;*/
+//float: left;
 text-align:left;
 
  border: 2px solid #44a1a1;
@@ -462,9 +475,9 @@ text-align:left;}
 /* bar_btn_page_facture */
 #bar_btn_page_facture{
 	width:100%;
-	/*width:75%;*/
+	//width:75%;
 	margin-left:12%;
-	/*margin:0 auto;*/
+	//margin:0 auto;
 	display:inline-block;
 }
 #btn_retour_confirmation{
@@ -479,11 +492,11 @@ text-align:left;}
 
 
 #btn_quitter{
-	/*display:inline-block;*/
+	//display:inline-block;
 	width:75%;
 	margin:0 auto;
 	border-radius: 30px 30px 30px 30px;
-	/*border-radius: 30px;*/
+	//border-radius: 30px;
 	display:block;
 	
 }
@@ -622,11 +635,11 @@ form.login_form label {
 }
 
 [class="testtable"]{
-   /* position:relative;*/
+   // position:relative;
     
 }
 [class="testBoutton"]{
-    /* position:absolute; right:0;*/
+    // position:absolute; right:0;
     border: 1px solid #FFA420;
 	background-color: #63100F;
 	border-bottom: 2px solid #FFA420 ;
