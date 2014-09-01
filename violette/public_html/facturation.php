@@ -47,6 +47,7 @@ switch ($action) {
     case 'facutreAjouteItems':
         $res = ajouterItems($dbConnection, $data->factureid, $data->ligneCommandItems);  
         $xml->writeElement("nombre_item_ajouter", $res);
+        listeItemIdsFacture($dbConnection, $data->factureid, $xml);
         break;
     
     case 'effacerFacture':
