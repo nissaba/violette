@@ -34,46 +34,53 @@ $xml->openURI("php://output");
 $xml->startDocument('1.0');
 $xml->setIndent(true);
 $xml->startElement('facturation');
+$xml->writeAttribute("action",$action);
+
 //$xml->writeElement("base64_test_value", base64_encode('{"factureId":"1","employeId":"4","numeroTable":"2","siege":"1","factureIdBD":-1,"commandes":[{"ligneCommandes":[{"menuItemId":"27","quantite":"1"},{"menuItemId":"28","quantite":"1"},{"menuItemId":"21","quantite":"1"}]}]}'));
-//$xml->writeElement("action",$action);
 //$xml->writeElement("post_data", $_REQUEST['DATA']);
 //$xml->writeElement("factureID", $data->factureid.'');
 
 switch ($action) {
     case 'insertfacture':
+        //Json data: ex {"employeId":"1", "numeroTable":"1","numeroTable":"1","siege":"1"}
         $res = initieFacture($dbConnection, $data->employeId, $data->numeroTable, $data->siege);
         $xml->writeElement("facture_id", $res);
         break;
 
     case 'factureAjouteItems':
+        //jason data: ex: {"factureid":"1","ligneCommandItems":[{"menuItemId":"21", "quantite":"2"}, ... ,{"menuItemId":"34", "quantite":"1"}]}
         $res = ajouterItems($dbConnection, $data->factureid, $data->ligneCommandItems);
         $xml->writeElement("nombre_item_ajouter", $res);
         listeItemIdsFacture($dbConnection, $data->factureid, $xml);
         break;
 
     case 'effacerFacture':
-        $res = effacerIdDansTable($dbConnection, 'FACTURE', $data);
+        //jason data: {"le ID"}, ex: {"factureid":"1"}
+        $res = effacerIdDansTable($dbConnection, 'FACTURE', $data->factureid);
         $xml->writeElement("facture_effacer", $res);
         break;
 
     case 'effacerLigneCMDITem':
-        $res = effacerIdDansTable($dbConnection, 'LIGNE_COMMAND_ITEM', $data);
+        //jason data: {"le ID"}, ex: {"ID":"1"}
+        $res = effacerIdDansTable($dbConnection, 'LIGNE_COMMAND_ITEM', $data->ID);
         $xml->writeElement("ligne_cmd_item_effacer", $res);
         break;
 
     case 'listLigneCMDItem':
-        getDetailLigneCommande();
+        //json data ex: [{"1","2", ..., "n-1", "n"}] : n = id de la lignecommande
+        getDetailLigneCommande($dbConnection, $data);
         break;
 
     case 'printFacture':
+        //jason data: {"le ID"}, ex: {"factureid":"1"}
         getDetailFacture($dbConnection, $data->factureid, $xml);
         break;
-
+    
     default:
         $xml->writeElement("Commande_inconue", $action);
         break;
 }
-
+$dbConnection->close();
 $xml->endElement();
 $xml->flush();
 ?>

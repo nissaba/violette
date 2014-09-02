@@ -52,6 +52,7 @@ function listeItemIdsFacture($db, $factureID, $xml) {
             $xml->writeElement("id", $id);
         }
         $xml->endElement();
+        $stmt->close();
     } catch (mysqli_sql_exception $e) {
         $xml->writeElement('database_error', $e->getMessage());
     }
@@ -64,6 +65,7 @@ function effacerIdDansTable($db, $table, $id) {
         $stmt->bind_param('si', $table, $id);
         $stmt - execute();
         $res = $db->affected_rows;
+        $stmt->close();
     } catch (mysqli_sql_exception $e) {
         return -1;
     }
@@ -71,12 +73,31 @@ function effacerIdDansTable($db, $table, $id) {
 }
 
 function getDetailLigneCommande($db, $idArray, $xml) {
-    $query = 'select TITRE, QUANTITE, PRIX_UNITAIRE as prix, (PRIX_UNITAIRE*QUANTITE)as ligne_total '
+    $query = 'select TITRE, QUANTITE, PRIX_UNITAIRE, (PRIX_UNITAIRE*QUANTITE)as ligne_total '
             . 'from LIGNE_COMMAND_ITEM '
             . 'inner join MENU_ITEM using(MENU_ITEM_ID) '
-            . 'where FACTURE_ID = ?';
-    foreach ($idArray as $ligneCommandeID) {
-        
+            . 'where ID in (';
+
+    foreach ($idArray as $value) {
+        $query .= $value . ',';
+    }
+
+    $query = $query = substr($query, 0, -1) . ');';
+    try {
+        $res = $db->query($query);
+        $xml->startElement('items');
+        while ($row = $res->fetch_assoc()) {
+            $xml->startElement('item');
+            $xml->writeElement('titre', $row['TITRE']);
+            $xml->writeElement('quantite', $row['QUANTITE']);
+            $xml->writeElement('prix', $row['PRIX_UNITAIRE']);
+            $xml->writeElement('total', $row['ligne_total']);
+            $xml->endElement();
+        }
+        $xml->endElement();
+        mysqli_close($res);
+    } catch (mysqli_sql_exception $e) {
+        $xml->writeElement('database_error', $e->getMessage());
     }
 }
 
@@ -86,7 +107,7 @@ function getDetailFacture($db, $factureID, $xml) {
             . "from EMPLOYE "
             . "inner join FACTURE using (EMPLOYE_ID) "
             . "where FACTURE_ID = ?;";
-    
+
     try {
         $stmt = $db->prepare($query);
         $stmt->bind_param('i', $factureID);
@@ -112,13 +133,15 @@ function getDetailFacture($db, $factureID, $xml) {
             $xml->writeElement("titre", $titre);
             $xml->writeElement('quantite', $quantite);
             $xml->writeElement('prix', $prix);
-            $xml->writeElelement("ligne_total", $prix*$quantite);
+            $xml->writeElelement("ligne_total", $prix * $quantite);
         }
+        $ligne->close();
         $xml->writeElement('sous_total', $sousTotal);
         $xml->witreElement('tps', $tps);
         $xml->writeElement('tvq', $tvq);
         $xml->writeElement('total', $total);
         $xml->endElement();
+        $stmt->close();
     } catch (mysqli_sql_exception $e) {
         $xml->writeElement('database_error', $e->getMessage());
     }
@@ -133,6 +156,7 @@ function completeFacture($db, $factureID, $xml) {
         $stmt->execute();
         $res = $db->affected_rows;
         $xml->writeElement('facture_complete', $res);
+        $stmt->close();
     } catch (mysqli_sql_exception $e) {
         $xml->writeElement('database_error', $e->getMessage());
     }
