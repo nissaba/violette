@@ -129,14 +129,18 @@ and open the template in the editor.
 					<span class="entete_commande_span" id="entete_no_commande">Commande: </span>
 					<span class="entete_commande_span" id="entete_no_siege">Si&egrave;ge: </span>
 				</div>
+				<div class="entete_commande_ligne" id="entete_commande_ligne_3">
+					<button class="btn_bar" id="btn_entete_commande_moins" onclick="onClickCommandeSuivante(false);">-</button>
+					<button class="btn_bar" id="btn_entete_commande_plus" onclick="onClickCommandeSuivante(true);">+</button>
+				</div>
             </div>
             <ul class="liste_menu" id="liste_menu_sections">
             </ul>
             <div class="bar_btn" id="bar_btn_page_commande">
-                <button class="btn_bar" id="btn_retour_table" onclick="gererVisibilite(['block','none','none','none']);"> &lsaquo; </button>
-                <button class="btn_bar" id="btn_confirmation" onclick="afficherConfirmation();">Résumé</button>
+                <button class="btn_bar" id="btn_retour_table" onclick="onClickRetourTable();"> &lsaquo; </button>
+                <button class="btn_bar" id="btn_confirmation" onclick="onClickConfirmation();">Résumé</button>
                 <button class="btn_bar" id="btn_facture_commande" onclick="gererVisibilite(['none','none','none','block']);">Facture</button>
-                <button class="btn_bar" id="btn_commande_plus" onclick="ajouterCommandeBouton();"> + </button>
+                <button class="btn_bar" id="btn_commande_plus" onclick="onClickAjouterCommande();"> + </button>
             </div>
         </div>
     
@@ -149,7 +153,7 @@ and open the template in the editor.
             <div class="detail_commande" id="detail_commande_id"></div>
             <div class="bar_btn" id="bar_btn_page_confirmation">
                 <button class="btn_bar" id="btn_retour_commande" onclick="gererVisibilite(['none','block','none','none']);"> &lsaquo; </button>
-                <button class="btn_bar" id="btn_cuisine" onclick="envoyerCuisine();">Cuisine</button>
+                <button class="btn_bar" id="btn_cuisine" onclick="onClickCuisine();">Cuisine</button>
                 <button class="btn_bar" id="btn_facture_confirmation" onclick="gererVisibilite(['none','none','none','block']);">Facture</button>
             </div>
         </div>

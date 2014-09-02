@@ -36,11 +36,25 @@ Commande.prototype.toString = function(factureIdBD) {
 	strJSON += "]}";
 	return strJSON;
 };
+Commande.prototype.equals = function(other) {
+	var i;
+	if(this.ligneCommandes.length != other.ligneCommandes.length) {
+		return false;
+	}
+	for(i = 0; i < this.ligneCommandes.length; i++) {
+		if (this.ligneCommandes[i].menuItemId != other.ligneCommandes[i].menuItemId) {
+			return false;
+		} else if (this.ligneCommandes[i].quantite != other.ligneCommandes[i].quantite) {
+			return false;
+		}
+	}
+	return true;
+}
 
 // Objet LigneCommande
 
 function LigneCommande(menuItemId, quantite) {
-	this.envoye = false;
+	this.menuItemIdBD = -1;
 	this.menuItemId = menuItemId;
 	this.quantite = quantite;
 	this.note = null;
@@ -48,3 +62,12 @@ function LigneCommande(menuItemId, quantite) {
 LigneCommande.prototype.toString = function() {
 	return '{"menuItemId":"' + this.menuItemId + '", "quantite":"' + this.quantite + '"}';
 };
+LigneCommande.prototype.equals = function(other) {
+	if(this.menuItemId != other.menuItemId){
+		return false;
+	}
+	if(this.quantite != other.quantite){
+		return false;
+	}
+	return true;
+}
