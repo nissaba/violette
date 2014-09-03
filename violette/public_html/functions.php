@@ -48,6 +48,7 @@ function listeItemIdsFacture($db, $factureID, $xml) {
         $stmt = $db->prepare($query);
         $stmt->bind_param('i', $factureID);
         $stmt->execute();
+        $stmt->store_result();
         $stmt->bind_result($id);
         $xml->startElement("contenue_facture");
         $xml->writeAttribute("facture_id", $factureID);

@@ -81,7 +81,8 @@ switch ($action) {
         break;
     
     case 'updateLigneCommandeItem':
-        
+        //json data ex: [{1:3,2:3, ..., "n-1":"nouvelle quantite", "n":"nouvelle quantite"}]
+        updateLigneCommandeItem($dbConnection, $data, $xml);
         break;
         
     default:
