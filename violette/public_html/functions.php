@@ -146,7 +146,7 @@ function getDetailFacture($db, $factureID, $xml) {
             }
             $ligne->close();
             $xml->writeElement('sous_total', $sousTotal);
-            $xml->witreElement('tps', $tps);
+            $xml->writeElement('tps', $tps);
             $xml->writeElement('tvq', $tvq);
             $xml->writeElement('total', $total);
             $xml->endElement();
