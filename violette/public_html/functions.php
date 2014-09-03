@@ -109,17 +109,17 @@ function getDetailLigneCommande($db, $idArray, $xml) {
 function getDetailFacture($db, $factureID, $xml) {
     $query = "select Concat(NOM, ' ', PRENOM)as employe_name, NUMERO_TABLE, "
             . "SIEGE, DATE, SOUS_TOTAL, TPS, TVQ, TOTAL "
-            . "from EMPLOYE "
-            . "inner join FACTURE using (EMPLOYE_ID) "
+            . "from FACTURE "
+            . "inner join EMPLOYE using (EMPLOYE_ID) "
             . "where FACTURE_ID = ?;";
 
     try {
         $stmt = $db->prepare($query);
         $stmt->bind_param('i', $factureID);
         $stmt->execute();
-        $stmt->bind_result($nom, $numTable, $siege, $date, $sousTotal, $tps, $tvq, $total);
-        
-        if($stmt->num_rows > 0) {
+
+        if ($stmt->num_rows > 0) {
+            $stmt->bind_result($nom, $numTable, $siege, $date, $sousTotal, $tps, $tvq, $total);
             $xml->startElement("raport_facture");
             $xml->writeAttribute("facture_id", $factureID);
             $xml->writeElement("nom", $nom);
@@ -135,22 +135,24 @@ function getDetailFacture($db, $factureID, $xml) {
             $ligne = $db->prepare($ligneQuery);
             $ligne->bind_param('i', $factureID);
             $ligne->execute();
-            $ligne->bind_result($titre, $quantite, $prix);
-            while ($ligne->fetch()) {
-                $xml->writeElement("titre", $titre);
-                $xml->writeElement('quantite', $quantite);
-                $xml->writeElement('prix', $prix);
-                $xml->writeElement("ligne_total", $prix * $quantite);
-            }  
+            if ($ligne->num_rows > 0) {
+                $ligne->bind_result($titre, $quantite, $prix);
+                while ($ligne->fetch()) {
+                    $xml->writeElement("titre", $titre);
+                    $xml->writeElement('quantite', $quantite);
+                    $xml->writeElement('prix', $prix);
+                    $xml->writeElement("ligne_total", $prix * $quantite);
+                }
+            }
             $ligne->close();
             $xml->writeElement('sous_total', $sousTotal);
             $xml->witreElement('tps', $tps);
             $xml->writeElement('tvq', $tvq);
             $xml->writeElement('total', $total);
             $xml->endElement();
-        }else {            
-                $xml->writeElemet('Error', 'aucun résultat trouver');
-            }
+        } else {
+            $xml->writeElement('Error', 'aucun résultat trouver pour facture id: ' . $factureID);
+        }
         $stmt->close();
     } catch (mysqli_sql_exception $e) {
         $xml->writeElement('database_error', $e->
