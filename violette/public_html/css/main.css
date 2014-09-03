@@ -240,6 +240,7 @@ width:2%;
 .menu_boutons{
  border: 0.125em solid #ffa1a1;
 width:10%;
+vertical-align: text-bottom;
 }
 /*background-color:#FFD133;*/
 /*[class="entete_commande"]{
@@ -328,7 +329,14 @@ font-weight:bold;
     margin-left: 0.625em;
     float:left;
 	}
-	
+/*xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx*/
+.entete_commande_ligne{
+		}	
+#btn_entete_commande_moins{width:35%;
+		border-radius: 1.875em 0.000em 0.000em 1.875em;}
+#btn_entete_commande_plus{width:35%;
+		border-radius: 0.000em 1.875em 1.875em 0.000em;}
+
 .barre_item{}
 	
 /* Commande -> résumé */
@@ -336,12 +344,20 @@ font-weight:bold;
 
 }
 .entete_facture{}
-.entete_no_facture{
+/*.entete_no_facture{
 	width: 30%;
 	text-align: left;
 	font-weight: bold;
    // margin-left: -0.938em;
     float:left;
+	}*/
+	/*xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx*/
+#entete_no_facture_id{
+	font-weight: bold;
+    width: 65%;
+    margin-left: 0.625em;
+    float:left;
+	text-align: left;
 	}
 .entete_no_table{
 	font-weight: bold;
@@ -364,10 +380,43 @@ font-weight:bold;
 	
 	 border: 0.125em solid #44a1a1;*/
 	}
+#entete_no_table_id{
+	font-weight: bold;
+    width: 30%;
+    float: left;
+    text-align: right;
+	
+	 border: 0.125em solid #44a1a1;
+	
+	}
 .detail_commande{
  
 }
-.table_commande{}
+#titre_commande_h1{
+	font-size: 1em;
+	text-align: center;
+	
+	}
+.table_commande{//text-indent: 50px;}
+.td_item_command{
+	//text-indent: 10px;
+	text-align: left;
+	font-size: 0.625em;
+	}
+.td_quantite_command{
+	text-align: center;
+	font-size: 0.625em;
+	}
+.td_prix_commande{
+	text-align: right;
+	font-size: 0.625em;
+	}
+
+.btn_enlever_commande{
+	vertical-align: text-bottom;
+	height:5%;
+	width:2%;
+	}
 #bar_btn_page_confirmation{/*Barre avec 3 boutons*/
 width: 100%;
 margin-left:12%}
