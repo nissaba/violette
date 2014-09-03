@@ -117,9 +117,10 @@ function getDetailFacture($db, $factureID, $xml) {
         $stmt = $db->prepare($query);
         $stmt->bind_param('i', $factureID);
         $stmt->execute();
-
+        $stmt->store_result();
         if ($stmt->num_rows > 0) {
             $stmt->bind_result($nom, $numTable, $siege, $date, $sousTotal, $tps, $tvq, $total);
+            $stmt->fetch();
             $xml->startElement("raport_facture");
             $xml->writeAttribute("facture_id", $factureID);
             $xml->writeElement("nom", $nom);
@@ -135,14 +136,19 @@ function getDetailFacture($db, $factureID, $xml) {
             $ligne = $db->prepare($ligneQuery);
             $ligne->bind_param('i', $factureID);
             $ligne->execute();
+            $ligne->store_result();
             if ($ligne->num_rows > 0) {
                 $ligne->bind_result($titre, $quantite, $prix);
+                $xml->startElement('items');
                 while ($ligne->fetch()) {
+                    $xml->startElement('item');
                     $xml->writeElement("titre", $titre);
                     $xml->writeElement('quantite', $quantite);
                     $xml->writeElement('prix', $prix);
                     $xml->writeElement("ligne_total", $prix * $quantite);
+                    $xml->endElement();
                 }
+                $xml->endElement();
             }
             $ligne->close();
             $xml->writeElement('sous_total', $sousTotal);

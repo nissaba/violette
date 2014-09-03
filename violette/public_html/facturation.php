@@ -72,12 +72,14 @@ switch ($action) {
 
     case 'printFacture':
         //jason data: {"le ID"}, ex: {"factureid":"1"}
+        //test data: http://violette.cabserver.net/facturation.php?ACTION=printFacture&DATA=eyJmYWN0dXJlaWQiOjJ9
         getDetailFacture($dbConnection, $data->factureid, $xml);
         break;
     
     case 'payeFacture':
         completeFacture($dbConnection, $data->factureid, $xml);
         break;
+    
     case 'updateLigneCommandeItem':
         
         break;
