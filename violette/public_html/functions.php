@@ -151,7 +151,7 @@ function getDetailFacture($db, $factureID, $xml) {
             $xml->writeElement('total', $total);
             $xml->endElement();
         } else {
-            $xml->writeElement('Error', 'aucun résultat trouver pour facture id: ' . $factureID);
+            $xml->writeElement('error', 'aucun résultat trouver pour facture id: ' . $factureID);
         }
         $stmt->close();
     } catch (mysqli_sql_exception $e) {
