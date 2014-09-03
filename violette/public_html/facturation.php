@@ -1,7 +1,6 @@
 <?php
-
-//header('Access-Control-Allow-Origin:*');
-//header('Access-Control-Allow-Credentials: true');
+header('Access-Control-Allow-Origin:*');
+header('Access-Control-Allow-Credentials: true');
 header('Content-type: text/xml');
 include_once('config.php');
 include_once('functions.php');
@@ -76,6 +75,13 @@ switch ($action) {
         getDetailFacture($dbConnection, $data->factureid, $xml);
         break;
     
+    case 'payeFacture':
+        completeFacture($dbConnection, $data->factureid, $xml);
+        break;
+    case 'updateLigneCommandeItem':
+        
+        break;
+        
     default:
         $xml->writeElement("Commande_inconue", $action);
         break;
