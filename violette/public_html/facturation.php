@@ -4,6 +4,8 @@ header('Access-Control-Allow-Credentials: true');
 header('Content-type: text/xml');
 include_once('config.php');
 include_once('functions.php');
+mb_internal_encoding('UTF-8');
+setlocale(LC_CTYPE, 'fr_FR.UTF-8');
 
 $dbConnection = new mysqli($host, $database_user, $database_password, $database_name);
 

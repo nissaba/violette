@@ -39,7 +39,7 @@ while($row = $res->fetch_assoc()){
             $xml->writeElement("id", $menuItemID);
             $xml->writeElement("titre", iconv("ISO-8859-1", "UTF-8",$titre));
             $xml->writeElement("description", iconv("ISO-8859-1", "UTF-8", $description));
-            $xml->writeElement("prix", $prix);        
+            $xml->writeElement("prix", number_format((float)$prix, 2, ',', ' '));        
         $xml->endElement();
     }
     $xml->endElement();

@@ -94,10 +94,10 @@ function getDetailLigneCommande($db, $idArray, $xml) {
         $xml->startElement('items');
         while ($row = $res->fetch_assoc()) {
             $xml->startElement('item');
-            $xml->writeElement('titre', $row['TITRE']);
+            $xml->writeElement('titre', iconv("ISO-8859-1", "UTF-8",$row['TITRE']));
             $xml->writeElement('quantite', $row['QUANTITE']);
-            $xml->writeElement('prix', $row['PRIX_UNITAIRE']);
-            $xml->writeElement('total', $row['ligne_total']);
+            $xml->writeElement('prix', number_format((float)$row['PRIX_UNITAIRE'], 2, ',', ' '));
+            $xml->writeElement('total', number_format((float)$row['ligne_total'], 2, ',', ' '));
             $xml->endElement();
         }
         $xml->endElement();
@@ -107,7 +107,7 @@ function getDetailLigneCommande($db, $idArray, $xml) {
     }
 }
 
-function getDetailFacture($db, $factureID, $xml) {
+function getDetailFacture($db, $factureID, XMLWriter $xml) {
     $query = "select Concat(NOM, ' ', PRENOM)as employe_name, NUMERO_TABLE, "
             . "SIEGE, DATE, SOUS_TOTAL, TPS, TVQ, TOTAL "
             . "from FACTURE "
@@ -124,11 +124,11 @@ function getDetailFacture($db, $factureID, $xml) {
             $stmt->fetch();
             $xml->startElement("raport_facture");
             $xml->writeAttribute("facture_id", $factureID);
-            $xml->writeElement("nom", $nom);
+            $xml->writeElement("nom", iconv("ISO-8859-1", "UTF-8",$nom));
             $xml->writeElement('numero_table', $numTable);
             $xml->writeElement('siege', $siege);
             $xml->writeElement('date', $date);
-
+            
             $ligneQuery = "select TITRE, QUANTITE, PRIX_UNITAIRE "
                     . "from LIGNE_COMMAND_ITEM "
                     . "inner join MENU_ITEM using(MENU_ITEM_ID) "
@@ -143,19 +143,19 @@ function getDetailFacture($db, $factureID, $xml) {
                 $xml->startElement('items');
                 while ($ligne->fetch()) {
                     $xml->startElement('item');
-                    $xml->writeElement("titre", $titre);
+                    $xml->writeElement("titre", iconv("ISO-8859-1", "UTF-8",$titre));
                     $xml->writeElement('quantite', $quantite);
-                    $xml->writeElement('prix', $prix);
-                    $xml->writeElement("ligne_total", $prix * $quantite);
+                    $xml->writeElement('prix', number_format((float)$prix, 2, ',', ' '));
+                    $xml->writeElement("ligne_total", number_format((float)($prix * $quantite), 2, ',', ' '));
                     $xml->endElement();
                 }
                 $xml->endElement();
             }
             $ligne->close();
             $xml->writeElement('sous_total', $sousTotal);
-            $xml->writeElement('tps', $tps);
-            $xml->writeElement('tvq', $tvq);
-            $xml->writeElement('total', $total);
+            $xml->writeElement('tps', number_format((float)$tps, 2, ',', ' '));
+            $xml->writeElement('tvq', number_format((float)$tvq, 2, ',', ' '));
+            $xml->writeElement('total', number_format((float)$total, 2, ',', ' '));
             $xml->endElement();
         } else {
             $xml->writeElement('error', 'aucun résultat trouver pour facture id: ' . $factureID);
