@@ -332,11 +332,23 @@ font-weight:bold;
 /*xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx*/
 .entete_commande_ligne{
 		}	
-#btn_entete_commande_moins{width:35%;
-		border-radius: 1.875em 0.000em 0.000em 1.875em;}
-#btn_entete_commande_plus{width:35%;
-		border-radius: 0.000em 1.875em 1.875em 0.000em;}
+#btn_entete_commande_moins{
+	width:35%;
+	border-radius: 1.875em 0.000em 0.000em 1.875em;
+	
+	
+	//margin:0 auto;
+	
+	//border-radius: 1.875em;
+	//display:block-inline;
+	}
+#btn_entete_commande_plus{
 
+	//margin:0 auto;
+	width:35%;
+	border-radius: 0.000em 1.875em 1.875em 0.000em;
+	//display:block-inline;
+	}
 .barre_item{}
 	
 /* Commande -> résumé */
@@ -393,23 +405,28 @@ font-weight:bold;
  
 }
 #titre_commande_h1{
+	
 	font-size: 1em;
 	text-align: center;
 	
 	}
 .table_commande{//text-indent: 50px;}
-.td_item_command{
+.td_item_commande{
 	//text-indent: 10px;
+	//font-weight: 200;
 	text-align: left;
 	font-size: 0.625em;
+		width: 30%;
 	}
-.td_quantite_command{
+.td_quantite_commande{
 	text-align: center;
 	font-size: 0.625em;
+	width: 50%;
 	}
 .td_prix_commande{
 	text-align: right;
 	font-size: 0.625em;
+	width: 65%;
 	}
 
 .btn_enlever_commande{
