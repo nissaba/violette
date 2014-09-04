@@ -139,7 +139,7 @@ and open the template in the editor.
             <div class="bar_btn" id="bar_btn_page_commande">
                 <button class="btn_bar" id="btn_retour_table" onclick="onClickRetourTable();"> &lsaquo; </button>
                 <button class="btn_bar" id="btn_confirmation" onclick="onClickConfirmation();">Résumé</button>
-                <button class="btn_bar" id="btn_facture_commande" onclick="gererVisibilite(['none','none','none','block']);">Facture</button>
+                <button class="btn_bar" id="btn_facture_commande" onclick="afficherFacture();">Facture</button>
                 <button class="btn_bar" id="btn_commande_plus" onclick="onClickAjouterCommande();"> + </button>
             </div>
         </div>
@@ -154,45 +154,22 @@ and open the template in the editor.
             <div class="bar_btn" id="bar_btn_page_confirmation">
                 <button class="btn_bar" id="btn_retour_commande" onclick="gererVisibilite(['none','block','none','none']);"> &lsaquo; </button>
                 <button class="btn_bar" id="btn_cuisine" onclick="onClickCuisine();">Cuisine</button>
-                <button class="btn_bar" id="btn_facture_confirmation" onclick="gererVisibilite(['none','none','none','block']);">Facture</button>
+                <button class="btn_bar" id="btn_facture_confirmation" onclick="afficherFacture();">Facture</button>
             </div>
         </div>
     
     <!-- page 'FACTURE': affiche la facture (ce qui a été commandé et servi), ainsi que l'option 'Rabais / Promo' (... à venir!!...), 
             qui offrira la possibilité d'ajuster le total en fonction de ce qui aura été sélectionné (ex.: Promo du mois; rabais étudiant; client insatisfait; etc.) -->
         <div class="page" id="page_facture" style="display:none">
-            <div class="entete_facture" id="entete_facture_1">
-                <div class="entete_nom_resto" id="entete_nom_resto_1">&nbsp; NOM DU RESTO </div>	
-                <div class="entete_nom_serveuse" id="entete_nom_serveuse_1">&nbsp; &nbsp; servi par:  </div>	
-                <span class="entete_no_table" id="entete_no_table_1">&nbsp; &nbsp; table: &nbsp; </span>	
-                <span class="entete_no_facture" id="entete_no_facture_1">&nbsp; | facture:  </span>
+            <div class="entete_page_facture" id="entete_facture_1">
+                <div class="entete_facture_nom_resto" id="entete_nom_resto_1">&nbsp; NOM DU RESTO </div>	
+                <div class="entete_facture_nom_serveuse" id="entete_nom_serveuse_1">Servi par: </div>
+				<div class="entete_facture_date" id="entete_date_1">Date: </div>				
+                <span class="entete_facture_no_facture" id="entete_no_facture_1">Facture: </span>
+                <span class="entete_facture_no_table" id="entete_no_table_1">Table: </span>
+				<span class="entete_facture_no_siege" id="entete_no_siege_1">Siège: </span>				
             </div>
-            <div class="detail_facture" id="detail_facture_1">
-                <div class="facture_items" id="facture_item_1"> 
-                    <span class="nom_item" id="nom_item_1"> soupe aux pois 
-                        <span class="qte_item" id="qte_item_1"> 
-                            <span class="prix_unitaire" id="prix_unitaire_item_1"> </span>
-                        </span>
-                    </span>
-                    <span class="prix_item" id="prix_item_1"> 4.00 $ </span>
-                </div>
-                <div class="facture_items" id="facture_item_2">
-                    <span class="nom_item" id="nom_item_2"> pain &agrave; l'ail  
-                        <span class="qte_item" id="qte_item_2"> &nbsp; &nbsp; (2 @
-                            <span class="prix_unitaire" id="prix_unitaire_item_2"> &nbsp; 4.00 $)&nbsp; </span>
-                        </span>
-                    </span>
-                    <span class="prix_item" id="prix_item_2"> 8.00 $ </span>
-                </div>   
-                <div class="facture_items" id="facture_item_3"> 
-                    <span class="nom_item" id="nom_item_3"> jus d'orange 
-                        <span class="qte_item" id="qte_item_3"> 
-                            <span class="prix_unitaire" id="prix_unitaire_item_3"> </span>
-                        </span>
-                    </span>
-                    <span class="prix_item" id="prix_item_3"> 2.00 $ </span>
-                </div>
-            </div>
+            <div class="detail_facture" id="detail_facture_id"></div>
             <div class="sous_total_facture" id="sous_total_facture_1">Sous-total... 14.00 $</div>
             <div class="total_facture" id="total_facture_1">
                 <p class="taxes" id="tvq">TVQ	0.98 $</p>
@@ -206,3 +183,14 @@ and open the template in the editor.
         </div>
     </body>
 </html>
+<!--
+            <div class="detail_facture" id="detail_facture_id">
+                <div class="facture_items" id="facture_item_1"> 
+                    <span class="nom_item" id="nom_item_1"> soupe aux pois 
+                        <span class="qte_item" id="qte_item_1"> 
+                            <span class="prix_unitaire" id="prix_unitaire_item_1"> </span>
+                        </span>
+                    </span>
+                    <span class="prix_item" id="prix_item_1"> 4.00 $ </span>
+                </div>
+</!-->

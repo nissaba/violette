@@ -1,9 +1,9 @@
 
  var blabla = "bli bli",
 	//chemins différents selon l'environnement de travail avec easyPHP
-	SERVER_PATH = "http://violette.cabserver.net/";
+	//SERVER_PATH = "http://violette.cabserver.net/";
 	//SERVER_PATH = "http://127.0.0.1:8888/violette/public_html/",
-	//SERVER_PATH = "http://127.0.0.1/projects/projet_final/public_html/",
+	SERVER_PATH = "http://127.0.0.1/projects/projet_final/public_html/",
 	// DOM cache
 	employeId = -1,
 	factureSession = 0,
@@ -74,6 +74,32 @@ function afficherEnteteCommande(facture, factureId, numCommande) {
 	numeroTableSpan.textContent = numeroTableSpan.textContent.slice(0,7) + facture.numeroTable;
 	factureSpan.textContent = factureSpan.textContent.slice(0,9) + facture.factureId;
 	siegeSpan.textContent = siegeSpan.textContent.slice(0,7) + facture.siege;
+}
+
+function afficherFacture(xml) {
+	var serveur = document.getElementById("entete_nom_serveuse_1"),
+		table = document.getElementById("entete_no_table_1"),
+		facture = document.getElementById("entete_no_facture_1"),
+		siege = document.getElementById("entete_no_siege_1"),
+		date = document.getElementById("entete_date_1"),
+		detailFacture = document.getElementById("detail_facture_id"),
+		detailString = "";
+	gererVisibilite(['none','none','none','block']);
+	xml = requeteFacture(getFactureInterface());
+	serveur.textContent = serveur.textContent.slice(0,11) + xml.getElementsByTagName("nom")[0].textContent;
+	table.textContent = table.textContent.slice(0,7) + xml.getElementsByTagName('numero_table')[0].textContent;
+	siege.textContent = siege.textContent.slice(0,7) + xml.getElementsByTagName('siege')[0].textContent;
+	facture.textContent = facture.textContent.slice(0,9) + xml.getElementsByTagName("raport_facture")[0].getAttribute("facture_id");
+	date.textContent = date.textContent.slice(0,6) + xml.getElementsByTagName("date")[0].textContent;
+	detail = xml.getElementsByTagName("item");
+	for(i = 0; i < detail.length; i++){
+		item = detail[i].firstChild.nextSibling;
+		qte = item.nextSibling.nextSibling;
+		prix = qte.nextSibling.nextSibling;
+		ligneTotal = prix.nextSibling.nextSibling;
+		detailString += "<p>"+item.textContent+" : "+qte.textContent+" X "+prix.textContent+" = "+ligneTotal.textContent+"</p>";
+	}
+	detailFacture.innerHTML = detailString;
 }
 
 function onClickRetourTable() {
@@ -551,16 +577,52 @@ function requeteNouvelleCommande(facture) {
 		url: SERVER_PATH + "facturation.php",
 		type: 'POST',
 		async: false,
-		data: "ACTION=facutreAjouteItems&DATA=" + btoa(facture.commandes[facture.commandes.length - 1].toString(facture.factureIdBD)),
+		data: "ACTION=factureAjouteItems&DATA=" + btoa(facture.commandes[facture.commandes.length - 1].toString(facture.factureIdBD)),
 		datatype: 'xml',
 		success: function (response) {
 			reponses = response.getElementsByTagName("id");
 			for (i = 0; i < reponses.length; i++) {
 				facture.commandes[facture.commandes.length-1].ligneCommandes[i].menuItemIdBD = reponses[i].textContent;
-				message(facture.commandes[facture.commandes.length-1].ligneCommandes[i].envoye + facture.commandes[facture.commandes.length-1].ligneCommandes[i].menuItemIdBD+response.getElementsByTagName("nombre_item_ajouter")[0].textContent+reponses.length);
+				message("facture envoyée" + facture.commandes[facture.commandes.length-1].ligneCommandes[i].menuItemIdBD+" : "+response.getElementsByTagName("nombre_item_ajouter")[0].textContent);
 			}
 		},
 		error: function (response) { return alert("erreur : nouvelle commande" + response.responseText); }
     });
 	return false;
+}
+
+function requeteModificationCommande(factureIdBD, commande) {
+	var i;
+	$.ajax({
+		url: SERVER_PATH + "facturation.php",
+		type: 'POST',
+		async: false,
+		data: "ACTION=printFacture&DATA=" + btoa('{"factureid":"'+facture.factureIdBD+'"}'),
+		datatype: 'xml',
+		success: function (response) {
+			alert(respones.responseText);
+		},
+		error: function (response) { return alert(response.responseText); }
+    });
+	return false;
+}
+
+function requeteFacture(facture) {
+	var xml;
+		$.ajax({
+		url: SERVER_PATH + "facturation.php",
+		type: 'POST',
+		async: false,
+		data: "ACTION=printFacture&DATA=" + btoa('{"factureid":"'+facture.factureIdBD+'"}'),
+		datatype: 'xml',
+		success: function (response) {
+			xml = response;
+		},
+		error: function (response) { xml = response; }
+    });
+	return xml;
+}
+
+function requeteFermerFacture(factureIdBD) {
+
 }
