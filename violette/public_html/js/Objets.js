@@ -66,8 +66,5 @@ LigneCommande.prototype.equals = function(other) {
 	if(this.menuItemId != other.menuItemId){
 		return false;
 	}
-	if(this.quantite != other.quantite){
-		return false;
-	}
 	return true;
 }

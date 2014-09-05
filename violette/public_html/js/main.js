@@ -59,17 +59,17 @@ function afficherEnteteCommande(facture, factureId, numCommande) {
 		commandeSpan = document.getElementById("entete_no_commande");
 	viderInputQuantite();
 	desactiverBoutonFacture(true);
-		if (facture.factureIdBD > -1) {
-			desactiverBoutonFacture(false);
-		}
-		if (numCommande > 0) {
-			afficherInputQuantite(facture.commandes[numCommande - 1]);
-			commandeSpan.textContent = commandeSpan.textContent.slice(0,10) + numCommande;
-		} else {
-			afficherInputQuantite(facture.commandes[facture.commandes.length-1]);
-			commandeSpan.textContent = commandeSpan.textContent.slice(0,10) + facture.commandes.length;
-		}
-		verifierQuantiteVide();
+	if (facture.factureIdBD > -1) {
+		desactiverBoutonFacture(false);
+	}
+	if (numCommande > 0) {
+		afficherInputQuantite(facture.commandes[numCommande - 1]);
+		commandeSpan.textContent = commandeSpan.textContent.slice(0,10) + numCommande;
+	} else {
+		afficherInputQuantite(facture.commandes[facture.commandes.length - 1]);
+		commandeSpan.textContent = commandeSpan.textContent.slice(0,10) + facture.commandes.length;
+	}
+	verifierQuantiteVide();
 	gererVisibilite(["none", "block", "none", "none"]);
 	numeroTableSpan.textContent = numeroTableSpan.textContent.slice(0,7) + facture.numeroTable;
 	factureSpan.textContent = factureSpan.textContent.slice(0,9) + facture.factureId;
@@ -83,7 +83,11 @@ function afficherFacture(xml) {
 		siege = document.getElementById("entete_no_siege_1"),
 		date = document.getElementById("entete_date_1"),
 		detailFacture = document.getElementById("detail_facture_id"),
-		detailString = "";
+		detailString = "",
+		sousTotal = document.getElementById("sous_total_facture_id"),
+		tvq = document.getElementById("tvq"),
+		tps = document.getElementById("tps"),
+		total = document.getElementById("ligne_total_id");
 	gererVisibilite(['none','none','none','block']);
 	xml = requeteFacture(getFactureInterface());
 	serveur.textContent = serveur.textContent.slice(0,11) + xml.getElementsByTagName("nom")[0].textContent;
@@ -91,13 +95,17 @@ function afficherFacture(xml) {
 	siege.textContent = siege.textContent.slice(0,7) + xml.getElementsByTagName('siege')[0].textContent;
 	facture.textContent = facture.textContent.slice(0,9) + xml.getElementsByTagName("raport_facture")[0].getAttribute("facture_id");
 	date.textContent = date.textContent.slice(0,6) + xml.getElementsByTagName("date")[0].textContent;
+	sousTotal.textContent = sousTotal.textContent.slice(0,13) + xml.getElementsByTagName("sous_total")[0].textContent;
+	tvq.textContent = tvq.textContent.slice(0,6) + xml.getElementsByTagName("tvq")[0].textContent;
+	tps.textContent = tps.textContent.slice(0,6) + xml.getElementsByTagName("tps")[0].textContent;
+	total.textContent = total.textContent.slice(0,8) + xml.getElementsByTagName("total")[0].textContent;
 	detail = xml.getElementsByTagName("item");
 	for(i = 0; i < detail.length; i++){
 		item = detail[i].firstChild.nextSibling;
 		qte = item.nextSibling.nextSibling;
 		prix = qte.nextSibling.nextSibling;
 		ligneTotal = prix.nextSibling.nextSibling;
-		detailString += "<p>"+item.textContent+" : "+qte.textContent+" X "+prix.textContent+" = "+ligneTotal.textContent+"</p>";
+		detailString += "<p>"+item.textContent+" : "+qte.textContent+" X "+prix.textContent+" $ = "+ligneTotal.textContent+" $</p>";
 	}
 	detailFacture.innerHTML = detailString;
 }
@@ -146,10 +154,23 @@ function onClickCommandeSuivante(isSuivant){
 
 function onClickCuisine() {
 	var f = getFactureInterface();
-	if ((f.factureIdBD != -1) && (getCommandeInterface().modifie)){
-		requeteNouvelleCommande(f);
+	if (f.factureIdBD != -1){
+		manipulerCommande(f);
 	} else {
 		requeteNouvelleFacture(f);
+	}
+}
+
+function manipulerCommande(facture){
+	var commande = getCommandeInterface(),
+		i;
+	for(i = 0; i < commande.ligneCommandes.length; i++){
+		message(commande.ligneCommandes[i].menuItemIdBD);
+		if(commande.ligneCommandes[i].menuItemIdBD > -1) {
+			message("deja envoye");
+		} else {
+			requeteNouvelleLigneCommande(facture.factureIdBD, commande.ligneCommandes[i]);
+		}
 	}
 }
 
@@ -162,15 +183,24 @@ function onClickCuisine() {
 function prendreCommande() {
 	var items = document.getElementsByClassName("quantite"),
 		i,
+		j,
 		facture = getFactureInterface(),
 		commandeSpan = document.getElementById("entete_no_commande").textContent.substring(10),
-		commandeTemp = new Commande();
+		commandeTemp = new Commande(),
+		menuItemIdBD = [];
 		for (i = 0; i < items.length; i++) {
 			if (items[i].value > 0) {
 				commandeTemp.ajouterLigneCommande(items[i].id.substring(8), items[i].value);
 			}
 		}
 		if (!facture.commandes[commandeSpan-1].equals(commandeTemp)) {
+			for(i = 0; i < facture.commandes[commandeSpan-1].ligneCommandes.length; i++) {
+				for(j = 0; j < commandeTemp.ligneCommandes.length; j++){
+					if(facture.commandes[commandeSpan-1].ligneCommandes[i].equals(commandeTemp.ligneCommandes[j])){
+						commandeTemp.ligneCommandes[j].menuItemIdBD = facture.commandes[commandeSpan-1].ligneCommandes[i].menuItemIdBD;
+					}
+				}
+			}
 			facture.commandes[commandeSpan-1] = commandeTemp;
 			facture.commandes[commandeSpan-1].modifie = true;
 			desactiverBoutonCuisine(false);
@@ -367,34 +397,29 @@ function creerTitreCommande(numCommande) {
 	return divTitre;
 }
 
-function creerItemCommande(facture) {
+function creerItemCommande(facture, numCommande) {
 	var tableItem = document.createElement("TABLE"),
 		i;
 	tableItem.className = "table_commande";
 	tableItem.id = tableItem.className + "_id";
-	for (i = 0; i < facture.commandes[facture.commandes.length - 1].ligneCommandes.length; i++) {
+	for (i = 0; i < facture.commandes[numCommande].ligneCommandes.length; i++) {
 		tr = document.createElement("TR");
 		tr.className = "tr_commande_item";
 		tr.id = tr.className + i;
-		btnEnlever = document.createElement("BUTTON");
-		btnEnlever.className = "btn_enlever_commande";
-		btnEnlever.id = btnEnlever+i;
-		btnEnlever.textContent = "X";
 		tdItem = document.createElement("TD");
 		tdItem.className = "td_item_commande";
 		tdItem.id = tdItem.className + i;
-		menuItemId = facture.commandes[facture.commandes.length - 1].ligneCommandes[i].menuItemId;
+		menuItemId = facture.commandes[numCommande].ligneCommandes[i].menuItemId;
 		tdItem.textContent = document.getElementById("menu_item"+menuItemId).textContent;
 		tdQte = document.createElement("TD");
 		tdQte.className = "td_quantite_commande";
 		tdQte.id = tdQte.className + i;
-		tdQte.textContent = facture.commandes[facture.commandes.length - 1].ligneCommandes[i].quantite;
+		tdQte.textContent = facture.commandes[numCommande].ligneCommandes[i].quantite;
 		tdPrix = document.createElement("TD");
 		tdPrix.className = "td_prix_commande";
 		tdPrix.id = tdPrix.className + i;
-		menuItemId = facture.commandes[facture.commandes.length - 1].ligneCommandes[i].menuItemId;
-		tdPrix.textContent = document.getElementById("menu_item"+menuItemId).getAttribute("prix");
-		tr.appendChild(btnEnlever);
+		menuItemId = facture.commandes[numCommande].ligneCommandes[i].menuItemId;
+		tdPrix.textContent = document.getElementById("menu_item"+menuItemId).getAttribute("prix") + " $";
 		tr.appendChild(tdItem);
 		tr.appendChild(tdQte);
 		tr.appendChild(tdPrix);
@@ -404,10 +429,11 @@ function creerItemCommande(facture) {
 }
 
 function construireDOMCommande(facture) {
-	var divDetail = document.getElementById("detail_commande_id");
+	var divDetail = document.getElementById("detail_commande_id"),
+		commandeSpan = document.getElementById("entete_no_commande").textContent.substring(10);
 	viderDOMCommande();
-	divDetail.appendChild(creerTitreCommande(facture.commandes.length));
-	divDetail.appendChild(creerItemCommande(facture));
+	divDetail.appendChild(creerTitreCommande(commandeSpan));
+	divDetail.appendChild(creerItemCommande(facture, commandeSpan-1));
 }
 
 // Fin de la création du DOM pour la confirmation d'une commnde
@@ -428,7 +454,11 @@ function ajouterFacture(id) {
 	incrementerPastille(liTable, 1);
 	document.getElementById("nom_"+facture.id).addEventListener("click", function (e) {
 		e.preventDefault();
-		f = initialiserFacture(e.currentTarget.getAttribute("facture_id"));
+		if (trouverFacture(e.currentTarget.getAttribute("facture_id")) == -1) {
+			f = initialiserFacture(e.currentTarget.getAttribute("facture_id"));
+		} else {
+			f = trouverFacture(e.currentTarget.getAttribute("facture_id"));
+		}
 		afficherEnteteCommande(f, e.currentTarget.getAttribute("facture_id"), -1);
 	}, false);
 	document.getElementById("btn_plus"+facture.id).addEventListener("click", function (e) {
@@ -547,7 +577,7 @@ function requeteMenu() {
 			window.name = "4";
 			employeId = window.name;
 		},
-		error: function (response) { return alert("erreur : " + response.responseText); }
+		error: function (response) { return message("erreur : Connection au serveur impossible"); }
     });
 	return false;
 }
@@ -565,7 +595,7 @@ function requeteNouvelleFacture(facture) {
 			desactiverBoutonFacture(false);
 		},
 		error: function (response) { 
-			return alert("erreur : nouvelle facture"); 
+			return message("erreur : La facture n'a pas été enregistrée..."); 
 		}
     });
 	return false;
@@ -583,24 +613,26 @@ function requeteNouvelleCommande(facture) {
 			reponses = response.getElementsByTagName("id");
 			for (i = 0; i < reponses.length; i++) {
 				facture.commandes[facture.commandes.length-1].ligneCommandes[i].menuItemIdBD = reponses[i].textContent;
-				message("facture envoyée" + facture.commandes[facture.commandes.length-1].ligneCommandes[i].menuItemIdBD+" : "+response.getElementsByTagName("nombre_item_ajouter")[0].textContent);
 			}
+			message("La nouvelle facture a été envoyée");
 		},
-		error: function (response) { return alert("erreur : nouvelle commande" + response.responseText); }
+		error: function (response) { return message("erreur : La commande n'a pas été enregistrée..."); }
     });
 	return false;
 }
 
-function requeteModificationCommande(factureIdBD, commande) {
+function requeteNouvelleLigneCommande(factureIdBD, ligneCommande) {
 	var i;
 	$.ajax({
 		url: SERVER_PATH + "facturation.php",
 		type: 'POST',
 		async: false,
-		data: "ACTION=printFacture&DATA=" + btoa('{"factureid":"'+facture.factureIdBD+'"}'),
+		data: "ACTION=factureAjouteItems&DATA=" + btoa('{"factureid":"'+factureIdBD+'","ligneCommandItems":['+ligneCommande.toString()+']}'),
 		datatype: 'xml',
 		success: function (response) {
-			alert(respones.responseText);
+			reponses = response.getElementsByTagName("id");
+			ligneCommande.menuItemIdBD = reponses[0].textContent;
+			message("item ajouter");
 		},
 		error: function (response) { return alert(response.responseText); }
     });

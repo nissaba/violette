@@ -16,16 +16,13 @@ and open the template in the editor.
     <head>
         <meta charset="UTF-16" name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
         <title>Interface Serveuse</title>
-        
         <link rel="stylesheet"  href= "css/main.css" type="text/css" > 
         <script type="text/javascript" src="js/main.js"></script>
 		<script type="text/javascript" src="js/Objets.js"></script>
 		<script type="text/javascript" src="js/Interface.js"></script>
 		<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
-        
      </head>
     <body id="serveuse" onload="return requeteMenu();">
-        
     <!-- page 'TABLES': liste de toutes les tables du restaurant; point de départ pour prendre la/les commande(s) -->
         <div class="page" id="page_tables" style="display:block">
             <!-- ul class="liste" id="liste_tables" data-role="listview" data-inset="true" data-theme="d" data-divider-theme="e" data-count-theme="b" -->
@@ -117,7 +114,6 @@ and open the template in the editor.
             </ul>
             <button class="btn_bar" id="btn_quitter">Quitter</button>
         </div>
-        
     <!-- page 'COMMANDE': liste des sections du menu: offrent un dropdown des items de chaque section lors de la prise de commande(s) -->
         <div class="page" id="page_commande" style="display:none">
             <div class="entete_commande" id="entete_commande_id">
@@ -143,7 +139,6 @@ and open the template in the editor.
                 <button class="btn_bar" id="btn_commande_plus" onclick="onClickAjouterCommande();"> + </button>
             </div>
         </div>
-    
     <!-- page 'CONFIRMATION': affichage d'un résumé de la commande avant l'envoi vers la cuisine -->
         <div class="page" id="page_confirme_commande" style="display:none">
             <div class="entete_facture" id="entete_facture_id">
@@ -157,7 +152,6 @@ and open the template in the editor.
                 <button class="btn_bar" id="btn_facture_confirmation" onclick="afficherFacture();">Facture</button>
             </div>
         </div>
-    
     <!-- page 'FACTURE': affiche la facture (ce qui a été commandé et servi), ainsi que l'option 'Rabais / Promo' (... à venir!!...), 
             qui offrira la possibilité d'ajuster le total en fonction de ce qui aura été sélectionné (ex.: Promo du mois; rabais étudiant; client insatisfait; etc.) -->
         <div class="page" id="page_facture" style="display:none">
@@ -170,14 +164,14 @@ and open the template in the editor.
 				<span class="entete_facture_no_siege" id="entete_no_siege_1">Siège: </span>				
             </div>
             <div class="detail_facture" id="detail_facture_id"></div>
-            <div class="sous_total_facture" id="sous_total_facture_1">Sous-total... 14.00 $</div>
-            <div class="total_facture" id="total_facture_1">
-                <p class="taxes" id="tvq">TVQ	0.98 $</p>
-                <p class="taxes" id="tps">TPS	0.70 $</p>
-                <p class="ligne_total" id="ligne_total_1">TOTAL	15.68 $</p>
+            <div class="sous_total_facture" id="sous_total_facture_id">Sous-total = </div>
+            <div class="total_facture" id="total_facture_id">
+                <p class="taxes" id="tvq">TVQ = </p>
+                <p class="taxes" id="tps">TPS = </p>
+                <p class="ligne_total" id="ligne_total_id">TOTAL = </p>
             </div>
             <div class="bar_btn" id="bar_btn_page_facture">
-                <button class="btn_bar" id="btn_retour_confirmation" onclick="gererVisibilite(['none','none','block','none']);"> &lsaquo; </button>
+                <button class="btn_bar" id="btn_retour_confirmation" onclick="gererVisibilite(['block','none','none','none']);"> &lsaquo; </button>
                 <button class="btn_bar" id="btn_facture_payee">Pay&eacute;e</button>
             </div>
         </div>
