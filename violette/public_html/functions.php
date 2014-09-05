@@ -185,12 +185,12 @@ function getDetailFacture($db, $factureID, XMLWriter $xml) {
 }
 
 function completeFacture($db, $factureID, $xml) {
-    $query = 'update FACTURE set COMPLET = ? '
+    $query = 'update FACTURE set COMPLET = true '
             . 'where FACTURE_ID = ?;';
     
     $stmt = $db->prepare($query);
     try {        
-        $stmt->bind_param('si', 'true', $factureID);
+        $stmt->bind_param('i', $factureID);
         $stmt->execute();
         $res = $db->affected_rows;
         $xml->writeElement('facture_complete', $res);        
