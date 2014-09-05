@@ -57,13 +57,15 @@ switch ($action) {
 
     case 'effacerFacture':
         //jason data: {"le ID"}, ex: {"factureid":"1"}
-        $res = effacerIdDansTable($dbConnection, 'FACTURE', $data->factureid);
+        $xml->writeElement('factureid', $data->factureid);
+        $res = effacerFacture($dbConnection, $data->factureid);
         $xml->writeElement("facture_effacer", $res);
         break;
 
     case 'effacerLigneCMDITem':
-        //jason data: {"le ID"}, ex: {"ID":"1"}
-        $res = effacerIdDansTable($dbConnection, 'LIGNE_COMMAND_ITEM', $data->ID);
+        $xml->writeElement('id', $data->id);
+        //jason data: {"id":"le ID"}, ex: {"id":"1"}
+        $res = effacerLigneCommandItem($dbConnection, $data->id);
         $xml->writeElement("ligne_cmd_item_effacer", $res);
         break;
 

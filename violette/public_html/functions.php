@@ -62,18 +62,35 @@ function listeItemIdsFacture($db, $factureID, $xml) {
     }
 }
 
-function effacerIdDansTable($db, $table, $id) {
-    $query = "delete from ? where FACTURE_ID = ?;";
-
-    try {
-        $stmt = $db->prepare($query);
-        $stmt->bind_param('si', $table, $id);
-        $stmt - execute();
-        $res = $db->affected_rows;
-        $stmt->close();
+function effacerFacture($db, $id) {    
+    $query = 'DELETE FROM FACTURE WHERE FACTURE_ID = ?;';
+    
+    $res = 0;
+    $stmt = $db->prepare($query);
+    try {        
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+        $res = $db->affected_rows;        
     } catch (mysqli_sql_exception $e) {
-        return -1;
+        $res = -1;
     }
+    $stmt->close();
+    return $res;
+}
+
+function effacerLigneCommandItem($db, $id) {    
+    $query = 'DELETE FROM LIGNE_COMMAND_ITEM WHERE ID = ?;';
+    
+    $res = 0;
+    $stmt = $db->prepare($query);
+    try {        
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+        $res = $db->affected_rows;        
+    } catch (mysqli_sql_exception $e) {
+        $res = -1;
+    }
+    $stmt->close();
     return $res;
 }
 
