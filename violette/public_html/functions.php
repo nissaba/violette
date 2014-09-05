@@ -78,7 +78,7 @@ function effacerIdDansTable($db, $table, $id) {
 }
 
 function getDetailLigneCommande($db, $idArray, $xml) {
-    $query = 'select TITRE, QUANTITE, PRIX_UNITAIRE, (PRIX_UNITAIRE*QUANTITE)as ligne_total '
+    $query = 'select ID, TITRE, QUANTITE, PRIX_UNITAIRE, (PRIX_UNITAIRE*QUANTITE)as ligne_total '
             . 'from LIGNE_COMMAND_ITEM '
             . 'inner join MENU_ITEM using(MENU_ITEM_ID) '
             . 'where ID in (';
@@ -87,13 +87,13 @@ function getDetailLigneCommande($db, $idArray, $xml) {
         $query .= $value . ',';
     }
 
-    $query = $query = substr($query, 0, -1) . ');';
-
+    $query = $query = substr($query, 0, -1) . ');';    
     try {
         $res = $db->query($query);
         $xml->startElement('items');
         while ($row = $res->fetch_assoc()) {
             $xml->startElement('item');
+            $xml->writeElement('id', $row['ID']);
             $xml->writeElement('titre', iconv("ISO-8859-1", "UTF-8",$row['TITRE']));
             $xml->writeElement('quantite', $row['QUANTITE']);
             $xml->writeElement('prix', number_format((float)$row['PRIX_UNITAIRE'], 2, ',', ' '));
@@ -101,7 +101,7 @@ function getDetailLigneCommande($db, $idArray, $xml) {
             $xml->endElement();
         }
         $xml->endElement();
-        mysqli_close($res);
+        $res->close();
     } catch (mysqli_sql_exception $e) {
         $xml->writeElement('database_error', $e->getMessage());
     }
@@ -170,18 +170,18 @@ function getDetailFacture($db, $factureID, XMLWriter $xml) {
 function completeFacture($db, $factureID, $xml) {
     $query = 'update FACTURE set COMPLET = ? '
             . 'where FACTURE_ID = ?;';
-
-    try {
-        $stmt = $db->prepare($query);
+    
+    $stmt = $db->prepare($query);
+    try {        
         $stmt->bind_param('si', 'true', $factureID);
         $stmt->execute();
         $res = $db->affected_rows;
-        $xml->writeElement('facture_complete', $res);
-        $stmt->close();
+        $xml->writeElement('facture_complete', $res);        
     } catch (mysqli_sql_exception $e) {
         $xml->writeElement('database_error', $e->
                         getMessage());
     }
+    $stmt->close();
 }
 
 function updateLigneCommandeItem($db, $items, $xml) {

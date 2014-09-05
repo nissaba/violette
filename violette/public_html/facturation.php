@@ -69,7 +69,7 @@ switch ($action) {
 
     case 'listLigneCMDItem':
         //json data ex: [{"1","2", ..., "n-1", "n"}] : n = id de la lignecommande
-        getDetailLigneCommande($dbConnection, $data);
+        getDetailLigneCommande($dbConnection, $data, $xml);
         break;
 
     case 'printFacture':
