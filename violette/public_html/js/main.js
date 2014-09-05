@@ -76,7 +76,7 @@ function afficherEnteteCommande(facture, factureId, numCommande) {
 	siegeSpan.textContent = siegeSpan.textContent.slice(0,7) + facture.siege;
 }
 
-function afficherFacture(xml) {
+function afficherFacture() {
 	var serveur = document.getElementById("entete_nom_serveuse_1"),
 		table = document.getElementById("entete_no_table_1"),
 		facture = document.getElementById("entete_no_facture_1"),
@@ -165,9 +165,10 @@ function manipulerCommande(facture){
 	var commande = getCommandeInterface(),
 		i;
 	for(i = 0; i < commande.ligneCommandes.length; i++){
-		message(commande.ligneCommandes[i].menuItemIdBD);
-		if(commande.ligneCommandes[i].menuItemIdBD > -1) {
-			message("deja envoye");
+		if ((commande.ligneCommandes[i].menuItemIdBD > -1) && (commande.ligneCommandes[i].quantite > 0)) {
+			requeteModifierCommande(commande.ligneCommandes[i]);
+		} else if ((commande.ligneCommandes[i].menuItemIdBD > -1) && (commande.ligneCommandes[i].quantite == 0)) {
+			requeteEffacerLigneCommande(commande.ligneCommandes[i]);
 		} else {
 			requeteNouvelleLigneCommande(facture.factureIdBD, commande.ligneCommandes[i]);
 		}
@@ -195,6 +196,10 @@ function prendreCommande() {
 		}
 		if (!facture.commandes[commandeSpan-1].equals(commandeTemp)) {
 			for(i = 0; i < facture.commandes[commandeSpan-1].ligneCommandes.length; i++) {
+			quantite = document.getElementById("quantite"+facture.commandes[commandeSpan-1].ligneCommandes[i].menuItemId).value;
+			if(quantite == 0) {
+				commandeTemp.ajouterLigneCommande(facture.commandes[commandeSpan-1].ligneCommandes[i].menuItemId, 0);
+			}
 				for(j = 0; j < commandeTemp.ligneCommandes.length; j++){
 					if(facture.commandes[commandeSpan-1].ligneCommandes[i].equals(commandeTemp.ligneCommandes[j])){
 						commandeTemp.ligneCommandes[j].menuItemIdBD = facture.commandes[commandeSpan-1].ligneCommandes[i].menuItemIdBD;
@@ -622,7 +627,6 @@ function requeteNouvelleCommande(facture) {
 }
 
 function requeteNouvelleLigneCommande(factureIdBD, ligneCommande) {
-	var i;
 	$.ajax({
 		url: SERVER_PATH + "facturation.php",
 		type: 'POST',
@@ -632,11 +636,41 @@ function requeteNouvelleLigneCommande(factureIdBD, ligneCommande) {
 		success: function (response) {
 			reponses = response.getElementsByTagName("id");
 			ligneCommande.menuItemIdBD = reponses[0].textContent;
-			message("item ajouter");
 		},
-		error: function (response) { return alert(response.responseText); }
+		error: function (response) { return message("erreur : La commande n'a pas été enregistrée..."); }
     });
 	return false;
+}
+
+function requeteModifierCommande(ligneCommande){
+	$.ajax({
+		url: SERVER_PATH + "facturation.php",
+		type: 'POST',
+		async: false,
+		data: "ACTION=updateLigneCommandeItem&DATA=" + btoa('['+ligneCommande.toStringModifier()+']'),
+		datatype: 'xml',
+		success: function (response) {
+			reponses = response.getElementsByTagName("update");
+			ligneCommande.menuItemIdBD = reponses[0].getAttribute("id");
+			//message("item ajouter"+reponses[0].getAttribute("id")+ligneCommande.toStringModifier());
+		},
+		error: function (response) { 
+		return message("Erreur lors de la modification de la commande"); }
+    });
+}
+
+function requeteEffacerLigneCommande(ligneCommande){
+	$.ajax({
+		url: SERVER_PATH + "facturation.php",
+		type: 'POST',
+		async: false,
+		data: "ACTION=effacerLigneCMDITem&DATA=" + btoa('{"ID":"'+ligneCommande.menuItemIdBD+'"}'),
+		datatype: 'xml',
+		success: function (response) {
+		//	message("Ligne effacée");
+		},
+		error: function (response) { return message("Erreur lors de la modification de la commande"); }
+    });
 }
 
 function requeteFacture(facture) {

@@ -196,7 +196,7 @@ function updateLigneCommandeItem($db, $items, $xml) {
             $stmt->execute();
             $res = $db->affected_rows;
             $xml->startElement('update');
-            $xml->writeAttribute('id, $item-id');
+            $xml->writeAttribute('id', $item->id);
             $xml->text('réussi');
             $xml->endElement();
         } catch (mysqli_sql_exception $ex) {

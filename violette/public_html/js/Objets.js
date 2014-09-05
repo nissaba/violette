@@ -62,6 +62,9 @@ function LigneCommande(menuItemId, quantite) {
 LigneCommande.prototype.toString = function() {
 	return '{"menuItemId":"' + this.menuItemId + '", "quantite":"' + this.quantite + '"}';
 };
+LigneCommande.prototype.toStringModifier = function() {
+	return '{"id":"' + this.menuItemIdBD + '", "quantite":"' + this.quantite + '"}';
+};
 LigneCommande.prototype.equals = function(other) {
 	if(this.menuItemId != other.menuItemId){
 		return false;
