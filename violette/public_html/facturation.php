@@ -83,7 +83,9 @@ switch ($action) {
         break;
     
     case 'updateLigneCommandeItem':
-        //json data ex: [{1:3,2:3, ..., "n-1":"nouvelle quantite", "n":"nouvelle quantite"}]
+        //json data ex: [{"id":1,"quantite":3},{"id":2,"quantite":4}, ..., {"id":n-1,"quantite":X}, {"id":n,"quantite":Y}]
+        //test fail: http://violette.cabserver.net/facturation.php?ACTION=updateLigneCommandeItem&DATA=W3siaWQiOjEsInF1YW50aXRlIjozfSx7ImlkIjoyLCJxdWFudGl0ZSI6NH1d
+        //test reussi: http://violette.cabserver.net/facturation.php?ACTION=updateLigneCommandeItem&DATA=W3siaWQiOjQxLCJxdWFudGl0ZSI6M30seyJpZCI6NDIsInF1YW50aXRlIjo0fV0=
         updateLigneCommandeItem($dbConnection, $data, $xml);
         break;
         

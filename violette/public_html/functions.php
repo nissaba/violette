@@ -188,21 +188,28 @@ function updateLigneCommandeItem($db, $items, $xml) {
     $query = 'update LIGNE_COMMAND_ITEM '
             . 'set QUANTITE = ? '
             . 'where ID = ?;';
-
+    
+    $stmt;
     foreach ($items as $item) {
         try {
             $stmt = $db->prepare($query);
-            $stmt->bind_param('ii', $item->id, $item->quantite);
+            $stmt->bind_param('ii', $item->quantite, $item->id);
             $stmt->execute();
             $res = $db->affected_rows;
             $xml->startElement('update');
             $xml->writeAttribute('id', $item->id);
             $xml->text('réussi');
             $xml->endElement();
+            $stmt->close(); 
         } catch (mysqli_sql_exception $ex) {
-            $xml->writeElement('database_error', 'Can not update row id: ' . $item->id . ' error: ' . $e->getMessage());
+            $xml->startElement('update');
+            $xml->writeAttribute('id', $item->id);
+            $xml->text('Erreur: '. $ex->getMessage());
+            $xml->endElement(); 
+            $stmt->close();          
         }
     }
+    
 }
 
 ?>
